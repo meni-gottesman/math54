@@ -47,7 +47,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 @media (max-width:920px){.page{grid-template-columns:minmax(0,1fr);gap:24px;padding:24px 16px 96px}}
 
 /* ---------- nav ---------- */
-.nav{position:sticky;top:24px;align-self:start;font-family:"IBM Plex Sans",system-ui,sans-serif}
+.nav{position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;font-family:"IBM Plex Sans",system-ui,sans-serif}
 .nav .nav-title{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
 .nav ol{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
 .nav li{border-bottom:1px solid var(--rule)}
@@ -63,7 +63,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 .nav li.chap:first-child{padding-top:0}
 @media (max-width:920px){.nav li.chap{width:100%;padding:6px 0 2px;border:0}}
 @media (max-width:920px){
-  .nav{position:static}
+  .nav{position:static;max-height:none;overflow:visible}
   .nav ol{display:flex;flex-wrap:wrap;gap:6px;border:0}
   .nav li{border:0}
   .nav a{display:inline-flex;gap:6px;border:1px solid var(--rule);padding:5px 9px;background:var(--surface)}
@@ -3278,6 +3278,8 @@ window.MathJax = {
   var io=new IntersectionObserver(function(entries){
     entries.forEach(function(e){ if(e.isIntersecting){ current=e.target.id; } });
     links.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href')==='#'+current); });
+    var act=document.querySelector('.nav a.active'), nav=document.querySelector('.nav');
+    if(act && nav && nav.scrollHeight>nav.clientHeight){ var r=act.getBoundingClientRect(), n=nav.getBoundingClientRect(); if(r.top<n.top||r.bottom>n.bottom){ nav.scrollTop+=r.top-n.top-n.height/2+r.height/2; } }
   },{rootMargin:'-20% 0px -70% 0px',threshold:0});
   secs.forEach(function(s){ if(s) io.observe(s); });
 })();
