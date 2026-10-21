@@ -1710,6 +1710,9 @@ window.MathJax = {
       <li>$W=\operatorname{Span}\{\mathbf v_1,\dots,\mathbf v_p\}$ contains each $\mathbf v_k$: $\ \mathbf v_k=0\mathbf v_1+\cdots+1\mathbf v_k+\cdots+0\mathbf v_p$.</li>
       <li>The symmetric $3\times3$ matrices ($A^T=A$) form a subspace of $M_{3\times3}$: $0^T=0$, $(A+B)^T=A^T+B^T=A+B$, $(cA)^T=cA^T=cA$.</li>
       <li>First quadrant $\{x\ge0,y\ge0\}$: closed under $+$, but $(-1)(1,1)\notin V$ ⇒ <strong>not</strong> a subspace.</li>
+      <li>First ∪ third quadrants $\{xy\ge0\}$: closed under scaling, but $(1,0)+(0,-1)=(1,-1)\notin W$ ⇒ <strong>not</strong> a subspace.</li>
+      <li>Unit disk $\{x^2+y^2\le1\}$: $2\cdot(1,0)=(2,0)\notin H$ ⇒ <strong>not</strong> a subspace.</li>
+      <li>In $\mathbb P_n$: $\{at^2\}$ ✔ ($=\operatorname{Span}\{t^2\}$); $\{\mathbf p:\mathbf p(0)=0\}$ ✔; $\{a+t^2\}$ ✘ (no zero polynomial); integer coefficients ✘ ($\tfrac12\mathbf p$ fails).</li>
       <li>$\{(s+3t,\ s-t,\ 2s-t,\ 4t)\}$ $=\operatorname{Span}\{(1,1,2,0),$ $(3,-1,-1,4)\}$ ✔ (Example 12 method).</li>
     </ul>
   </div>
@@ -1889,7 +1892,7 @@ window.MathJax = {
       <li><strong>Find k with Nul A ⊆ R<sup>k</sup> or Col A ⊆ R<sup>k</sup>:</strong> Nul: $k$ = number of columns. Col: $k$ = number of rows.</li>
       <li><strong>Find a nonzero vector in Row A:</strong> any nonzero row of $A$.</li>
       <li>If $\mathbf x$ solves $A\mathbf x=\mathbf 0$, so does any multiple $c\mathbf x$ (and any sum of solutions): $\operatorname{Nul}A$ is a subspace. E.g. $(3,2,-1)$ a solution means $(30,20,-10)$ is too, with no work (Ex. 39). Separately, two solutions $\mathbf p,\mathbf q$ of $A\mathbf x=\mathbf b$ differ by a vector in $\operatorname{Nul}A$.</li>
-      <li>If $A\mathbf x=\mathbf b$ is consistent and $\mathbf b'$ is a multiple of $\mathbf b$ (or a sum of right-hand sides that work), then $A\mathbf x=\mathbf b'$ is consistent too — $\operatorname{Col}A$ is closed under those operations .</li>
+      <li>If $A\mathbf x=\mathbf b$ is consistent and $\mathbf b'$ is a multiple of $\mathbf b$ (or a sum of right-hand sides that work), then $A\mathbf x=\mathbf b'$ is consistent too — $\operatorname{Col}A$ is closed under those operations (Ex. 40).</li>
       <li><strong>Linear maps on other spaces:</strong> e.g. $T(\mathbf p)=(\mathbf p(0),\mathbf p(1))$ on $\mathbb P_2$, or $T(A)=A+A^T$ on $M_{2\times2}$. Show linearity with general inputs; find the kernel by setting $T(\mathbf x)=\mathbf 0$; find the range by describing all outputs (for $A+A^T$: the symmetric matrices, and the kernel is the matrices with $A^T=-A$).</li>
       <li>If $T:V\to W$ is linear and $U$ is a subspace of $V$, then $T(U)=\{T(\mathbf x):\mathbf x\in U\}$ is a subspace of $W$. If $Z$ is a subspace of $W$, then $\{\mathbf x\in V: T(\mathbf x)\in Z\}$ is a subspace of $V$.</li>
     </ul>
@@ -2096,27 +2099,27 @@ window.MathJax = {
   <div class="box worked"><span class="tag">Full worked examples · 4.4</span>
     <div class="wx">
       <h5>Example A · recipe → vector (the easy direction)</h5>
-      <p class="q">Basis $\mathcal B=\{(4,5),\ (6,7)\}$ and $[\mathbf x]_{\mathcal B}=(8,-5)$. Find $\mathbf x$.</p>
-      <p class="plain">In plain words: the recipe says “8 of the first block and −5 of the second.” So just build it.</p>
+      <p class="q">Basis $\mathcal B=\{(3,-5),\ (-4,6)\}$ and $[\mathbf x]_{\mathcal B}=(5,3)$. Find $\mathbf x$.</p>
+      <p class="plain">In plain words: the recipe says “5 of the first block and 3 of the second.” So just build it.</p>
       <div class="step">
-      <b class="n">1.</b><div>Read the recipe: $c_1=8$, $c_2=-5$.</div>
-      <b class="n">2.</b><div>Build it: $\mathbf x=8\,(4,5)-5\,(6,7)$.</div>
-      <b class="n">3.</b><div>Multiply each block: $(32,40)+(-30,-35)$.</div>
-      <b class="n">4.</b><div>Add: $(32-30,\ 40-35)=(2,5)$.</div>
+      <b class="n">1.</b><div>Read the recipe: $c_1=5$, $c_2=3$.</div>
+      <b class="n">2.</b><div>Build it: $\mathbf x=5\,(3,-5)+3\,(-4,6)$.</div>
+      <b class="n">3.</b><div>Multiply each block: $(15,-25)+(-12,18)$.</div>
+      <b class="n">4.</b><div>Add: $(15-12,\ -25+18)=(3,-7)$.</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> $\mathbf x=(2,5)$. Going this direction is always just multiplying and adding.</p>
+      <p class="ans"><strong>Answer:</strong> $\mathbf x=(3,-7)$. No row reduction needed. Going this direction is always just multiplying and adding.</p>
     </div>
     <div class="wx">
       <h5>Example B · vector → recipe in R<sup>3</sup> (the harder direction)</h5>
-      <p class="q">$\mathbf b_1=(1,0,3)$, $\mathbf b_2=(2,1,8)$, $\mathbf b_3=(1,-1,2)$, $\mathbf x=(3,-5,4)$. Find $[\mathbf x]_{\mathcal B}$.</p>
+      <p class="q">$\mathbf b_1=(1,-1,-3)$, $\mathbf b_2=(-3,4,9)$, $\mathbf b_3=(2,-2,4)$, $\mathbf x=(8,-9,6)$. Find $[\mathbf x]_{\mathcal B}$.</p>
       <p class="plain">In plain words: we know the finished drink and have to work out how many scoops of each ingredient went in. That means solving for the unknown amounts.</p>
       <div class="step">
       <b class="n">1.</b><div>Unknown amounts $c_1,c_2,c_3$ with $c_1\mathbf b_1+c_2\mathbf b_2+c_3\mathbf b_3=\mathbf x$.</div>
-      <b class="n">2.</b><div>Blocks as columns, $\mathbf x$ on the right: $\left[\begin{array}{ccc|c}1&2&1&3\\0&1&-1&-5\\3&8&2&4\end{array}\right]$.</div>
-      <b class="n">3.</b><div>Row reduce to $\left[\begin{array}{ccc|c}1&0&0&-2\\0&1&0&0\\0&0&1&5\end{array}\right]$. Read off $c_1=-2$, $c_2=0$, $c_3=5$.</div>
-      <b class="n">4.</b><div>Check: $-2(1,0,3)+0+5(1,-1,2)=(-2+5,\ -5,\ -6+10)=(3,-5,4)$ ✓</div>
+      <b class="n">2.</b><div>Blocks as columns, $\mathbf x$ on the right: $\left[\begin{array}{ccc|c}1&-3&2&8\\-1&4&-2&-9\\-3&9&4&6\end{array}\right]$.</div>
+      <b class="n">3.</b><div>Row reduce to $\left[\begin{array}{ccc|c}1&0&0&-1\\0&1&0&-1\\0&0&1&3\end{array}\right]$. Read off $c_1=-1$, $c_2=-1$, $c_3=3$.</div>
+      <b class="n">4.</b><div>Check: $-(1,-1,-3)-(-3,4,9)+3(2,-2,4)$ $=(-1+3+6,\ 1-4-6,\ 3-9+12)$ $=(8,-9,6)$ ✓</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> $[\mathbf x]_{\mathcal B}=(-2,0,5)$. (A 0 in the recipe is fine: that block just isn't used.)</p>
+      <p class="ans"><strong>Answer:</strong> $[\mathbf x]_{\mathcal B}=(-1,-1,3)$.</p>
     </div>
     <div class="wx">
       <h5>Example C · vector → recipe using the inverse (2×2 shortcut)</h5>
@@ -2132,15 +2135,15 @@ window.MathJax = {
     </div>
     <div class="wx">
       <h5>Example D · coordinates of a polynomial</h5>
-      <p class="q">$\mathcal B=\{1-t^2,\ t-t^2,\ 2-2t+t^2\}$ is a basis of $\mathbb P_2$. Find the coordinates of $\mathbf p(t)=3+t-6t^2$.</p>
+      <p class="q">$\mathcal B=\{1+t^2,\ t+t^2,\ 1+2t+t^2\}$ is a basis of $\mathbb P_2$. Find the coordinates of $\mathbf p(t)=1+4t+7t^2$.</p>
       <p class="plain">In plain words: same question as Example B, but the “blocks” are polynomials. Trick: replace every polynomial with its list of coefficients (plain number, $t$, $t^2$). Then it is Example B.</p>
       <div class="step">
-      <b class="n">1.</b><div>Coefficient lists: $1-t^2\to(1,0,-1)$, $t-t^2\to(0,1,-1)$, $2-2t+t^2\to(2,-2,1)$, and $\mathbf p\to(3,1,-6)$.</div>
-      <b class="n">2.</b><div>Columns + right side: $\left[\begin{array}{ccc|c}1&0&2&3\\0&1&-2&1\\-1&-1&1&-6\end{array}\right]$. (Row 1 = plain numbers, row 2 = $t$'s, row 3 = $t^2$'s.)</div>
-      <b class="n">3.</b><div>Row reduce to $\left[\begin{array}{ccc|c}1&0&0&7\\0&1&0&-3\\0&0&1&-2\end{array}\right]$.</div>
-      <b class="n">4.</b><div>Check: $7(1-t^2)-3(t-t^2)-2(2-2t+t^2)$ $=(7-4)+(-3+4)t+(-7+3-2)t^2$ $=3+t-6t^2$ ✓</div>
+      <b class="n">1.</b><div>Coefficient lists: $1+t^2\to(1,0,1)$, $t+t^2\to(0,1,1)$, $1+2t+t^2\to(1,2,1)$, and $\mathbf p\to(1,4,7)$.</div>
+      <b class="n">2.</b><div>Columns + right side: $\left[\begin{array}{ccc|c}1&0&1&1\\0&1&2&4\\1&1&1&7\end{array}\right]$. (Row 1 = plain numbers, row 2 = $t$'s, row 3 = $t^2$'s.)</div>
+      <b class="n">3.</b><div>Row reduce to $\left[\begin{array}{ccc|c}1&0&0&2\\0&1&0&6\\0&0&1&-1\end{array}\right]$.</div>
+      <b class="n">4.</b><div>Check: $2(1+t^2)+6(t+t^2)-(1+2t+t^2)$ $=(2-1)+(6-2)t+(2+6-1)t^2$ $=1+4t+7t^2$ ✓</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> $[\mathbf p]_{\mathcal B}=(7,-3,-2)$.</p>
+      <p class="ans"><strong>Answer:</strong> $[\mathbf p]_{\mathcal B}=(2,6,-1)$.</p>
     </div>
     <div class="wx">
       <h5>Example E · are these polynomials independent?</h5>
@@ -2277,7 +2280,7 @@ window.MathJax = {
     <ul>
       <li>"$7\times9$ matrix, nullity 2. Rank?" → $9-2=7$. (Use the number of <strong>columns</strong>, 9.)</li>
       <li>"Can a $6\times9$ matrix have nullity 2?" → it would need rank $9-2=7$. But the rank can't be more than the number of rows (6). <strong>No.</strong></li>
-      <li>"$3\times6$ matrix with 3 pivots. Is Col A $=\mathbb R^3$?" → Col A lives in $\mathbb R^3$ (3 rows) and has dimension 3, so <strong>yes</strong>. "Is Nul A $=\mathbb R^3$?" → nullity is $6-3=3$, but Nul A lives in $\mathbb R^6$, so it's a 3-dim piece of $\mathbb R^6$, <strong>not</strong> $\mathbb R^3$.</li>
+      <li>"$4\times7$ matrix with 4 pivots. Is Col A $=\mathbb R^4$?" → Col A lives in $\mathbb R^4$ (4 rows) and has dimension 4, so <strong>yes</strong>. "Is Nul A $=\mathbb R^3$?" → nullity is $7-4=3$, but Nul A lives in $\mathbb R^7$, so it's a 3-dim piece of $\mathbb R^7$, <strong>not</strong> $\mathbb R^3$.</li>
       <li>Rank is never bigger than the number of rows <em>or</em> the number of columns.</li>
     </ul>
 
@@ -2288,14 +2291,14 @@ window.MathJax = {
   <div class="box worked"><span class="tag">Full worked examples · 4.5</span>
     <div class="wx">
       <h5>Example A · basis and dimension of a set written with letters</h5>
-      <p class="q">$H=\{(a+b,\ 2a,\ 3a-b,\ -b):\ a,b\text{ any numbers}\}$. Find a basis and $\dim H$.</p>
-      <p class="plain">In plain words: every vector in $H$ is made from two “knobs” $a,b$. Each knob contributes one direction. The dimension is how many of those directions are truly different.</p>
+      <p class="q">$H$ $=\{(2c,\ a-b,\ b-3c,\ a+2b):\ a,b,c\text{ any numbers}\}$. Find a basis and $\dim H$.</p>
+      <p class="plain">In plain words: every vector in $H$ is made from three “knobs” $a,b,c$. Each knob contributes one direction. The dimension is how many of those directions are truly different.</p>
       <div class="step">
-      <b class="n">1.</b><div>Split by letter: $a(1,2,3,0)+b(1,0,-1,-1)$. So $H=\operatorname{Span}$ of those two vectors.</div>
-      <b class="n">2.</b><div>Are they redundant? Two vectors: just check whether one is a multiple of the other. $(1,2,3,0)$ vs $(1,0,-1,-1)$: no.</div>
-      <b class="n">3.</b><div>Independent and spanning, so they form a basis. Count them: 2.</div>
+      <b class="n">1.</b><div>Split by letter: $a(0,1,0,1)+b(0,-1,1,2)+c(2,0,-3,0)$. So $H=\operatorname{Span}$ of those three vectors.</div>
+      <b class="n">2.</b><div>Are any redundant? Put them as columns and row reduce: rank 3, so a pivot in every column, so they're independent.</div>
+      <b class="n">3.</b><div>Independent and spanning, so they form a basis. Count them: 3.</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> basis $\{(1,2,3,0),\ (1,0,-1,-1)\}$, $\ \dim H=2$.</p>
+      <p class="ans"><strong>Answer:</strong> basis $\{(0,1,0,1),\ (0,-1,1,2),\ (2,0,-3,0)\}$, $\ \dim H=3$.</p>
     </div>
     <div class="wx">
       <h5>Example B · a set given by equations</h5>
@@ -2310,47 +2313,46 @@ window.MathJax = {
     </div>
     <div class="wx">
       <h5>Example C · dimension of a span</h5>
-      <p class="q">Find the dimension of $\operatorname{Span}\{(1,-2,0),\ (-3,4,1),\ (-8,6,5),\ (-3,0,7)\}$.</p>
+      <p class="q">Find the dimension of $\operatorname{Span}\{(1,0,2),\ (3,1,1),\ (9,4,-2),\ (-7,-3,1)\}$.</p>
       <p class="plain">In plain words: 4 vectors in $\mathbb R^3$ can't all be different directions (there are only 3). Row reduce to see how many really are.</p>
       <div class="step">
-      <b class="n">1.</b><div>Columns: $\left[\begin{smallmatrix}1&-3&-8&-3\\-2&4&6&0\\0&1&5&7\end{smallmatrix}\right]$.</div>
-      <b class="n">2.</b><div>Row reduce to $\left[\begin{smallmatrix}1&0&7&0\\0&1&5&0\\0&0&0&1\end{smallmatrix}\right]$. Pivots are in columns 1, 2 and 4.</div>
-      <b class="n">3.</b><div>So vector 3 is a combination of the first two (redundant). Three real directions remain.</div>
+      <b class="n">1.</b><div>Columns: $\left[\begin{smallmatrix}1&3&9&-7\\0&1&4&-3\\2&1&-2&1\end{smallmatrix}\right]$.</div>
+      <b class="n">2.</b><div>Row reduce to $\left[\begin{smallmatrix}1&0&-3&2\\0&1&4&-3\\0&0&0&0\end{smallmatrix}\right]$. Pivots are in columns 1 and 2 only.</div>
+      <b class="n">3.</b><div>So vectors 3 and 4 are combinations of the first two (redundant). Two real directions remain.</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> dimension $=3$ (the span is all of $\mathbb R^3$). Basis: vectors 1, 2 and 4.</p>
+      <p class="ans"><strong>Answer:</strong> dimension $=2$ (it's a plane through 0). Basis: the first two vectors.</p>
     </div>
     <div class="wx">
       <h5>Example D · reading rank, nullity, and all three dimensions</h5>
-      <p class="q">$A$ $=\left[\begin{smallmatrix}1&3&-4&2&-1&6\\0&0&1&-3&7&0\\0&0&0&1&4&-3\\0&0&0&0&0&0\end{smallmatrix}\right]$ (already in echelon form). Find dim Nul A, dim Col A, dim Row A.</p>
-      <p class="plain">In plain words: sort the 6 columns into two piles, those with a pivot and those without. That sort answers every question.</p>
+      <p class="q">$A$ $=\left[\begin{smallmatrix}1&-6&9&0&-2\\0&1&2&-4&5\\0&0&0&5&1\\0&0&0&0&0\end{smallmatrix}\right]$ (already in echelon form). Find dim Nul A, dim Col A, dim Row A.</p>
+      <p class="plain">In plain words: sort the 5 columns into two piles, those with a pivot and those without. That sort answers every question.</p>
       <div class="step">
-      <b class="n">1.</b><div>Pivots are in columns 1, 3, 4, so there are 3 pivot columns.</div>
-      <b class="n">2.</b><div>Columns 2, 5 and 6 have no pivot, so there are 3 free variables.</div>
-      <b class="n">3.</b><div>dim Col A = rank = 3. dim Row A = 3 (always equal to the rank; here, 3 nonzero rows). dim Nul A = nullity = 3.</div>
-      <b class="n">4.</b><div>Check with the Rank Theorem: $3+3=6$ columns ✓</div>
+      <b class="n">1.</b><div>Pivots are in columns 1, 2, 4, so there are 3 pivot columns.</div>
+      <b class="n">2.</b><div>Columns 3 and 5 have no pivot, so there are 2 free variables.</div>
+      <b class="n">3.</b><div>dim Col A = rank = 3. dim Row A = 3 (always equal to the rank; here, 3 nonzero rows). dim Nul A = nullity = 2.</div>
+      <b class="n">4.</b><div>Check with the Rank Theorem: $3+2=5$ columns ✓</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> dim Nul A = 3, dim Col A = 3, dim Row A = 3.</p>
+      <p class="ans"><strong>Answer:</strong> dim Nul A = 2, dim Col A = 3, dim Row A = 3.</p>
     </div>
     <div class="wx">
       <h5>Example E · counting questions (no matrix given)</h5>
-      <p class="q">(a) $A$ is $6\times3$ with rank 3: nullity? (b) $A$ is $5\times6$ with nullity 4: dim Col A and dim Row A? (c) Largest possible rank of a $7\times5$ matrix? Of a $5\times7$? (d) $A$ is $3\times6$ with 3 pivots: is Col A $=\mathbb R^3$? Is Nul A $=\mathbb R^3$?</p>
+      <p class="q">(a) $A$ is $3\times8$ with rank 3: nullity? (b) $A$ is $4\times7$ with 4 pivots: is Col A $=\mathbb R^4$? Is Nul A $=\mathbb R^3$? (c) $A$ is $5\times6$ with 4 pivots: nullity? Is Col A $=\mathbb R^4$?</p>
       <p class="plain">In plain words: use rank + nullity = number of <strong>columns</strong>. Remember where each space lives: Col A sits inside $\mathbb R^{\text{rows}}$ and Nul A sits inside $\mathbb R^{\text{columns}}$.</p>
       <div class="step">
-      <b class="n">1.</b><div>(a) nullity $=3-3=0$.</div>
-      <b class="n">2.</b><div>(b) rank $=6-4=2$, so dim Col A $=2$ and dim Row A $=2$ (always equal).</div>
-      <b class="n">3.</b><div>(c) Rank is at most the number of rows and at most the number of columns: $\min(7,5)=5$ both times.</div>
-      <b class="n">4.</b><div>(d) Col A lives in $\mathbb R^3$ (3 rows) and has dimension 3, so it fills all of $\mathbb R^3$: <strong>yes</strong>. Nullity $=6-3=3$, but Nul A lives in $\mathbb R^6$, so it's a 3-dimensional piece of $\mathbb R^6$, <strong>not</strong> $\mathbb R^3$.</div>
+      <b class="n">1.</b><div>(a) nullity $=8-3=5$.</div>
+      <b class="n">2.</b><div>(b) Col A lives in $\mathbb R^4$ (4 rows) and has dimension 4, so it fills all of $\mathbb R^4$: <strong>yes</strong>. Nullity $=7-4=3$, but Nul A lives in $\mathbb R^7$, so it's a 3-dimensional piece of $\mathbb R^7$, <strong>not</strong> $\mathbb R^3$.</div>
+      <b class="n">3.</b><div>(c) nullity $=6-4=2$. Col A has dimension 4 but lives in $\mathbb R^5$, so it's a 4-dimensional piece of $\mathbb R^5$, <strong>not</strong> $\mathbb R^4$.</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> (a) 0. (b) 2 and 2. (c) 5 and 5. (d) yes; no. Analogy: a flat sheet of paper floating in a room is 2-dimensional, but it isn't “the plane $\mathbb R^2$”; it lives in the 3-D room.</p>
+      <p class="ans"><strong>Answer:</strong> (a) 5. (b) yes; no. (c) 2; no. Analogy: a flat sheet of paper floating in a room is 2-dimensional, but it isn't “the plane $\mathbb R^2$”; it lives in the 3-D room.</p>
     </div>
     <div class="wx">
       <h5>Example F · using the Basis Theorem</h5>
-      <p class="q">Show that $1,\ 1-t,\ 2-4t+t^2,\ 6-18t+9t^2-t^3$ (Laguerre polynomials) form a basis of $\mathbb P_3$.</p>
+      <p class="q">Show that $1,\ 2t,\ -2+4t^2,\ -12t+8t^3$ (Hermite polynomials) form a basis of $\mathbb P_3$.</p>
       <p class="plain">In plain words: $\mathbb P_3$ needs exactly 4 blocks ($1,t,t^2,t^3$). We have exactly 4, so by the Basis Theorem we only need to check one thing: independence.</p>
       <div class="step">
       <b class="n">1.</b><div>$\dim\mathbb P_3=4$, and we have 4 polynomials. Right count ✓</div>
-      <b class="n">2.</b><div>Their degrees are $0,1,2,3$: each has a higher degree than the ones before it, so none can be built from the earlier ones (Theorem 4, §4.3). So they're independent.</div>
-      <b class="n">3.</b><div>(Matrix check: the coefficient columns form a triangular matrix with diagonal $1,-1,1,-1$, so $\det=1\neq0$.)</div>
+      <b class="n">2.</b><div>Coefficient columns: $(1,0,0,0)$, $(0,2,0,0)$, $(-2,0,4,0)$, $(0,-12,0,8)$. The matrix is triangular with diagonal $1,2,4,8$, so $\det=64\neq0$ and the columns are independent.</div>
+      <b class="n">3.</b><div>(Quicker reason: each polynomial has a higher degree than the ones before it, so none can be built from the earlier ones.)</div>
       <b class="n">4.</b><div>4 independent vectors in a 4-dimensional space ⇒ a basis (Basis Theorem). No need to check spanning separately.</div>
       </div>
       <p class="ans"><strong>Answer:</strong> they form a basis of $\mathbb P_3$.</p>
@@ -2454,7 +2456,7 @@ window.MathJax = {
       <li><strong>Set given by equations</strong> (e.g. $a-3b+c=0,\ b-2c=0$): it's Nul of the coefficient matrix; dim = number of free variables.</li>
       <li><strong>Dimension of a span:</strong> put the vectors as columns, count pivots.</li>
       <li><strong>From an echelon form, read all three:</strong> dim Col A = dim Row A = # pivots; dim Nul A = # non-pivot columns.</li>
-      <li><strong>Counting questions:</strong> $5\times9$ rank 4 ⇒ nullity 5, rank $A^T$ = 4. $6\times4$ rank 4 ⇒ nullity 0. $3\times6$ with 3 pivots ⇒ Col A $=\mathbb R^3$, but Nul A is a 3-dim subspace of $\mathbb R^6$, not $\mathbb R^3$. $6\times7$ with 5 pivots ⇒ nullity 2; Col A is a 5-dim subspace of $\mathbb R^6$, not $\mathbb R^5$.</li>
+      <li><strong>Counting questions:</strong> $3\times8$ rank 3 ⇒ nullity 5, rank $A^T$ = 3. $6\times3$ rank 3 ⇒ nullity 0. $4\times7$ with 4 pivots ⇒ Col A $=\mathbb R^4$ (4-dim subspace of $\mathbb R^4$), but Nul A has dim 3, so it's not $\mathbb R^3$ (it's a subspace of $\mathbb R^7$). $5\times6$ with 4 pivots ⇒ nullity 2; Col A is not $\mathbb R^4$ (it's inside $\mathbb R^5$).</li>
       <li><strong>Largest possible rank</strong>: $\min(m,n)$. Largest $\dim\operatorname{Row}A$ for $4\times3$: 3.</li>
       <li><strong>Polynomial families as a basis</strong> (Hermite, Laguerre): $n+1$ polynomials of degrees $0,1,\dots,n$ in $\mathbb P_n$ are independent (each has a higher degree than the ones before — Thm 4), so by the Basis Theorem they're a basis.</li>
       <li>$S$ with fewer than $n$ vectors can't span an $n$-dim space. If $H\subseteq V$ and $\dim H=\dim V$ (finite), then $H=V$.</li>
@@ -2519,51 +2521,51 @@ window.MathJax = {
   <div class="box worked"><span class="tag">Full worked examples · 4.6</span>
     <div class="wx">
       <h5>Example A · bases given by equations (the most common quiz type)</h5>
-      <p class="q">$\mathbf b_1=-\mathbf c_1+4\mathbf c_2$ and $\mathbf b_2=5\mathbf c_1-3\mathbf c_2$. (a) Find $\underset{\mathcal C\leftarrow\mathcal B}{P}$. (b) Find $[\mathbf x]_{\mathcal C}$ for $\mathbf x=5\mathbf b_1+3\mathbf b_2$.</p>
+      <p class="q">$\mathbf b_1=6\mathbf c_1-2\mathbf c_2$ and $\mathbf b_2=9\mathbf c_1-4\mathbf c_2$. (a) Find $\underset{\mathcal C\leftarrow\mathcal B}{P}$. (b) Find $[\mathbf x]_{\mathcal C}$ for $\mathbf x=-3\mathbf b_1+2\mathbf b_2$.</p>
       <p class="plain">In plain words: we're given a dictionary entry for each B-word in C-language. The matrix just stacks those entries side by side as columns.</p>
       <div class="step">
-      <b class="n">1.</b><div>$\mathbf b_1$ in $\mathcal C$-language is $(-1,4)$, so that's <strong>column 1</strong>. $\mathbf b_2$ is $(5,-3)$, so that's <strong>column 2</strong>.</div>
-      <b class="n">2.</b><div>$\underset{\mathcal C\leftarrow\mathcal B}{P}$ $=\left[\begin{smallmatrix}-1&5\\4&-3\end{smallmatrix}\right]$. (Not $\left[\begin{smallmatrix}-1&4\\5&-3\end{smallmatrix}\right]$: the coefficients go down the columns, not across the rows.)</div>
-      <b class="n">3.</b><div>$[\mathbf x]_{\mathcal B}=(5,3)$. Translate: $\left[\begin{smallmatrix}-1&5\\4&-3\end{smallmatrix}\right]\left[\begin{smallmatrix}5\\3\end{smallmatrix}\right]$ $=\left[\begin{smallmatrix}-5+15\\20-9\end{smallmatrix}\right]$ $=(10,11)$.</div>
-      <b class="n">4.</b><div>Check by substitution: $5(-\mathbf c_1+4\mathbf c_2)+3(5\mathbf c_1-3\mathbf c_2)$ $=(-5+15)\mathbf c_1+(20-9)\mathbf c_2$ $=10\mathbf c_1+11\mathbf c_2$ ✓</div>
+      <b class="n">1.</b><div>$\mathbf b_1$ in $\mathcal C$-language is $(6,-2)$, so that's <strong>column 1</strong>. $\mathbf b_2$ is $(9,-4)$, so that's <strong>column 2</strong>.</div>
+      <b class="n">2.</b><div>$\underset{\mathcal C\leftarrow\mathcal B}{P}$ $=\left[\begin{smallmatrix}6&9\\-2&-4\end{smallmatrix}\right]$. (Not $\left[\begin{smallmatrix}6&-2\\9&-4\end{smallmatrix}\right]$: the coefficients go down the columns, not across the rows.)</div>
+      <b class="n">3.</b><div>$[\mathbf x]_{\mathcal B}=(-3,2)$. Translate: $\left[\begin{smallmatrix}6&9\\-2&-4\end{smallmatrix}\right]\left[\begin{smallmatrix}-3\\2\end{smallmatrix}\right]$ $=\left[\begin{smallmatrix}-18+18\\6-8\end{smallmatrix}\right]$ $=(0,-2)$.</div>
+      <b class="n">4.</b><div>Check by substitution: $-3(6\mathbf c_1-2\mathbf c_2)+2(9\mathbf c_1-4\mathbf c_2)$ $=(-18+18)\mathbf c_1+(6-8)\mathbf c_2$ $=-2\mathbf c_2$ ✓</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> (a) $\left[\begin{smallmatrix}-1&5\\4&-3\end{smallmatrix}\right]$. (b) $[\mathbf x]_{\mathcal C}=(10,11)$.</p>
+      <p class="ans"><strong>Answer:</strong> (a) $\left[\begin{smallmatrix}6&9\\-2&-4\end{smallmatrix}\right]$. (b) $[\mathbf x]_{\mathcal C}=(0,-2)$.</p>
     </div>
     <div class="wx">
       <h5>Example B · the same thing with 3 basis vectors</h5>
-      <p class="q">$\mathbf f_1=2\mathbf d_1-\mathbf d_2+\mathbf d_3$, $\ \mathbf f_2=3\mathbf d_2+\mathbf d_3$, $\ \mathbf f_3=-3\mathbf d_1+2\mathbf d_3$. Find $\underset{\mathcal D\leftarrow\mathcal F}{P}$ and $[\mathbf x]_{\mathcal D}$ for $\mathbf x=\mathbf f_1-2\mathbf f_2+2\mathbf f_3$.</p>
-      <p class="plain">In plain words: same recipe, just bigger. Write each F-vector's coefficients (in front of $\mathbf d_1,\mathbf d_2,\mathbf d_3$) as a column. Fill in 0 for any missing $\mathbf d$.</p>
+      <p class="q">$\mathbf a_1=4\mathbf b_1-\mathbf b_2$, $\ \mathbf a_2=-\mathbf b_1+\mathbf b_2+\mathbf b_3$, $\ \mathbf a_3=\mathbf b_2-2\mathbf b_3$. Find $\underset{\mathcal B\leftarrow\mathcal A}{P}$ and $[\mathbf x]_{\mathcal B}$ for $\mathbf x=3\mathbf a_1+4\mathbf a_2+\mathbf a_3$.</p>
+      <p class="plain">In plain words: same recipe, just bigger. Write each A-vector's coefficients (in front of $\mathbf b_1,\mathbf b_2,\mathbf b_3$) as a column. Fill in 0 for any missing $\mathbf b$.</p>
       <div class="step">
-      <b class="n">1.</b><div>$\mathbf f_1\to(2,-1,1)$, $\ \mathbf f_2\to(0,3,1)$, $\ \mathbf f_3\to(-3,0,2)$.</div>
-      <b class="n">2.</b><div>$\underset{\mathcal D\leftarrow\mathcal F}{P}$ $=\left[\begin{smallmatrix}2&0&-3\\-1&3&0\\1&1&2\end{smallmatrix}\right]$.</div>
-      <b class="n">3.</b><div>$[\mathbf x]_{\mathcal F}=(1,-2,2)$. Multiply: $(2+0-6,\ -1-6+0,\ 1-2+4)=(-4,-7,3)$.</div>
-      <b class="n">4.</b><div>Check: $(2\mathbf d_1-\mathbf d_2+\mathbf d_3)-2(3\mathbf d_2+\mathbf d_3)+2(-3\mathbf d_1+2\mathbf d_3)$ $=-4\mathbf d_1-7\mathbf d_2+3\mathbf d_3$ ✓</div>
+      <b class="n">1.</b><div>$\mathbf a_1\to(4,-1,0)$, $\ \mathbf a_2\to(-1,1,1)$, $\ \mathbf a_3\to(0,1,-2)$.</div>
+      <b class="n">2.</b><div>$\underset{\mathcal B\leftarrow\mathcal A}{P}$ $=\left[\begin{smallmatrix}4&-1&0\\-1&1&1\\0&1&-2\end{smallmatrix}\right]$.</div>
+      <b class="n">3.</b><div>$[\mathbf x]_{\mathcal A}=(3,4,1)$. Multiply: $(12-4+0,\ -3+4+1,\ 0+4-2)=(8,2,2)$.</div>
+      <b class="n">4.</b><div>Check: $3(4\mathbf b_1-\mathbf b_2)+4(-\mathbf b_1+\mathbf b_2+\mathbf b_3)+(\mathbf b_2-2\mathbf b_3)$ $=8\mathbf b_1+2\mathbf b_2+2\mathbf b_3$ ✓</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> $[\mathbf x]_{\mathcal D}=(-4,-7,3)$.</p>
+      <p class="ans"><strong>Answer:</strong> $[\mathbf x]_{\mathcal B}=(8,2,2)$.</p>
     </div>
     <div class="wx">
       <h5>Example C · actual vectors in R<sup>2</sup>, both directions</h5>
-      <p class="q">$\mathbf b_1=(7,-2)$, $\mathbf b_2=(2,-1)$, $\mathbf c_1=(4,1)$, $\mathbf c_2=(5,2)$. Find $\underset{\mathcal C\leftarrow\mathcal B}{P}$ and $\underset{\mathcal B\leftarrow\mathcal C}{P}$.</p>
+      <p class="q">$\mathbf b_1=(-6,-1)$, $\mathbf b_2=(2,0)$, $\mathbf c_1=(2,-1)$, $\mathbf c_2=(6,-2)$. Find $\underset{\mathcal C\leftarrow\mathcal B}{P}$ and $\underset{\mathcal B\leftarrow\mathcal C}{P}$.</p>
       <p class="plain">In plain words: now nobody hands us the dictionary, so we have to work out “how many $\mathbf c_1$'s and $\mathbf c_2$'s make $\mathbf b_1$?” (and the same for $\mathbf b_2$). That's solving systems, and we do both at once.</p>
       <div class="step">
-      <b class="n">1.</b><div>Put the <strong>new</strong> basis ($\mathcal C$) on the left and the <strong>old</strong> ($\mathcal B$) on the right: $\left[\begin{array}{cc|cc}4&5&7&2\\1&2&-2&-1\end{array}\right]$.</div>
-      <b class="n">2.</b><div>Row reduce: $\left[\begin{array}{cc|cc}1&0&8&3\\0&1&-5&-2\end{array}\right]$. The right half is the answer: $\underset{\mathcal C\leftarrow\mathcal B}{P}$ $=\left[\begin{smallmatrix}8&3\\-5&-2\end{smallmatrix}\right]$.</div>
-      <b class="n">3.</b><div>Sanity check column 1: $8\mathbf c_1-5\mathbf c_2$ $=(32-25,\ 8-10)$ $=(7,-2)$ $=\mathbf b_1$ ✓</div>
-      <b class="n">4.</b><div>Other direction = inverse: $\det=-16+15=-1$, so $\underset{\mathcal B\leftarrow\mathcal C}{P}$ $=\left[\begin{smallmatrix}2&3\\-5&-8\end{smallmatrix}\right]$. Check: $2\mathbf b_1-5\mathbf b_2$ $=(14-10,\ -4+5)$ $=(4,1)$ $=\mathbf c_1$ ✓</div>
+      <b class="n">1.</b><div>Put the <strong>new</strong> basis ($\mathcal C$) on the left and the <strong>old</strong> ($\mathcal B$) on the right: $\left[\begin{array}{cc|cc}2&6&-6&2\\-1&-2&-1&0\end{array}\right]$.</div>
+      <b class="n">2.</b><div>Row reduce: $\left[\begin{array}{cc|cc}1&0&9&-2\\0&1&-4&1\end{array}\right]$. The right half is the answer: $\underset{\mathcal C\leftarrow\mathcal B}{P}$ $=\left[\begin{smallmatrix}9&-2\\-4&1\end{smallmatrix}\right]$.</div>
+      <b class="n">3.</b><div>Sanity check column 1: $9\mathbf c_1-4\mathbf c_2$ $=(18-24,\ -9+8)$ $=(-6,-1)$ $=\mathbf b_1$ ✓</div>
+      <b class="n">4.</b><div>Other direction = inverse: $\det=9-8=1$, so $\underset{\mathcal B\leftarrow\mathcal C}{P}$ $=\left[\begin{smallmatrix}1&2\\4&9\end{smallmatrix}\right]$. Check: $\mathbf b_1+4\mathbf b_2$ $=(-6+8,\ -1)$ $=(2,-1)$ $=\mathbf c_1$ ✓</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> $\underset{\mathcal C\leftarrow\mathcal B}{P}$ $=\left[\begin{smallmatrix}8&3\\-5&-2\end{smallmatrix}\right]$, $\ \underset{\mathcal B\leftarrow\mathcal C}{P}$ $=\left[\begin{smallmatrix}2&3\\-5&-8\end{smallmatrix}\right]$.</p>
+      <p class="ans"><strong>Answer:</strong> $\underset{\mathcal C\leftarrow\mathcal B}{P}$ $=\left[\begin{smallmatrix}9&-2\\-4&1\end{smallmatrix}\right]$, $\ \underset{\mathcal B\leftarrow\mathcal C}{P}$ $=\left[\begin{smallmatrix}1&2\\4&9\end{smallmatrix}\right]$.</p>
     </div>
     <div class="wx">
       <h5>Example D · polynomials</h5>
-      <p class="q">In $\mathbb P_2$: $\mathcal B=\{1-3t^2,\ 2+t-5t^2,\ 1+2t\}$, $\mathcal C=\{1,t,t^2\}$. Find $\underset{\mathcal C\leftarrow\mathcal B}{P}$, then write $t^2$ as a combination of the $\mathcal B$ polynomials.</p>
+      <p class="q">In $\mathbb P_2$: $\mathcal B=\{1-2t+t^2,\ 3-5t+4t^2,\ 2t+3t^2\}$, $\mathcal C=\{1,t,t^2\}$. Find $\underset{\mathcal C\leftarrow\mathcal B}{P}$, then the $\mathcal B$-coordinates of $-1+2t$.</p>
       <p class="plain">In plain words: translating into the standard basis $\{1,t,t^2\}$ is free, because a polynomial's $\mathcal C$-recipe is just its coefficients. So the columns are the coefficient lists.</p>
       <div class="step">
-      <b class="n">1.</b><div>Columns: $(1,0,-3)$, $(2,1,-5)$, $(1,2,0)$. So $\underset{\mathcal C\leftarrow\mathcal B}{P}$ $=\left[\begin{smallmatrix}1&2&1\\0&1&2\\-3&-5&0\end{smallmatrix}\right]$.</div>
-      <b class="n">2.</b><div>$t^2$ has $\mathcal C$-recipe $(0,0,1)$. Solve $P[\mathbf x]_{\mathcal B}=(0,0,1)$ (row reduce $[\,P\mid(0,0,1)\,]$).</div>
-      <b class="n">3.</b><div>Solution: $[t^2]_{\mathcal B}=(3,-2,1)$.</div>
-      <b class="n">4.</b><div>Check: $3(1-3t^2)-2(2+t-5t^2)+(1+2t)$ $=(3-4+1)+(-2+2)t+(-9+10)t^2$ $=t^2$ ✓</div>
+      <b class="n">1.</b><div>Columns: $(1,-2,1)$, $(3,-5,4)$, $(0,2,3)$. So $\underset{\mathcal C\leftarrow\mathcal B}{P}$ $=\left[\begin{smallmatrix}1&3&0\\-2&-5&2\\1&4&3\end{smallmatrix}\right]$.</div>
+      <b class="n">2.</b><div>We want $[\mathbf p]_{\mathcal B}$ for $\mathbf p=-1+2t$, whose $\mathcal C$-recipe is $(-1,2,0)$. We know $P[\mathbf p]_{\mathcal B}=(-1,2,0)$, so solve that system (row reduce $[\,P\mid(-1,2,0)\,]$).</div>
+      <b class="n">3.</b><div>Solution: $[\mathbf p]_{\mathcal B}=(5,-2,1)$.</div>
+      <b class="n">4.</b><div>Check: $5(1-2t+t^2)-2(3-5t+4t^2)+(2t+3t^2)$ $=(5-6)+(-10+10+2)t+(5-8+3)t^2$ $=-1+2t$ ✓</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> $P$ as above; $t^2=3(1-3t^2)-2(2+t-5t^2)+(1+2t)$.</p>
+      <p class="ans"><strong>Answer:</strong> $P$ as above; $[-1+2t]_{\mathcal B}=(5,-2,1)$.</p>
     </div>
     <div class="wx">
       <h5>Example E · “which equation does P satisfy?”</h5>
@@ -2633,7 +2635,7 @@ window.MathJax = {
   </div>
   <div class="box fact"><span class="tag">From the exercises</span>
     <ul>
-      <li><strong>Given relations like $\mathbf b_1=-\mathbf c_1+4\mathbf c_2$, $\mathbf b_2=5\mathbf c_1-3\mathbf c_2$:</strong> the coefficients <em>are</em> $[\mathbf b_j]_{\mathcal C}$, so they go in as <strong>columns</strong>: $\underset{\mathcal C\leftarrow\mathcal B}{P}=\left[\begin{smallmatrix}-1&5\\4&-3\end{smallmatrix}\right]$. Then $[\mathbf x]_{\mathcal C}=P[\mathbf x]_{\mathcal B}$.</li>
+      <li><strong>Given relations like $\mathbf b_1=6\mathbf c_1-2\mathbf c_2$, $\mathbf b_2=9\mathbf c_1-4\mathbf c_2$:</strong> the coefficients <em>are</em> $[\mathbf b_j]_{\mathcal C}$, so they go in as <strong>columns</strong>: $\underset{\mathcal C\leftarrow\mathcal B}{P}=\left[\begin{smallmatrix}6&9\\-2&-4\end{smallmatrix}\right]$. Then $[\mathbf x]_{\mathcal C}=P[\mathbf x]_{\mathcal B}$; e.g. $\mathbf x=-3\mathbf b_1+2\mathbf b_2$ ⇒ $[\mathbf x]_{\mathcal C}=P(-3,2)$.</li>
       <li><strong>3 bases ($\mathcal A$, $\mathcal B$ given in terms of each other):</strong> same rule, $3\times3$ — each column is one old basis vector's coefficients.</li>
       <li><strong>In $\mathbb P_2$:</strong> from $\mathcal B$ to the standard basis $\mathcal C=\{1,t,t^2\}$, the columns are just the coefficient vectors of the $\mathcal B$ polynomials. To get $\mathcal B$-coordinates of a polynomial, solve $P[\mathbf x]_{\mathcal B}=[\mathbf x]_{\mathcal C}$ (row reduce, or use $P^{-1}$).</li>
       <li>$\underset{\mathcal D\leftarrow\mathcal B}{P}=\underset{\mathcal D\leftarrow\mathcal C}{P}\ \underset{\mathcal C\leftarrow\mathcal B}{P}$ (go $\mathcal B\to\mathcal C\to\mathcal D$; the arrows chain right to left).</li>
@@ -2688,41 +2690,41 @@ window.MathJax = {
   <div class="box warn"><span class="tag w">Warning</span>
     <p>Row reducing $A$ does <strong>not</strong> show its eigenvalues. Row operations change eigenvalues. Row reduce $A-\lambda I$ (to find eigenvectors), not $A$.</p>
   </div>
-  <div class="box worked"><span class="tag">Full worked examples · 5.1 </span>
+  <div class="box worked"><span class="tag">Full worked examples · 5.1 (Homework 7 types)</span>
     <div class="wx">
-      <h5>Example A · is it an eigenvector?</h5>
-      <p class="q">(a) Is $(-1,1)$ an eigenvector of $A$ $=\left[\begin{smallmatrix}4&2\\2&4\end{smallmatrix}\right]$? (b) Is $(1,-2,1)$ an eigenvector of $\left[\begin{smallmatrix}2&6&7\\3&2&7\\5&6&4\end{smallmatrix}\right]$?</p>
+      <h5>Example A · is it an eigenvector? (Exercises 3, 5)</h5>
+      <p class="q">(a) Is $(1,4)$ an eigenvector of $A=\left[\begin{smallmatrix}-3&1\\-3&8\end{smallmatrix}\right]$? (b) Is $(4,-3,1)$ an eigenvector of $\left[\begin{smallmatrix}3&7&9\\-4&-5&1\\2&4&4\end{smallmatrix}\right]$?</p>
       <p class="plain">In plain words: multiply and look. If the answer points along the same line as the input, it's an eigenvector.</p>
       <div class="step">
-      <b class="n">1.</b><div>(a) $A\begin{bmatrix}-1\\1\end{bmatrix}$ $=\begin{bmatrix}-4+2\\-2+4\end{bmatrix}$ $=\begin{bmatrix}-2\\2\end{bmatrix}$ $=2\begin{bmatrix}-1\\1\end{bmatrix}$ ⇒ <strong>yes</strong>, eigenvalue 2.</div>
-      <b class="n">2.</b><div>(b) $A\mathbf x=(2-12+7,\ 3-4+7,\ 5-12+4)=(-3,6,-3)$.</div>
-      <b class="n">3.</b><div>$(-3,6,-3)=-3\,(1,-2,1)$ ⇒ <strong>yes</strong>, eigenvalue $-3$.</div>
-      <b class="n">4.</b><div>(For a “no”: if $A\mathbf x=(1,29)$ for $\mathbf x=(1,4)$, you'd need $c=1$ and $c=29/4$ at once — impossible.)</div>
+      <b class="n">1.</b><div>(a) $A\begin{bmatrix}1\\4\end{bmatrix}=\begin{bmatrix}-3+4\\-3+32\end{bmatrix}=\begin{bmatrix}1\\29\end{bmatrix}$.</div>
+      <b class="n">2.</b><div>Is $(1,29)$ a multiple of $(1,4)$? It would need $c=1$ (first entry) and $c=29/4$ (second). No single $c$, so <strong>no</strong>.</div>
+      <b class="n">3.</b><div>(b) $A\mathbf x=(12-21+9,\ -16+15+1,\ 8-12+4)=(0,0,0)$.</div>
+      <b class="n">4.</b><div>$(0,0,0)=0\cdot\mathbf x$, so <strong>yes</strong>, with eigenvalue $0$ (allowed: the <em>vector</em> is nonzero).</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> (a) yes, $\lambda=2$. (b) yes, $\lambda=-3$.</p>
+      <p class="ans"><strong>Answer:</strong> (a) no. (b) yes, eigenvalue $\lambda=0$, which also tells you this $A$ isn't invertible.</p>
     </div>
     <div class="wx">
-      <h5>Example B · is λ an eigenvalue? find an eigenvector</h5>
-      <p class="q">Is $\lambda=3$ an eigenvalue of $A$ $=\left[\begin{smallmatrix}1&2&2\\3&-2&1\\0&1&1\end{smallmatrix}\right]$? If so, find an eigenvector.</p>
-      <p class="plain">In plain words: subtract 3 from every diagonal entry, then ask whether the result squashes some nonzero vector to zero (a free variable).</p>
+      <h5>Example B · is λ an eigenvalue? find an eigenvector (Exercise 7)</h5>
+      <p class="q">Is $\lambda=4$ an eigenvalue of $A=\left[\begin{smallmatrix}3&0&-1\\2&3&1\\-3&4&5\end{smallmatrix}\right]$? If so, find an eigenvector.</p>
+      <p class="plain">In plain words: subtract 4 from every diagonal entry, then ask whether the result squashes some nonzero vector to zero (a free variable).</p>
       <div class="step">
-      <b class="n">1.</b><div>$A-3I$ $=\left[\begin{smallmatrix}-2&2&2\\3&-5&1\\0&1&-2\end{smallmatrix}\right]$ (only the diagonal changes).</div>
-      <b class="n">2.</b><div>Row reduce: $\left[\begin{smallmatrix}1&0&-3\\0&1&-2\\0&0&0\end{smallmatrix}\right]$. Column 3 has no pivot, so there's a free variable, so <strong>yes</strong>, 3 is an eigenvalue.</div>
-      <b class="n">3.</b><div>Solve: $x_1=3x_3$, $x_2=2x_3$, $x_3$ free. Take $x_3=1$: $\mathbf x=(3,2,1)$.</div>
-      <b class="n">4.</b><div>Check: $A\mathbf x=(3+4+2,\ 9-4+1,\ 0+2+1)=(9,6,3)=3\mathbf x$ ✓</div>
+      <b class="n">1.</b><div>$A-4I=\left[\begin{smallmatrix}-1&0&-1\\2&-1&1\\-3&4&1\end{smallmatrix}\right]$ (only the diagonal changes).</div>
+      <b class="n">2.</b><div>Row reduce: $\left[\begin{smallmatrix}1&0&1\\0&1&1\\0&0&0\end{smallmatrix}\right]$. Column 3 has no pivot, so there's a free variable, so <strong>yes</strong>, 4 is an eigenvalue.</div>
+      <b class="n">3.</b><div>Solve: $x_1=-x_3$, $x_2=-x_3$, $x_3$ free. Take $x_3=1$: $\mathbf x=(-1,-1,1)$.</div>
+      <b class="n">4.</b><div>Check: $A\mathbf x=(-3+0-1,\ -2-3+1,\ 3-4+5)=(-4,-4,4)=4\mathbf x$ ✓</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> yes; one eigenvector is $(3,2,1)$ (any nonzero multiple also works).</p>
+      <p class="ans"><strong>Answer:</strong> yes; one eigenvector is $(-1,-1,1)$ (any nonzero multiple also works).</p>
     </div>
     <div class="wx">
-      <h5>Example C · basis for an eigenspace</h5>
-      <p class="q">$A$ $=\left[\begin{smallmatrix}10&-9\\4&-2\end{smallmatrix}\right]$, $\lambda=4$. Find a basis for the eigenspace.</p>
-      <p class="plain">In plain words: find every vector that $A-4I$ sends to zero, written as the span of something.</p>
+      <h5>Example C · basis for each eigenspace (Exercises 9, 13)</h5>
+      <p class="q">$A=\left[\begin{smallmatrix}5&0\\2&1\end{smallmatrix}\right]$, $\lambda=1,5$. Find a basis for each eigenspace.</p>
+      <p class="plain">In plain words: for each $\lambda$, find every vector that $A-\lambda I$ sends to zero, written as span of something.</p>
       <div class="step">
-      <b class="n">1.</b><div>$A-4I$ $=\left[\begin{smallmatrix}6&-9\\4&-6\end{smallmatrix}\right]\sim\left[\begin{smallmatrix}1&-3/2\\0&0\end{smallmatrix}\right]$, so $x_1=\tfrac32x_2$, $x_2$ free.</div>
-      <b class="n">2.</b><div>Take $x_2=2$ to clear the fraction: $(3,2)$.</div>
-      <b class="n">3.</b><div>Check: $A(3,2)=(30-18,\ 12-4)=(12,8)=4(3,2)$ ✓</div>
+      <b class="n">1.</b><div>$\lambda=1$: $A-I=\left[\begin{smallmatrix}4&0\\2&0\end{smallmatrix}\right]\sim\left[\begin{smallmatrix}1&0\\0&0\end{smallmatrix}\right]$, so $x_1=0$, $x_2$ free ⇒ basis $\{(0,1)\}$.</div>
+      <b class="n">2.</b><div>$\lambda=5$: $A-5I=\left[\begin{smallmatrix}0&0\\2&-4\end{smallmatrix}\right]\sim\left[\begin{smallmatrix}1&-2\\0&0\end{smallmatrix}\right]$, so $x_1=2x_2$ ⇒ basis $\{(2,1)\}$.</div>
+      <b class="n">3.</b><div>Check: $A(2,1)=(10,5)=5(2,1)$ ✓ and $A(0,1)=(0,1)$ ✓</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> basis $\{(3,2)\}$. (For a $3\times3$, same steps; you may get 1, 2 or 3 free variables.)</p>
+      <p class="ans"><strong>Answer:</strong> $\lambda=1$: $\{(0,1)\}$; $\ \lambda=5$: $\{(2,1)\}$. (For a $3\times3$ like Exercise 13, same steps, three times.)</p>
     </div>
     <div class="wx">
       <h5>Example D · eigenvalues at a glance (triangular)</h5>
@@ -2734,15 +2736,15 @@ window.MathJax = {
       <p class="ans"><strong>Answer:</strong> $3,0,2$. Since $0$ is one of them, the matrix is not invertible.</p>
     </div>
     <div class="wx">
-      <h5>Example E · a short proof</h5>
-      <p class="q">Show: if $\lambda$ is an eigenvalue of an invertible $A$, then $\lambda^{-1}$ is an eigenvalue of $A^{-1}$.</p>
-      <p class="plain">In plain words: start from $A\mathbf x=\lambda\mathbf x$ and undo $A$ on both sides.</p>
+      <h5>Example E · a short proof (Exercise 34)</h5>
+      <p class="q">Show: if $A^2=0$, the only eigenvalue of $A$ is $0$.</p>
+      <p class="plain">In plain words: apply $A$ twice to an eigenvector and see what that forces.</p>
       <div class="step">
-      <b class="n">1.</b><div>Let $A\mathbf x=\lambda\mathbf x$ with $\mathbf x\neq\mathbf 0$. Since $A$ is invertible, $\lambda\neq0$ (0 isn't an eigenvalue of an invertible matrix).</div>
-      <b class="n">2.</b><div>Multiply both sides by $A^{-1}$: $\mathbf x=\lambda A^{-1}\mathbf x$.</div>
-      <b class="n">3.</b><div>Divide by $\lambda$: $A^{-1}\mathbf x=\lambda^{-1}\mathbf x$. So $\mathbf x$ is an eigenvector of $A^{-1}$ with eigenvalue $\lambda^{-1}$.</div>
+      <b class="n">1.</b><div>Let $A\mathbf x=\lambda\mathbf x$ with $\mathbf x\neq\mathbf 0$.</div>
+      <b class="n">2.</b><div>Then $A^2\mathbf x=A(\lambda\mathbf x)=\lambda A\mathbf x=\lambda^2\mathbf x$.</div>
+      <b class="n">3.</b><div>But $A^2=0$, so $\lambda^2\mathbf x=\mathbf 0$. Since $\mathbf x\neq\mathbf 0$, $\lambda^2=0$, so $\lambda=0$.</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> shown. (Same trick: $A^k\mathbf x=\lambda^k\mathbf x$, so e.g. if $A^2=0$ then $\lambda^2=0$, so $\lambda=0$.)</p>
+      <p class="ans"><strong>Answer:</strong> any eigenvalue must be $0$. (Same trick: $A^k\mathbf x=\lambda^k\mathbf x$; and if $A$ is invertible, $A^{-1}\mathbf x=\lambda^{-1}\mathbf x$.)</p>
     </div>
   </div>
   <div class="box warn"><span class="tag w">Watch out · True/False traps</span>
@@ -2810,60 +2812,60 @@ window.MathJax = {
       <li>Dynamical systems: if $\mathbf x_0=c_1\mathbf v_1+c_2\mathbf v_2$ (eigenvectors), then $\mathbf x_k=c_1\lambda_1^k\mathbf v_1+c_2\lambda_2^k\mathbf v_2$. Terms with $|\lambda|&lt;1$ die out as $k\to\infty$.</li>
     </ul>
   </div>
-  <div class="box worked"><span class="tag">Full worked examples · 5.2 </span>
+  <div class="box worked"><span class="tag">Full worked examples · 5.2 (Homework 7 types)</span>
     <div class="wx">
-      <h5>Example A · 2×2 eigenvalues</h5>
-      <p class="q">Characteristic polynomial and eigenvalues of $A$ $=\left[\begin{smallmatrix}2&7\\7&2\end{smallmatrix}\right]$.</p>
+      <h5>Example A · 2×2 eigenvalues (Exercise 5)</h5>
+      <p class="q">Characteristic polynomial and eigenvalues of $A=\left[\begin{smallmatrix}2&1\\-1&4\end{smallmatrix}\right]$.</p>
       <p class="plain">In plain words: subtract λ on the diagonal, take $ad-bc$, solve.</p>
       <div class="step">
-      <b class="n">1.</b><div>$A-\lambda I$ $=\left[\begin{smallmatrix}2-\lambda&7\\7&2-\lambda\end{smallmatrix}\right]$.</div>
-      <b class="n">2.</b><div>$\det$ $=(2-\lambda)^2-49$ $=\lambda^2-4\lambda+4-49$ $=\lambda^2-4\lambda-45$.</div>
-      <b class="n">3.</b><div>(Shortcut check: trace $=4$, det $=4-49=-45$, so $\lambda^2-4\lambda-45$ ✓)</div>
-      <b class="n">4.</b><div>Factor: $(\lambda-9)(\lambda+5)=0$.</div>
+      <b class="n">1.</b><div>$A-\lambda I=\left[\begin{smallmatrix}2-\lambda&1\\-1&4-\lambda\end{smallmatrix}\right]$.</div>
+      <b class="n">2.</b><div>$\det=(2-\lambda)(4-\lambda)-(1)(-1)=8-6\lambda+\lambda^2+1=\lambda^2-6\lambda+9$.</div>
+      <b class="n">3.</b><div>(Shortcut check: trace $=6$, det $=8+1=9$, so $\lambda^2-6\lambda+9$ ✓)</div>
+      <b class="n">4.</b><div>Factor: $(\lambda-3)^2=0$.</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> characteristic polynomial $\lambda^2-4\lambda-45$; eigenvalues $9$ and $-5$.</p>
+      <p class="ans"><strong>Answer:</strong> characteristic polynomial $\lambda^2-6\lambda+9$; eigenvalue $3$ with multiplicity 2.</p>
     </div>
     <div class="wx">
-      <h5>Example B · no real eigenvalues</h5>
-      <p class="q">$A$ $=\left[\begin{smallmatrix}1&-4\\4&6\end{smallmatrix}\right]$.</p>
+      <h5>Example B · no real eigenvalues (Exercise 7)</h5>
+      <p class="q">$A=\left[\begin{smallmatrix}5&3\\-4&4\end{smallmatrix}\right]$.</p>
       <p class="plain">In plain words: sometimes the quadratic has no real roots. That's a valid answer: no real eigenvalues (the matrix turns every direction).</p>
       <div class="step">
-      <b class="n">1.</b><div>$\det(A-\lambda I)$ $=(1-\lambda)(6-\lambda)+16$ $=\lambda^2-7\lambda+22$.</div>
-      <b class="n">2.</b><div>Discriminant: $49-88=-39&lt;0$.</div>
+      <b class="n">1.</b><div>$\det(A-\lambda I)=(5-\lambda)(4-\lambda)+12=\lambda^2-9\lambda+32$.</div>
+      <b class="n">2.</b><div>Discriminant: $81-128=-47&lt;0$.</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> $\lambda^2-7\lambda+22$; <strong>no real eigenvalues</strong> (two complex ones, §5.5).</p>
+      <p class="ans"><strong>Answer:</strong> $\lambda^2-9\lambda+32$; <strong>no real eigenvalues</strong> (two complex ones, §5.5).</p>
     </div>
     <div class="wx">
-      <h5>Example C · 3×3 by cofactor expansion</h5>
-      <p class="q">$A$ $=\left[\begin{smallmatrix}1&0&1\\-3&6&1\\0&0&4\end{smallmatrix}\right]$.</p>
+      <h5>Example C · 3×3 by cofactor expansion (Exercise 11)</h5>
+      <p class="q">$A=\left[\begin{smallmatrix}4&0&0\\5&3&2\\-2&0&2\end{smallmatrix}\right]$.</p>
       <p class="plain">In plain words: expand along the row or column with the most zeros, so the polynomial comes out already factored.</p>
       <div class="step">
-      <b class="n">1.</b><div>$A-\lambda I$ $=\left[\begin{smallmatrix}1-\lambda&0&1\\-3&6-\lambda&1\\0&0&4-\lambda\end{smallmatrix}\right]$.</div>
-      <b class="n">2.</b><div>Row 3 has two zeros. Expand along it: $\det$ $=(4-\lambda)\det\left[\begin{smallmatrix}1-\lambda&0\\-3&6-\lambda\end{smallmatrix}\right]$.</div>
-      <b class="n">3.</b><div>$=(4-\lambda)(1-\lambda)(6-\lambda)$.</div>
+      <b class="n">1.</b><div>$A-\lambda I=\left[\begin{smallmatrix}4-\lambda&0&0\\5&3-\lambda&2\\-2&0&2-\lambda\end{smallmatrix}\right]$.</div>
+      <b class="n">2.</b><div>Row 1 has two zeros. Expand along it: $\det=(4-\lambda)\det\left[\begin{smallmatrix}3-\lambda&2\\0&2-\lambda\end{smallmatrix}\right]$.</div>
+      <b class="n">3.</b><div>$=(4-\lambda)(3-\lambda)(2-\lambda)$.</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> eigenvalues $4,1,6$. (Leave it factored if you can.)</p>
+      <p class="ans"><strong>Answer:</strong> eigenvalues $4,3,2$. (Don't multiply it all out if you can avoid it; leave it factored.)</p>
     </div>
     <div class="wx">
-      <h5>Example D · triangular, list with multiplicity</h5>
-      <p class="q">Eigenvalues of $\left[\begin{smallmatrix}5&0&0&0\\8&-4&0&0\\0&7&1&0\\1&-5&2&1\end{smallmatrix}\right]$, repeated according to multiplicity.</p>
-      <p class="plain">In plain words: triangular (lower triangular counts too) ⇒ read the diagonal, and keep repeats.</p>
+      <h5>Example D · triangular, list with multiplicity (Exercise 15)</h5>
+      <p class="q">Eigenvalues of $\left[\begin{smallmatrix}4&-7&0&2\\0&3&-4&6\\0&0&3&-8\\0&0&0&1\end{smallmatrix}\right]$, repeated according to multiplicity.</p>
+      <p class="plain">In plain words: triangular ⇒ read the diagonal, and keep repeats.</p>
       <div class="step">
-      <b class="n">1.</b><div>Diagonal: $5,-4,1,1$. Characteristic polynomial $(5-\lambda)(-4-\lambda)(1-\lambda)^2$.</div>
+      <b class="n">1.</b><div>Diagonal: $4,3,3,1$. Characteristic polynomial $(4-\lambda)(3-\lambda)^2(1-\lambda)$.</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> $5,-4,1,1$ (1 has multiplicity 2).</p>
+      <p class="ans"><strong>Answer:</strong> $4,3,3,1$ (3 has multiplicity 2).</p>
     </div>
     <div class="wx">
-      <h5>Example E · make an eigenspace 2-dimensional</h5>
-      <p class="q">Find $h$ so that the eigenspace for $\lambda=3$ of $A$ $=\left[\begin{smallmatrix}3&h&1\\0&3&2\\0&0&1\end{smallmatrix}\right]$ is 2-dimensional.</p>
-      <p class="plain">In plain words: dim of the eigenspace = number of free variables in $A-3I$. We need 2 free variables, i.e. only 1 pivot.</p>
+      <h5>Example E · make an eigenspace 2-dimensional (Exercise 18)</h5>
+      <p class="q">Find $h$ so that the eigenspace for $\lambda=5$ of $A=\left[\begin{smallmatrix}5&-2&6&-1\\0&3&h&0\\0&0&5&4\\0&0&0&1\end{smallmatrix}\right]$ is 2-dimensional.</p>
+      <p class="plain">In plain words: dim of the eigenspace = number of free variables in $A-5I$. We need 2 free variables, i.e. only 2 pivots.</p>
       <div class="step">
-      <b class="n">1.</b><div>$A-3I$ $=\left[\begin{smallmatrix}0&h&1\\0&0&2\\0&0&-2\end{smallmatrix}\right]$. Column 1 is all zeros: always free.</div>
-      <b class="n">2.</b><div>Rows 2 and 3 are multiples, giving one pivot (column 3).</div>
-      <b class="n">3.</b><div>If $h\neq0$, row 1 adds a second pivot (column 2): only 1 free variable.</div>
-      <b class="n">4.</b><div>If $h=0$, row 1 is $(0,0,1)$, a multiple of row 2: just 1 pivot ⇒ 2 free variables.</div>
+      <b class="n">1.</b><div>$A-5I=\left[\begin{smallmatrix}0&-2&6&-1\\0&-2&h&0\\0&0&0&4\\0&0&0&-4\end{smallmatrix}\right]$. Column 1 is all zeros: always free.</div>
+      <b class="n">2.</b><div>Rows 3 and 4 are multiples, so they give one pivot (column 4). We need the first two rows to add only one more pivot.</div>
+      <b class="n">3.</b><div>Subtract row 2 from row 1: $(0,0,6-h,-1)$. If $h=6$ this is $(0,0,0,-1)$, a multiple of row 3, so only 2 pivots total ⇒ 2 free variables.</div>
+      <b class="n">4.</b><div>Any other $h$ gives a third pivot (column 3), so the eigenspace would be 1-dimensional.</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> $h=0$.</p>
+      <p class="ans"><strong>Answer:</strong> $h=6$.</p>
     </div>
   </div>
   <div class="box warn"><span class="tag w">Watch out · True/False traps</span>
@@ -2933,62 +2935,63 @@ window.MathJax = {
       <li>Diagonalizable and invertible are unrelated: $\left[\begin{smallmatrix}0&0\\0&1\end{smallmatrix}\right]$ is diagonalizable but not invertible; $\left[\begin{smallmatrix}1&1\\0&1\end{smallmatrix}\right]$ is invertible but not diagonalizable.</li>
     </ul>
   </div>
-  <div class="box worked"><span class="tag">Full worked examples · 5.3 </span>
+  <div class="box worked"><span class="tag">Full worked examples · 5.3 (Homework 7 types)</span>
     <div class="wx">
-      <h5>Example A · compute A⁴ from PDP⁻¹</h5>
-      <p class="q">$A=PDP^{-1}$ with $P$ $=\left[\begin{smallmatrix}2&-3\\-3&5\end{smallmatrix}\right]$, $D$ $=\left[\begin{smallmatrix}1&0\\0&-1\end{smallmatrix}\right]$. Compute $A^4$.</p>
+      <h5>Example A · compute A⁴ from PDP⁻¹ (Exercise 1)</h5>
+      <p class="q">$A=PDP^{-1}$ with $P=\left[\begin{smallmatrix}5&7\\2&3\end{smallmatrix}\right]$, $D=\left[\begin{smallmatrix}2&0\\0&1\end{smallmatrix}\right]$. Compute $A^4$.</p>
       <p class="plain">In plain words: the $P^{-1}P$ pairs in the middle cancel, so $A^4=PD^4P^{-1}$, and $D^4$ just raises the diagonal to the 4th power.</p>
       <div class="step">
-      <b class="n">1.</b><div>$D^4$ $=\left[\begin{smallmatrix}1^4&0\\0&(-1)^4\end{smallmatrix}\right]$ $=\left[\begin{smallmatrix}1&0\\0&1\end{smallmatrix}\right]$ $=I$.</div>
-      <b class="n">2.</b><div>So $A^4=PIP^{-1}=PP^{-1}=I$.</div>
-      <b class="n">3.</b><div>(General case: compute $PD^k$ by scaling each column of $P$ by its eigenvalue$^k$, then multiply by $P^{-1}$.)</div>
+      <b class="n">1.</b><div>$D^4=\left[\begin{smallmatrix}16&0\\0&1\end{smallmatrix}\right]$.</div>
+      <b class="n">2.</b><div>$P^{-1}$: $\det P=15-14=1$, so $P^{-1}=\left[\begin{smallmatrix}3&-7\\-2&5\end{smallmatrix}\right]$.</div>
+      <b class="n">3.</b><div>$PD^4=\left[\begin{smallmatrix}80&7\\32&3\end{smallmatrix}\right]$ (column 1 times 16).</div>
+      <b class="n">4.</b><div>$PD^4P^{-1}=\left[\begin{smallmatrix}80&7\\32&3\end{smallmatrix}\right]\left[\begin{smallmatrix}3&-7\\-2&5\end{smallmatrix}\right]=\left[\begin{smallmatrix}240-14&-560+35\\96-6&-224+15\end{smallmatrix}\right]$.</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> $A^4$ $=\left[\begin{smallmatrix}1&0\\0&1\end{smallmatrix}\right]$. (Eigenvalues $\pm1$ raised to an even power give 1.)</p>
+      <p class="ans"><strong>Answer:</strong> $A^4=\left[\begin{smallmatrix}226&-525\\90&-209\end{smallmatrix}\right]$.</p>
     </div>
     <div class="wx">
-      <h5>Example B · diagonalize a 2×2</h5>
-      <p class="q">Diagonalize $A$ $=\left[\begin{smallmatrix}2&3\\4&1\end{smallmatrix}\right]$, if possible.</p>
+      <h5>Example B · diagonalize a 2×2 (Exercise 7)</h5>
+      <p class="q">Diagonalize $A=\left[\begin{smallmatrix}1&0\\6&-1\end{smallmatrix}\right]$, if possible.</p>
       <p class="plain">In plain words: run the 4-step recipe. Two distinct eigenvalues means it will work.</p>
       <div class="step">
-      <b class="n">1.</b><div>$\det(A-\lambda I)$ $=(2-\lambda)(1-\lambda)-12$ $=\lambda^2-3\lambda-10$ $=(\lambda-5)(\lambda+2)$ ⇒ $5,-2$ (distinct ⇒ diagonalizable).</div>
-      <b class="n">2.</b><div>$\lambda=5$: $A-5I$ $=\left[\begin{smallmatrix}-3&3\\4&-4\end{smallmatrix}\right]$ ⇒ $x_1=x_2$ ⇒ $\mathbf v_1=(1,1)$.</div>
-      <b class="n">3.</b><div>$\lambda=-2$: $A+2I$ $=\left[\begin{smallmatrix}4&3\\4&3\end{smallmatrix}\right]$ ⇒ $4x_1=-3x_2$ ⇒ $\mathbf v_2=(-3,4)$.</div>
-      <b class="n">4.</b><div>$P$ $=\left[\begin{smallmatrix}1&-3\\1&4\end{smallmatrix}\right]$, $D$ $=\left[\begin{smallmatrix}5&0\\0&-2\end{smallmatrix}\right]$ (eigenvalues in the same order as the columns).</div>
+      <b class="n">1.</b><div>Triangular ⇒ eigenvalues $1$ and $-1$ (distinct ⇒ diagonalizable, Theorem 6).</div>
+      <b class="n">2.</b><div>$\lambda=1$: $A-I=\left[\begin{smallmatrix}0&0\\6&-2\end{smallmatrix}\right]$ ⇒ $6x_1=2x_2$ ⇒ $\mathbf v_1=(1,3)$.</div>
+      <b class="n">3.</b><div>$\lambda=-1$: $A+I=\left[\begin{smallmatrix}2&0\\6&0\end{smallmatrix}\right]$ ⇒ $x_1=0$ ⇒ $\mathbf v_2=(0,1)$.</div>
+      <b class="n">4.</b><div>$P=\left[\begin{smallmatrix}1&0\\3&1\end{smallmatrix}\right]$, $D=\left[\begin{smallmatrix}1&0\\0&-1\end{smallmatrix}\right]$ (eigenvalues in the same order as the columns).</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> $A=PDP^{-1}$ with that $P$ and $D$. (Swapping the columns of $P$ and the entries of $D$ together also works.)</p>
+      <p class="ans"><strong>Answer:</strong> $A=PDP^{-1}$ with that $P$ and $D$. (Swapping the columns of $P$ and the entries of $D$ together also works: the answer isn't unique.)</p>
     </div>
     <div class="wx">
-      <h5>Example C · NOT diagonalizable</h5>
-      <p class="q">Diagonalize $A$ $=\left[\begin{smallmatrix}3&-1\\1&5\end{smallmatrix}\right]$, if possible.</p>
+      <h5>Example C · NOT diagonalizable (Exercise 9)</h5>
+      <p class="q">Diagonalize $A=\left[\begin{smallmatrix}3&-1\\1&5\end{smallmatrix}\right]$, if possible.</p>
       <p class="plain">In plain words: a repeated eigenvalue might not have enough eigenvectors. Count them.</p>
       <div class="step">
-      <b class="n">1.</b><div>$\det(A-\lambda I)$ $=(3-\lambda)(5-\lambda)+1$ $=\lambda^2-8\lambda+16$ $=(\lambda-4)^2$. Only eigenvalue: 4, multiplicity 2.</div>
-      <b class="n">2.</b><div>$A-4I$ $=\left[\begin{smallmatrix}-1&-1\\1&1\end{smallmatrix}\right]\sim\left[\begin{smallmatrix}1&1\\0&0\end{smallmatrix}\right]$: one free variable ⇒ eigenspace is 1-dimensional (basis $(-1,1)$).</div>
+      <b class="n">1.</b><div>$\det(A-\lambda I)=(3-\lambda)(5-\lambda)+1=\lambda^2-8\lambda+16=(\lambda-4)^2$. Only eigenvalue: 4, multiplicity 2.</div>
+      <b class="n">2.</b><div>$A-4I=\left[\begin{smallmatrix}-1&-1\\1&1\end{smallmatrix}\right]\sim\left[\begin{smallmatrix}1&1\\0&0\end{smallmatrix}\right]$: one free variable ⇒ eigenspace is 1-dimensional (basis $(-1,1)$).</div>
       <b class="n">3.</b><div>We need 2 independent eigenvectors but only have 1.</div>
       </div>
       <p class="ans"><strong>Answer:</strong> <strong>not diagonalizable</strong>.</p>
     </div>
     <div class="wx">
-      <h5>Example D · 3×3 with a repeated eigenvalue</h5>
-      <p class="q">Diagonalize $A$ $=\left[\begin{smallmatrix}4&0&2\\2&3&4\\0&0&3\end{smallmatrix}\right]$; eigenvalues are $\lambda=3,4$.</p>
-      <p class="plain">In plain words: one eigenvalue repeats (3 total, two values). Check that its eigenspace gives 2 vectors.</p>
+      <h5>Example D · 3×3 with a repeated eigenvalue (Exercise 13)</h5>
+      <p class="q">Diagonalize $A=\left[\begin{smallmatrix}2&2&-1\\1&3&-1\\-1&-2&2\end{smallmatrix}\right]$; eigenvalues are $\lambda=5,1$.</p>
+      <p class="plain">In plain words: 1 is repeated (since there are 3 eigenvalues total and only two values, one repeats). Check that its eigenspace gives 2 vectors.</p>
       <div class="step">
-      <b class="n">1.</b><div>Characteristic polynomial $(4-\lambda)(3-\lambda)^2$ (expand along row 3), so 3 is repeated.</div>
-      <b class="n">2.</b><div>$\lambda=3$: $A-3I$ $=\left[\begin{smallmatrix}1&0&2\\2&0&4\\0&0&0\end{smallmatrix}\right]\sim\left[\begin{smallmatrix}1&0&2\\0&0&0\\0&0&0\end{smallmatrix}\right]$: two free variables ⇒ basis $(0,1,0)$, $(-2,0,1)$ ✓ 2 vectors.</div>
-      <b class="n">3.</b><div>$\lambda=4$: $A-4I$ gives one free variable ⇒ $(1,2,0)$.</div>
-      <b class="n">4.</b><div>$P$ $=\left[\begin{smallmatrix}0&-2&1\\1&0&2\\0&1&0\end{smallmatrix}\right]$, $D$ $=\left[\begin{smallmatrix}3&0&0\\0&3&0\\0&0&4\end{smallmatrix}\right]$. Check $AP=PD$ ✓</div>
+      <b class="n">1.</b><div>$\lambda=1$: $A-I=\left[\begin{smallmatrix}1&2&-1\\1&2&-1\\-1&-2&1\end{smallmatrix}\right]\sim\left[\begin{smallmatrix}1&2&-1\\0&0&0\\0&0&0\end{smallmatrix}\right]$: two free variables ⇒ basis $(-2,1,0)$, $(1,0,1)$. ✓ 2 vectors.</div>
+      <b class="n">2.</b><div>$\lambda=5$: $A-5I$ row reduces to one free variable ⇒ $(-1,-1,1)$.</div>
+      <b class="n">3.</b><div>Total: 3 independent eigenvectors ⇒ diagonalizable.</div>
+      <b class="n">4.</b><div>$P=\left[\begin{smallmatrix}-2&1&-1\\1&0&-1\\0&1&1\end{smallmatrix}\right]$, $D=\left[\begin{smallmatrix}1&0&0\\0&1&0\\0&0&5\end{smallmatrix}\right]$. Check $AP=PD$ ✓</div>
       </div>
       <p class="ans"><strong>Answer:</strong> $A=PDP^{-1}$ with that $P$ and $D$.</p>
     </div>
     <div class="wx">
-      <h5>Example E · reasoning questions</h5>
-      <p class="q">(a) $4\times4$, three eigenvalues; one eigenspace is 1-dim and another is 2-dim. Could $A$ fail to be diagonalizable? (b) $7\times7$, three eigenvalues; one eigenspace 2-dim, another 3-dim. Could $A$ fail to be diagonalizable?</p>
-      <p class="plain">In plain words: add up the eigenspace dimensions. Diagonalizable exactly when the total is $n$. Every eigenvalue has an eigenspace of dimension at least 1.</p>
+      <h5>Example E · reasoning questions (Exercises 29–32)</h5>
+      <p class="q">(a) $5\times5$, two eigenvalues, eigenspaces of dim 3 and 2: diagonalizable? (b) $3\times3$, two eigenvalues, each eigenspace 1-dim: diagonalizable?</p>
+      <p class="plain">In plain words: add up the eigenspace dimensions. Diagonalizable exactly when the total is $n$.</p>
       <div class="step">
-      <b class="n">1.</b><div>(a) The third eigenspace has dim ≥ 1, and the total can't exceed 4. So it's exactly 1, and $1+2+1=4=n$. Always diagonalizable.</div>
-      <b class="n">2.</b><div>(b) The third eigenspace could be 1-dim: $2+3+1=6&lt;7$ ⇒ not diagonalizable. (It could also be 2-dim, total 7.)</div>
+      <b class="n">1.</b><div>(a) $3+2=5=n$ ⇒ yes (Theorem 7b).</div>
+      <b class="n">2.</b><div>(b) $1+1=2&lt;3$ ⇒ no.</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> (a) no, it must be diagonalizable. (b) yes, it's possible.</p>
+      <p class="ans"><strong>Answer:</strong> (a) yes. (b) no.</p>
     </div>
   </div>
   <div class="box warn"><span class="tag w">Watch out · True/False traps</span>
@@ -3035,69 +3038,69 @@ window.MathJax = {
   <div class="box fact"><span class="tag">Similarity = same map, different basis</span>
     <p>For any basis $\mathcal B$ of $\mathbb R^n$ with $P=[\,\mathbf b_1\cdots\mathbf b_n\,]$, $[T]_{\mathcal B}=P^{-1}AP$. So the matrices similar to $A$ are exactly the matrices of $\mathbf x\mapsto A\mathbf x$ in different bases. (Efficient computation: row reduce $[\,P\ \ AP\,]$ to $[\,I\ \ P^{-1}AP\,]$.)</p>
   </div>
-  <div class="box worked"><span class="tag">Full worked examples · 5.4 </span>
+  <div class="box worked"><span class="tag">Full worked examples · 5.4 (Homework 7 types)</span>
     <div class="wx">
-      <h5>Example A · T given on basis vectors</h5>
-      <p class="q">$T(\mathbf b_1)=2\mathbf b_1-3\mathbf b_2$, $T(\mathbf b_2)=-4\mathbf b_1+5\mathbf b_2$. Find $[T]_{\mathcal B}$.</p>
+      <h5>Example A · T given on basis vectors (Exercise 1)</h5>
+      <p class="q">$T(\mathbf b_1)=3\mathbf b_1-5\mathbf b_2$, $T(\mathbf b_2)=-\mathbf b_1+6\mathbf b_2$, $T(\mathbf b_3)=4\mathbf b_2$. Find $[T]_{\mathcal B}$.</p>
       <p class="plain">In plain words: each sentence already tells you $T(\mathbf b_j)$ in $\mathcal B$-language. Those coefficient lists are the columns. (Same as §4.6: columns, not rows.)</p>
       <div class="step">
-      <b class="n">1.</b><div>$[T(\mathbf b_1)]_{\mathcal B}=(2,-3)$, $\ [T(\mathbf b_2)]_{\mathcal B}=(-4,5)$.</div>
+      <b class="n">1.</b><div>$[T(\mathbf b_1)]_{\mathcal B}=(3,-5,0)$, $\ [T(\mathbf b_2)]_{\mathcal B}=(-1,6,0)$, $\ [T(\mathbf b_3)]_{\mathcal B}=(0,4,0)$.</div>
       <b class="n">2.</b><div>Make them columns.</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> $[T]_{\mathcal B}$ $=\left[\begin{smallmatrix}2&-4\\-3&5\end{smallmatrix}\right]$.</p>
+      <p class="ans"><strong>Answer:</strong> $[T]_{\mathcal B}=\left[\begin{smallmatrix}3&-1&0\\-5&6&4\\0&0&0\end{smallmatrix}\right]$.</p>
     </div>
     <div class="wx">
-      <h5>Example B · a map on polynomials</h5>
-      <p class="q">$T(\mathbf p)$ $=\mathbf p(0)-\mathbf p(1)t+\mathbf p(2)t^2$ on $\mathbb P_2$. Find $[T]_{\mathcal B}$ for $\mathcal B=\{1,t,t^2\}$.</p>
+      <h5>Example B · a map on polynomials (Exercise 3)</h5>
+      <p class="q">$T(a_0+a_1t+a_2t^2)=3a_0+(5a_0-2a_1)t+(4a_1+a_2)t^2$. Find $[T]_{\mathcal B}$ for $\mathcal B=\{1,t,t^2\}$.</p>
       <p class="plain">In plain words: feed in each basis polynomial one at a time and write down the coefficients of the output.</p>
       <div class="step">
-      <b class="n">1.</b><div>$T(1)$: $\mathbf p(0)=\mathbf p(1)=\mathbf p(2)=1$ ⇒ $1-t+t^2$ ⇒ column $(1,-1,1)$.</div>
-      <b class="n">2.</b><div>$T(t)$: values $0,1,2$ ⇒ $0-t+2t^2$ ⇒ column $(0,-1,2)$.</div>
-      <b class="n">3.</b><div>$T(t^2)$: values $0,1,4$ ⇒ $0-t+4t^2$ ⇒ column $(0,-1,4)$.</div>
+      <b class="n">1.</b><div>$T(1)$: $a_0=1$, others 0 ⇒ $3+5t$ ⇒ column $(3,5,0)$.</div>
+      <b class="n">2.</b><div>$T(t)$: $a_1=1$ ⇒ $-2t+4t^2$ ⇒ column $(0,-2,4)$.</div>
+      <b class="n">3.</b><div>$T(t^2)$: $a_2=1$ ⇒ $t^2$ ⇒ column $(0,0,1)$.</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> $[T]_{\mathcal B}$ $=\left[\begin{smallmatrix}1&0&0\\-1&-1&-1\\1&2&4\end{smallmatrix}\right]$.</p>
+      <p class="ans"><strong>Answer:</strong> $[T]_{\mathcal B}=\left[\begin{smallmatrix}3&0&0\\5&-2&0\\0&4&1\end{smallmatrix}\right]$.</p>
     </div>
     <div class="wx">
-      <h5>Example C · use the B-matrix</h5>
-      <p class="q">$[T]_{\mathcal B}$ $=\left[\begin{smallmatrix}0&-6&1\\0&5&-1\\1&-2&7\end{smallmatrix}\right]$. Find $T(2\mathbf b_1-\mathbf b_2+4\mathbf b_3)$.</p>
+      <h5>Example C · use the B-matrix (Exercise 5)</h5>
+      <p class="q">$[T]_{\mathcal B}=\left[\begin{smallmatrix}0&-6&1\\0&5&-1\\1&-2&7\end{smallmatrix}\right]$. Find $T(3\mathbf b_1-4\mathbf b_2)$.</p>
       <p class="plain">In plain words: write the input as coordinates, multiply, read the output's coordinates.</p>
       <div class="step">
-      <b class="n">1.</b><div>$[\mathbf x]_{\mathcal B}=(2,-1,4)$.</div>
-      <b class="n">2.</b><div>$[T]_{\mathcal B}(2,-1,4)$ $=(0+6+4,\ 0-5-4,\ 2+2+28)$ $=(10,-9,32)$.</div>
+      <b class="n">1.</b><div>$[\mathbf x]_{\mathcal B}=(3,-4,0)$.</div>
+      <b class="n">2.</b><div>$[T]_{\mathcal B}(3,-4,0)=(0+24+0,\ 0-20+0,\ 3+8+0)=(24,-20,11)$.</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> $T(2\mathbf b_1-\mathbf b_2+4\mathbf b_3)$ $=10\mathbf b_1-9\mathbf b_2+32\mathbf b_3$.</p>
+      <p class="ans"><strong>Answer:</strong> $T(3\mathbf b_1-4\mathbf b_2)=24\mathbf b_1-20\mathbf b_2+11\mathbf b_3$.</p>
     </div>
     <div class="wx">
-      <h5>Example D · B-matrix of x ↦ Ax</h5>
-      <p class="q">$A$ $=\left[\begin{smallmatrix}-1&4\\-2&3\end{smallmatrix}\right]$, $\mathbf b_1=(3,2)$, $\mathbf b_2=(-1,1)$. Find $[T]_{\mathcal B}$.</p>
+      <h5>Example D · B-matrix of x ↦ Ax (Exercise 7)</h5>
+      <p class="q">$A=\left[\begin{smallmatrix}3&4\\-1&-1\end{smallmatrix}\right]$, $\mathbf b_1=(2,-1)$, $\mathbf b_2=(1,2)$. Find $[T]_{\mathcal B}$.</p>
       <p class="plain">In plain words: $[T]_{\mathcal B}=P^{-1}AP$: translate in, apply $A$, translate out.</p>
       <div class="step">
-      <b class="n">1.</b><div>$P$ $=\left[\begin{smallmatrix}3&-1\\2&1\end{smallmatrix}\right]$, $\det P=5$, $P^{-1}$ $=\tfrac15\left[\begin{smallmatrix}1&1\\-2&3\end{smallmatrix}\right]$.</div>
-      <b class="n">2.</b><div>$AP$ $=\left[\begin{smallmatrix}5&5\\0&5\end{smallmatrix}\right]$.</div>
-      <b class="n">3.</b><div>$P^{-1}AP$ $=\tfrac15\left[\begin{smallmatrix}1&1\\-2&3\end{smallmatrix}\right]\left[\begin{smallmatrix}5&5\\0&5\end{smallmatrix}\right]$ $=\tfrac15\left[\begin{smallmatrix}5&10\\-10&5\end{smallmatrix}\right]$.</div>
+      <b class="n">1.</b><div>$P=\left[\begin{smallmatrix}2&1\\-1&2\end{smallmatrix}\right]$, $\det P=5$, $P^{-1}=\tfrac15\left[\begin{smallmatrix}2&-1\\1&2\end{smallmatrix}\right]$.</div>
+      <b class="n">2.</b><div>$AP=\left[\begin{smallmatrix}2&11\\-1&-3\end{smallmatrix}\right]$.</div>
+      <b class="n">3.</b><div>$P^{-1}AP=\tfrac15\left[\begin{smallmatrix}2&-1\\1&2\end{smallmatrix}\right]\left[\begin{smallmatrix}2&11\\-1&-3\end{smallmatrix}\right]=\tfrac15\left[\begin{smallmatrix}5&25\\0&5\end{smallmatrix}\right]$.</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> $[T]_{\mathcal B}$ $=\left[\begin{smallmatrix}1&2\\-2&1\end{smallmatrix}\right]$ (not diagonal: these $\mathbf b$'s aren't eigenvectors).</p>
+      <p class="ans"><strong>Answer:</strong> $[T]_{\mathcal B}=\left[\begin{smallmatrix}1&5\\0&1\end{smallmatrix}\right]$ (triangular, not diagonal: these $\mathbf b$'s aren't both eigenvectors).</p>
     </div>
     <div class="wx">
-      <h5>Example E · find a basis making T diagonal</h5>
-      <p class="q">$T(\mathbf x)=A\mathbf x$ with $A$ $=\left[\begin{smallmatrix}5&-3\\-7&1\end{smallmatrix}\right]$. Find a basis $\mathcal B$ with $[T]_{\mathcal B}$ diagonal.</p>
+      <h5>Example E · find a basis making T diagonal (Exercise 9)</h5>
+      <p class="q">$T(\mathbf x)=A\mathbf x$ with $A=\left[\begin{smallmatrix}0&1\\-3&4\end{smallmatrix}\right]$. Find a basis $\mathcal B$ with $[T]_{\mathcal B}$ diagonal.</p>
       <p class="plain">In plain words: the diagonal-making basis is the eigenvector basis. So just find the eigenvectors.</p>
       <div class="step">
-      <b class="n">1.</b><div>$\det(A-\lambda I)$ $=(5-\lambda)(1-\lambda)-21$ $=\lambda^2-6\lambda-16$ $=(\lambda-8)(\lambda+2)$ ⇒ $\lambda=8,-2$.</div>
-      <b class="n">2.</b><div>$\lambda=8$: $A-8I$ $=\left[\begin{smallmatrix}-3&-3\\-7&-7\end{smallmatrix}\right]$ ⇒ $x_1=-x_2$ ⇒ $(-1,1)$.</div>
-      <b class="n">3.</b><div>$\lambda=-2$: $A+2I$ $=\left[\begin{smallmatrix}7&-3\\-7&3\end{smallmatrix}\right]$ ⇒ $7x_1=3x_2$ ⇒ $(3,7)$.</div>
+      <b class="n">1.</b><div>$\det(A-\lambda I)=\lambda^2-4\lambda+3=(\lambda-1)(\lambda-3)$ ⇒ $\lambda=1,3$.</div>
+      <b class="n">2.</b><div>$\lambda=1$: $A-I=\left[\begin{smallmatrix}-1&1\\-3&3\end{smallmatrix}\right]$ ⇒ $x_1=x_2$ ⇒ $(1,1)$.</div>
+      <b class="n">3.</b><div>$\lambda=3$: $A-3I=\left[\begin{smallmatrix}-3&1\\-3&1\end{smallmatrix}\right]$ ⇒ $x_2=3x_1$ ⇒ $(1,3)$.</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> $\mathcal B=\{(-1,1),(3,7)\}$, and then $[T]_{\mathcal B}$ $=\left[\begin{smallmatrix}8&0\\0&-2\end{smallmatrix}\right]$.</p>
+      <p class="ans"><strong>Answer:</strong> $\mathcal B=\{(1,1),(1,3)\}$, and then $[T]_{\mathcal B}=\left[\begin{smallmatrix}1&0\\0&3\end{smallmatrix}\right]$.</p>
     </div>
     <div class="wx">
-      <h5>Example F · eigenvector of a polynomial map</h5>
-      <p class="q">$T(\mathbf p)$ $=\mathbf p(0)-\mathbf p(1)t-\mathbf p(1)t^2+\mathbf p(0)t^3$ on $\mathbb P_3$. Is $\mathbf p=1+t+t^2+t^3$ an eigenvector? Is $t+t^2$?</p>
+      <h5>Example F · eigenvector of a polynomial map (Exercise 15)</h5>
+      <p class="q">$T(\mathbf p)=\mathbf p(1)+\mathbf p(1)t+\mathbf p(1)t^2$ on $\mathbb P_2$. Is $\mathbf p=1+t+t^2$ an eigenvector? Is $-2+t$?</p>
       <p class="plain">In plain words: compute $T(\mathbf p)$ and see if it's a multiple of $\mathbf p$.</p>
       <div class="step">
-      <b class="n">1.</b><div>$\mathbf p=1+t+t^2+t^3$: $\mathbf p(0)=1$, $\mathbf p(1)=4$, so $T(\mathbf p)=1-4t-4t^2+t^3$, not a multiple ⇒ <strong>no</strong>.</div>
-      <b class="n">2.</b><div>$\mathbf p=t+t^2$: $\mathbf p(0)=0$, $\mathbf p(1)=2$, so $T(\mathbf p)=-2t-2t^2=-2\mathbf p$ ⇒ <strong>yes</strong>, eigenvalue $-2$.</div>
+      <b class="n">1.</b><div>$\mathbf p=1+t+t^2$: $\mathbf p(1)=3$, so $T(\mathbf p)=3+3t+3t^2=3\mathbf p$ ⇒ <strong>yes</strong>, eigenvalue 3.</div>
+      <b class="n">2.</b><div>$\mathbf p=-2+t$: $\mathbf p(1)=-1$, so $T(\mathbf p)=-1-t-t^2$, not a multiple of $-2+t$ ⇒ <strong>no</strong>.</div>
       </div>
-      <p class="ans"><strong>Answer:</strong> first is not an eigenvector; second is ($\lambda=-2$).</p>
+      <p class="ans"><strong>Answer:</strong> first is an eigenvector ($\lambda=3$); second is not.</p>
     </div>
   </div>
   <div class="box warn"><span class="tag w">Watch out · True/False traps</span>
