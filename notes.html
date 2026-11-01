@@ -190,6 +190,13 @@ window.MathJax = {
     <li><a href="#s52"><span class="n">5.2</span><span class="t">Characteristic Equation</span></a></li>
     <li><a href="#s53"><span class="n">5.3</span><span class="t">Diagonalization</span></a></li>
     <li><a href="#s54"><span class="n">5.4</span><span class="t">Eigenvectors &amp; Linear Maps</span></a></li>
+    <li><a href="#s55"><span class="n">5.5</span><span class="t">Complex Eigenvalues</span></a></li>
+    <li class="chap"><span>Ch. 6 · Orthogonality</span></li>
+    <li><a href="#s61"><span class="n">6.1</span><span class="t">Inner Product &amp; Length</span></a></li>
+    <li><a href="#s62"><span class="n">6.2</span><span class="t">Orthogonal Sets</span></a></li>
+    <li><a href="#s63"><span class="n">6.3</span><span class="t">Orthogonal Projections</span></a></li>
+    <li><a href="#s64"><span class="n">6.4</span><span class="t">Gram–Schmidt &amp; QR</span></a></li>
+    <li><a href="#s65"><span class="n">6.5</span><span class="t">Least Squares</span></a></li>
     <li class="chap"><span>Reference</span></li>
     <li class="aux"><a href="#map"><span class="n">map</span><span class="t">Master dictionary</span></a></li>
     <li class="aux"><a href="#index"><span class="n">thm</span><span class="t">Theorem index</span></a></li>
@@ -198,9 +205,9 @@ window.MathJax = {
 
 <main>
 <header class="hero">
-  <p class="eyebrow">Math 54 · Lay, <em>Linear Algebra and Its Applications</em> (Berkeley custom ed.) · §1.1–5.4</p>
+  <p class="eyebrow">Math 54 · Lay, <em>Linear Algebra and Its Applications</em> (Berkeley custom ed.) · §1.1–6.5</p>
   <h1>Linear Equations, Matrix Algebra, Determinants &amp; Vector Spaces</h1>
-  <p class="lede">Everything through §4.6: §1.1–1.5, 1.7–1.9 (skipping §1.6), §2.1–2.3, §3.1–3.3 (excluding Cramer's Rule), §4.1–4.6, and §5.1–5.4. (Midterm 1 covered through §4.1.) Definitions and theorems use the book's numbering so you can cite them on homework. Each chapter restarts at Theorem 1, so every theorem is tagged with its section.</p>
+  <p class="lede">Everything through §6.5: §1.1–1.5, 1.7–1.9 (skipping §1.6), §2.1–2.3, §3.1–3.3 (excluding Cramer's Rule), §4.1–4.6, §5.1–5.5, and §6.1–6.5. Midterm 2 covers §4.1–4.6, §5.1–5.5 and §6.1–6.5. (Midterm 1 covered through §4.1.) Definitions and theorems use the book's numbering so you can cite them on homework. Each chapter restarts at Theorem 1, so every theorem is tagged with its section.</p>
   <div class="thesis">
     <p>The whole chapter is one idea seen three ways, all solved by row-reducing the same augmented matrix:</p>
     <div class="mth">$$\underbrace{\begin{array}{c} a_{11}x_1+\cdots+a_{1n}x_n=b_1\\ \vdots \\ a_{m1}x_1+\cdots+a_{mn}x_n=b_m\end{array}}_{\text{linear system}}
@@ -3115,6 +3122,593 @@ window.MathJax = {
   </div>
 </section>
 
+<!-- ============================ 5.5 ============================ -->
+<section id="s55" class="sec">
+  <header class="sec-head">
+    <span class="sec-num">5.5</span>
+    <div><h2>Complex Eigenvalues</h2>
+    <p class="sec-point">A real 2×2 matrix with no real eigenvalues still has complex ones, a ± bi. Geometrically it rotates and scales: A = PCP⁻¹ with C a rotation-scaling matrix.</p></div>
+  </header>
+  <div class="box start"><span class="tag">Start here · plain English</span>
+    <p class="big"><strong>The one idea:</strong> if $\det(A-\lambda I)=0$ has no real roots, $A$ turns every real direction, so no real vector stays on its own line. Allow complex numbers and the eigenvalues come in a pair $a\pm bi$. That pair says: <strong>$A$ rotates by an angle and stretches by a factor</strong>.</p>
+    <p>Analogy: a spiral staircase. Each step turns you by the same angle $\varphi$ and changes your height by the same factor $r$. The matrix $C=\left[\begin{smallmatrix}a&-b\\b&a\end{smallmatrix}\right]$ is exactly "turn by $\varphi$, scale by $r$", where $r=\sqrt{a^2+b^2}$ and $\varphi$ is the angle of the point $(a,b)$.</p>
+    <h4>Recipe</h4>
+    <div class="step">
+      <b class="n">1.</b><div>Eigenvalues: solve $\lambda^2-(\operatorname{tr}A)\lambda+\det A=0$ with the quadratic formula. Negative discriminant ⇒ $\lambda=a\pm bi$.</div>
+      <b class="n">2.</b><div>Eigenvector for $\lambda=a-bi$: write $A-\lambda I$. Its two rows are multiples of each other (over $\mathbb C$), so <strong>use just one row</strong>: from $[\,p\ \ q\,]$ take $\mathbf v=(-q,\ p)$, or solve the first row for $x_1$.</div>
+      <b class="n">3.</b><div>The other eigenvector is the conjugate $\bar{\mathbf v}$ (for $\bar\lambda=a+bi$). No extra work.</div>
+      <b class="n">4.</b><div>$P=[\,\operatorname{Re}\mathbf v\ \ \operatorname{Im}\mathbf v\,]$, $C=\left[\begin{smallmatrix}a&-b\\b&a\end{smallmatrix}\right]$, and $A=PCP^{-1}$ (Theorem 9). Use the eigenvector for $\lambda=a-bi$.</div>
+    </div>
+  </div>
+  <div class="box def"><span class="tag">Real and imaginary parts, conjugates</span>
+    <p>For $\mathbf x\in\mathbb C^n$: $\mathbf x=\operatorname{Re}\mathbf x+i\operatorname{Im}\mathbf x$, where $\operatorname{Re}\mathbf x,\operatorname{Im}\mathbf x\in\mathbb R^n$. The conjugate $\bar{\mathbf x}$ flips the sign of every imaginary part. Rules: $\overline{r\mathbf x}=\bar r\bar{\mathbf x}$, $\overline{B\mathbf x}=\bar B\bar{\mathbf x}$.</p>
+  </div>
+  <div class="box fact"><span class="tag">Real matrices: complex eigenvalues come in conjugate pairs</span>
+    <p>If $A$ is real and $A\mathbf x=\lambda\mathbf x$, then $A\bar{\mathbf x}=\bar\lambda\bar{\mathbf x}$. So $\bar\lambda$ is also an eigenvalue, with eigenvector $\bar{\mathbf x}$.</p>
+  </div>
+  <div class="box fact"><span class="tag">The rotation-scaling matrix</span>
+    <p>$C=\left[\begin{smallmatrix}a&-b\\b&a\end{smallmatrix}\right]$ (a, b real, not both 0) has eigenvalues $a\pm bi$, and</p>
+    <div class="mth">$$C=r\begin{bmatrix}\cos\varphi&-\sin\varphi\\ \sin\varphi&\cos\varphi\end{bmatrix},\qquad r=|\lambda|=\sqrt{a^2+b^2}$$</div>
+    <p>where $\varphi$ is the angle from the positive $x$-axis to the point $(a,b)$ (the <span class="term">argument</span> of $a+bi$). So $\mathbf x\mapsto C\mathbf x$ is a rotation by $\varphi$ followed by scaling by $r$.</p>
+  </div>
+  <div class="box thm"><span class="tag">Theorem 9 · §5.5</span>
+    <p>Let $A$ be a real $2\times2$ matrix with a complex eigenvalue $\lambda=a-bi$ ($b\neq0$) and an associated eigenvector $\mathbf v\in\mathbb C^2$. Then</p>
+    <div class="mth">$$A=PCP^{-1},\qquad P=[\,\operatorname{Re}\mathbf v\ \ \operatorname{Im}\mathbf v\,],\qquad C=\begin{bmatrix}a&-b\\b&a\end{bmatrix}$$</div>
+    <p class="small">Meaning: in the coordinates given by the columns of $P$, $A$ is a pure rotation-scaling. Repeatedly applying $A$ moves points around an ellipse (if $r=1$), or spirals in ($r&lt;1$) or out ($r&gt;1$).</p>
+  </div>
+  <div class="box worked"><span class="tag">Full worked examples · 5.5</span>
+    <div class="wx">
+      <h5>Example A · complex eigenvalues and eigenvectors (Exercise 3)</h5>
+      <p class="q">Eigenvalues and an eigenvector basis for each eigenspace of $A=\left[\begin{smallmatrix}1&5\\-2&3\end{smallmatrix}\right]$ (acting on $\mathbb C^2$).</p>
+      <p class="plain">In plain words: same steps as always, but the quadratic has no real roots, so we keep going with complex numbers.</p>
+      <div class="step">
+      <b class="n">1.</b><div>$\det(A-\lambda I)=(1-\lambda)(3-\lambda)+10=\lambda^2-4\lambda+13$.</div>
+      <b class="n">2.</b><div>Quadratic formula: $\lambda=\dfrac{4\pm\sqrt{16-52}}{2}=\dfrac{4\pm6i}{2}=2\pm3i$.</div>
+      <b class="n">3.</b><div>$\lambda=2-3i$: $A-\lambda I=\left[\begin{smallmatrix}-1+3i&5\\-2&1+3i\end{smallmatrix}\right]$. Use row 2 only: $-2x_1+(1+3i)x_2=0$ ⇒ $x_1=\tfrac{1+3i}{2}x_2$. Take $x_2=2$: $\mathbf v=(1+3i,\ 2)$.</div>
+      <b class="n">4.</b><div>$\lambda=2+3i$: just conjugate: $\bar{\mathbf v}=(1-3i,\ 2)$.</div>
+      </div>
+      <p class="ans"><strong>Answer:</strong> $\lambda=2\pm3i$; eigenspace bases $\{(1+3i,2)\}$ for $2-3i$ and $\{(1-3i,2)\}$ for $2+3i$.</p>
+    </div>
+    <div class="wx">
+      <h5>Example B · another one (Exercise 5)</h5>
+      <p class="q">$A=\left[\begin{smallmatrix}0&1\\-8&4\end{smallmatrix}\right]$.</p>
+      <p class="plain">In plain words: trace 4, determinant 8. Plug into the shortcut, then use one row for the eigenvector.</p>
+      <div class="step">
+      <b class="n">1.</b><div>$\lambda^2-4\lambda+8=0$ ⇒ $\lambda=\dfrac{4\pm\sqrt{16-32}}{2}=2\pm2i$.</div>
+      <b class="n">2.</b><div>$\lambda=2-2i$: row 1 of $A-\lambda I$ is $[\,-2+2i\ \ 1\,]$ ⇒ $(-2+2i)x_1+x_2=0$ ⇒ $x_2=(2-2i)x_1$. Take $x_1=1$: $(1,\ 2-2i)$.</div>
+      <b class="n">3.</b><div>(The book's answer $(1+i,\ 4)$ is the same eigenvector times $\tfrac{1+i}{1}$: $(1+i)(1,\,2-2i)=(1+i,\ 4)$. Any nonzero complex multiple is fine.)</div>
+      </div>
+      <p class="ans"><strong>Answer:</strong> $\lambda=2\pm2i$; for $2-2i$: $\{(1+i,4)\}$; for $2+2i$: $\{(1-i,4)\}$.</p>
+    </div>
+    <div class="wx">
+      <h5>Example C · rotation angle and scale factor (Exercise 10)</h5>
+      <p class="q">$A=\left[\begin{smallmatrix}3&3\\-3&3\end{smallmatrix}\right]$. List the eigenvalues, the rotation angle $\varphi$ ($-\pi&lt;\varphi\le\pi$) and the scale factor $r$.</p>
+      <p class="plain">In plain words: this already has the shape $\left[\begin{smallmatrix}a&-b\\b&a\end{smallmatrix}\right]$, so just read off $a$ and $b$.</p>
+      <div class="step">
+      <b class="n">1.</b><div>Match: $a=3$, $-b=3$ so $b=-3$. Eigenvalues $a\pm bi=3\pm3i$.</div>
+      <b class="n">2.</b><div>$r=\sqrt{a^2+b^2}=\sqrt{9+9}=3\sqrt2$.</div>
+      <b class="n">3.</b><div>$\varphi$ = angle of the point $(a,b)=(3,-3)$: fourth quadrant, $\varphi=-\pi/4$.</div>
+      </div>
+      <p class="ans"><strong>Answer:</strong> $3\pm3i$; rotation by $-\pi/4$ (clockwise $45^\circ$) and scaling by $3\sqrt2$.</p>
+    </div>
+    <div class="wx">
+      <h5>Example D · find P and C with A = PCP⁻¹ (Exercises 13, 15)</h5>
+      <p class="q">$A=\left[\begin{smallmatrix}1&-2\\1&3\end{smallmatrix}\right]$. Find invertible $P$ and $C=\left[\begin{smallmatrix}a&-b\\b&a\end{smallmatrix}\right]$ with $A=PCP^{-1}$.</p>
+      <p class="plain">In plain words: find the eigenvalue $a-bi$ and its eigenvector, then split the eigenvector into its real part and imaginary part. Those are the columns of $P$.</p>
+      <div class="step">
+      <b class="n">1.</b><div>$\lambda^2-4\lambda+5=0$ ⇒ $\lambda=2\pm i$. Use $\lambda=a-bi=2-i$, so $a=2$, $b=1$.</div>
+      <b class="n">2.</b><div>$A-(2-i)I=\left[\begin{smallmatrix}-1+i&-2\\1&1+i\end{smallmatrix}\right]$. Row 2: $x_1=-(1+i)x_2$. Take $x_2=1$: $\mathbf v=(-1-i,\ 1)=(-1,1)+i(-1,0)$.</div>
+      <b class="n">3.</b><div>$P=[\,\operatorname{Re}\mathbf v\ \ \operatorname{Im}\mathbf v\,]=\left[\begin{smallmatrix}-1&-1\\1&0\end{smallmatrix}\right]$, $\ C=\left[\begin{smallmatrix}2&-1\\1&2\end{smallmatrix}\right]$.</div>
+      <b class="n">4.</b><div>Check: $PCP^{-1}=\left[\begin{smallmatrix}1&-2\\1&3\end{smallmatrix}\right]$ ✓ (Exercise 15 the same way: $A=\left[\begin{smallmatrix}1&5\\-2&3\end{smallmatrix}\right]$, $\mathbf v=(1+3i,2)$ ⇒ $P=\left[\begin{smallmatrix}1&3\\2&0\end{smallmatrix}\right]$, $C=\left[\begin{smallmatrix}2&-3\\3&2\end{smallmatrix}\right]$.)</div>
+      </div>
+      <p class="ans"><strong>Answer:</strong> $P=\left[\begin{smallmatrix}-1&-1\\1&0\end{smallmatrix}\right]$, $C=\left[\begin{smallmatrix}2&-1\\1&2\end{smallmatrix}\right]$.</p>
+    </div>
+  </div>
+  <div class="box warn"><span class="tag w">Watch out · True/False traps</span>
+    <ul>
+      <li>Use the eigenvector for $\lambda=a-bi$ (minus sign) with $C=\left[\begin{smallmatrix}a&-b\\b&a\end{smallmatrix}\right]$. Mixing conventions flips the sign of $b$ in $C$.</li>
+      <li>$P$ has columns $\operatorname{Re}\mathbf v$ and $\operatorname{Im}\mathbf v$ (real vectors), not $\mathbf v$ and $\bar{\mathbf v}$.</li>
+      <li>Iterates $A\mathbf x, A^2\mathbf x,\dots$ do <strong>not</strong> always lie on one circle: they move on an ellipse (if $r=1$) or spiral in/out ($r\neq1$). (Exercise 24: false.)</li>
+      <li>A real $2\times2$ matrix can't have exactly one real and one non-real eigenvalue: complex ones come in conjugate pairs.</li>
+      <li>Two complex (non-real) eigenvalues ⇒ no real eigenvectors at all.</li>
+      <li>Shortcut for the eigenvector: from a row $[\,p\ \ q\,]$ of $A-\lambda I$, the vector $(-q,\ p)$ works.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================ 6.1 ============================ -->
+<section id="s61" class="sec">
+  <header class="sec-head">
+    <span class="sec-num">6.1</span>
+    <div><h2>Inner Product, Length, and Orthogonality</h2>
+    <p class="sec-point">The dot product gives lengths, distances and right angles in ℝⁿ. Two vectors are orthogonal when their dot product is 0.</p></div>
+  </header>
+  <div class="box start"><span class="tag">Start here · plain English</span>
+    <p class="big"><strong>The one idea:</strong> one operation, the <strong>dot product</strong> $\mathbf u\cdot\mathbf v=u_1v_1+\cdots+u_nv_n$, gives you all of geometry in any dimension: length, distance and perpendicularity.</p>
+    <ul>
+      <li><strong>Length:</strong> $\|\mathbf v\|=\sqrt{\mathbf v\cdot\mathbf v}$ (Pythagoras in $n$ dimensions).</li>
+      <li><strong>Distance:</strong> $\operatorname{dist}(\mathbf u,\mathbf v)=\|\mathbf u-\mathbf v\|$.</li>
+      <li><strong>Perpendicular ("orthogonal"):</strong> $\mathbf u\cdot\mathbf v=0$.</li>
+    </ul>
+    <p>Analogy: the dot product measures "how much two arrows point the same way". Same direction: big and positive. Opposite: negative. At a right angle: exactly zero, because neither has any "push" along the other.</p>
+    <h4>Orthogonal complement $W^\perp$</h4>
+    <p>$W^\perp$ is <strong>everything perpendicular to all of $W$</strong>. If $W$ is a plane through 0 in $\mathbb R^3$, $W^\perp$ is the line through 0 sticking straight out of it (and vice versa). To find it: write the condition "dot product with each spanning vector = 0" as a homogeneous system and solve, i.e. $W^\perp=\operatorname{Nul}$ of the matrix whose <strong>rows</strong> are the spanning vectors.</p>
+  </div>
+  <div class="box def"><span class="tag">Definitions</span>
+    <p><span class="term">Inner product</span> $\mathbf u\cdot\mathbf v=\mathbf u^T\mathbf v=u_1v_1+\cdots+u_nv_n$ (a number). <span class="term">Length (norm)</span> $\|\mathbf v\|=\sqrt{\mathbf v\cdot\mathbf v}$, so $\|\mathbf v\|^2=\mathbf v\cdot\mathbf v$. A <span class="term">unit vector</span> has length 1; <span class="term">normalizing</span> $\mathbf v\neq\mathbf 0$ means $\mathbf v/\|\mathbf v\|$. <span class="term">Distance</span> $\operatorname{dist}(\mathbf u,\mathbf v)=\|\mathbf u-\mathbf v\|$. <span class="term">Orthogonal:</span> $\mathbf u\cdot\mathbf v=0$ ($\mathbf 0$ is orthogonal to everything).</p>
+  </div>
+  <div class="box thm"><span class="tag">Theorem 1 · §6.1 · properties</span>
+    <p>(a) $\mathbf u\cdot\mathbf v=\mathbf v\cdot\mathbf u$; (b) $(\mathbf u+\mathbf v)\cdot\mathbf w=\mathbf u\cdot\mathbf w+\mathbf v\cdot\mathbf w$; (c) $(c\mathbf u)\cdot\mathbf v=c(\mathbf u\cdot\mathbf v)=\mathbf u\cdot(c\mathbf v)$; (d) $\mathbf u\cdot\mathbf u\ge0$, with equality only for $\mathbf u=\mathbf 0$. Also $\|c\mathbf v\|=|c|\,\|\mathbf v\|$.</p>
+  </div>
+  <div class="box thm"><span class="tag">Theorem 2 · §6.1 · Pythagorean Theorem</span>
+    <p>$\mathbf u$ and $\mathbf v$ are orthogonal <strong>iff</strong> $\|\mathbf u+\mathbf v\|^2=\|\mathbf u\|^2+\|\mathbf v\|^2$.</p>
+    <p class="small">Why: $\|\mathbf u+\mathbf v\|^2=\|\mathbf u\|^2+\|\mathbf v\|^2+2\,\mathbf u\cdot\mathbf v$.</p>
+  </div>
+  <div class="box def"><span class="tag">Orthogonal complement</span>
+    <p>$W^\perp=\{\mathbf z:\ \mathbf z\cdot\mathbf w=0\text{ for every }\mathbf w\in W\}$. Facts: (1) $\mathbf x\in W^\perp$ iff $\mathbf x$ is orthogonal to every vector in a <strong>spanning set</strong> of $W$; (2) $W^\perp$ is a subspace of $\mathbb R^n$; and $\dim W+\dim W^\perp=n$.</p>
+  </div>
+  <div class="box thm"><span class="tag">Theorem 3 · §6.1</span>
+    <p>For an $m\times n$ matrix $A$:</p>
+    <div class="mth">$$(\operatorname{Row}A)^\perp=\operatorname{Nul}A\qquad\text{and}\qquad(\operatorname{Col}A)^\perp=\operatorname{Nul}A^T$$</div>
+    <p class="small">Why: $A\mathbf x=\mathbf 0$ says exactly that $\mathbf x$ dotted with every row of $A$ is 0.</p>
+  </div>
+  <div class="box fact"><span class="tag">Angles (ℝ² and ℝ³)</span>
+    <p>$\mathbf u\cdot\mathbf v=\|\mathbf u\|\,\|\mathbf v\|\cos\vartheta$.</p>
+  </div>
+  <div class="box worked"><span class="tag">Full worked examples · 6.1</span>
+    <div class="wx">
+      <h5>Example A · dot products and lengths (Exercises 1, 7)</h5>
+      <p class="q">$\mathbf u=(-1,2)$, $\mathbf v=(4,6)$, $\mathbf w=(3,-1,-5)$. Compute $\mathbf u\cdot\mathbf u$, $\mathbf v\cdot\mathbf u$, $\dfrac{\mathbf v\cdot\mathbf u}{\mathbf u\cdot\mathbf u}$, and $\|\mathbf w\|$.</p>
+      <p class="plain">In plain words: multiply matching entries and add. Length is the square root of a vector dotted with itself.</p>
+      <div class="step">
+      <b class="n">1.</b><div>$\mathbf u\cdot\mathbf u=(-1)^2+2^2=5$.</div>
+      <b class="n">2.</b><div>$\mathbf v\cdot\mathbf u=4(-1)+6(2)=8$, so $\dfrac{\mathbf v\cdot\mathbf u}{\mathbf u\cdot\mathbf u}=\dfrac85$.</div>
+      <b class="n">3.</b><div>$\|\mathbf w\|=\sqrt{9+1+25}=\sqrt{35}$.</div>
+      </div>
+      <p class="ans"><strong>Answer:</strong> $5$, $8$, $8/5$, $\sqrt{35}$.</p>
+    </div>
+    <div class="wx">
+      <h5>Example B · unit vector and distance (Exercises 9, 13)</h5>
+      <p class="q">(a) Unit vector in the direction of $(-30,40)$. (b) Distance between $\mathbf x=(10,-3)$ and $\mathbf y=(-1,-5)$.</p>
+      <p class="plain">In plain words: (a) divide by the length. (b) subtract, then take the length.</p>
+      <div class="step">
+      <b class="n">1.</b><div>(a) $\|(-30,40)\|=\sqrt{900+1600}=50$, so the unit vector is $(-30,40)/50=(-3/5,\ 4/5)$.</div>
+      <b class="n">2.</b><div>(b) $\mathbf x-\mathbf y=(11,2)$, so $\operatorname{dist}=\sqrt{121+4}=\sqrt{125}=5\sqrt5$.</div>
+      </div>
+      <p class="ans"><strong>Answer:</strong> (a) $(-3/5,4/5)$. (b) $5\sqrt5$.</p>
+    </div>
+    <div class="wx">
+      <h5>Example C · orthogonal or not? (Exercise 17)</h5>
+      <p class="q">Are $\mathbf u=(3,2,-5,0)$ and $\mathbf v=(-4,1,-2,6)$ orthogonal?</p>
+      <p class="plain">In plain words: orthogonal just means the dot product is zero.</p>
+      <div class="step">
+      <b class="n">1.</b><div>$\mathbf u\cdot\mathbf v=-12+2+10+0=0$.</div>
+      </div>
+      <p class="ans"><strong>Answer:</strong> yes, orthogonal.</p>
+    </div>
+    <div class="wx">
+      <h5>Example D · a subspace defined by a dot product (Exercise 34)</h5>
+      <p class="q">$\mathbf u=(5,-6,7)$ and $W=\{\mathbf x\in\mathbb R^3:\ \mathbf u\cdot\mathbf x=0\}$. Why is $W$ a subspace? Describe it.</p>
+      <p class="plain">In plain words: “dot with $\mathbf u$ is 0” is one homogeneous linear equation, so it's a null space.</p>
+      <div class="step">
+      <b class="n">1.</b><div>$\mathbf u\cdot\mathbf x=5x_1-6x_2+7x_3=0$, so $W=\operatorname{Nul}[\,5\ \ -6\ \ 7\,]$, a subspace by Theorem 2 of §4.2.</div>
+      <b class="n">2.</b><div>Geometrically: the plane through the origin perpendicular to $\mathbf u$. So $W=(\operatorname{Span}\{\mathbf u\})^\perp$, and $\dim W=3-1=2$.</div>
+      </div>
+      <p class="ans"><strong>Answer:</strong> it's a null space; it's the plane through 0 perpendicular to $\mathbf u$.</p>
+    </div>
+    <div class="wx">
+      <h5>Example E · find W⊥</h5>
+      <p class="q">$W=\operatorname{Span}\{(1,0,1),\ (0,1,1)\}$. Find a basis for $W^\perp$.</p>
+      <p class="plain">In plain words: $\mathbf z$ must be perpendicular to both spanning vectors. Put them as rows and find the null space (Theorem 3).</p>
+      <div class="step">
+      <b class="n">1.</b><div>$\mathbf z\in W^\perp$ iff $z_1+z_3=0$ and $z_2+z_3=0$.</div>
+      <b class="n">2.</b><div>Free variable $z_3$: $\mathbf z=z_3(-1,-1,1)$.</div>
+      <b class="n">3.</b><div>Check: $(-1,-1,1)\cdot(1,0,1)=0$ and $\cdot(0,1,1)=0$ ✓; $\dim W+\dim W^\perp=2+1=3$ ✓</div>
+      </div>
+      <p class="ans"><strong>Answer:</strong> $W^\perp=\operatorname{Span}\{(-1,-1,1)\}$.</p>
+    </div>
+  </div>
+  <div class="box warn"><span class="tag w">Watch out · True/False traps</span>
+    <ul>
+      <li>$\mathbf v\cdot\mathbf v=\|\mathbf v\|^2$, <strong>not</strong> $\|\mathbf v\|$.</li>
+      <li>"If $\|\mathbf u\|^2+\|\mathbf v\|^2=\|\mathbf u+\mathbf v\|^2$ then $\mathbf u,\mathbf v$ are orthogonal": <strong>true</strong> (Pythagorean Theorem works both ways).</li>
+      <li>"If $\mathbf x$ is orthogonal to each $\mathbf v_j$ in a spanning set of $W$, then $\mathbf x\in W^\perp$": <strong>true</strong>.</li>
+      <li>"If $\mathbf x$ is orthogonal to every vector in $W$, then $\mathbf x\in W^\perp$": <strong>true</strong> (definition).</li>
+      <li>$\|c\mathbf v\|=|c|\,\|\mathbf v\|$, with an absolute value: $\|c\mathbf v\|=c\|\mathbf v\|$ is false for negative $c$.</li>
+      <li>"For a square $A$, vectors in Col A are orthogonal to vectors in Nul A": <strong>false</strong> in general. The true statement: Nul A ⟂ Row A, and Nul $A^T$ ⟂ Col A.</li>
+      <li>"Vectors in Nul A are orthogonal to vectors in Row A": <strong>true</strong> (Theorem 3).</li>
+      <li>If $\mathbf x$ is in both $W$ and $W^\perp$, then $\mathbf x\cdot\mathbf x=0$, so $\mathbf x=\mathbf 0$.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================ 6.2 ============================ -->
+<section id="s62" class="sec">
+  <header class="sec-head">
+    <span class="sec-num">6.2</span>
+    <div><h2>Orthogonal Sets</h2>
+    <p class="sec-point">In an orthogonal basis, weights are just a ratio of dot products: no row reduction. Orthonormal columns preserve lengths and angles.</p></div>
+  </header>
+  <div class="box start"><span class="tag">Start here · plain English</span>
+    <p class="big"><strong>The one idea:</strong> when your basis vectors are mutually perpendicular, finding the weights in $\mathbf y=c_1\mathbf u_1+\cdots+c_p\mathbf u_p$ is trivial:</p>
+    <div class="mth">$$c_j=\frac{\mathbf y\cdot\mathbf u_j}{\mathbf u_j\cdot\mathbf u_j}$$</div>
+    <p>Analogy: describing a location as "3 blocks east, 4 blocks north" on a square street grid is easy because east and north are independent. On a skewed grid you'd have to solve a system; on a perpendicular grid you just measure along each street.</p>
+    <h4>Projection onto a line</h4>
+    <p>The <strong>shadow</strong> of $\mathbf y$ on the line through $\mathbf u$ (light shining straight down onto the line):</p>
+    <div class="mth">$$\hat{\mathbf y}=\operatorname{proj}_L\mathbf y=\frac{\mathbf y\cdot\mathbf u}{\mathbf u\cdot\mathbf u}\,\mathbf u,\qquad \mathbf z=\mathbf y-\hat{\mathbf y}\ \text{ is perpendicular to }\mathbf u$$</div>
+    <p>So $\mathbf y=\hat{\mathbf y}+\mathbf z$ splits $\mathbf y$ into "along $\mathbf u$" plus "perpendicular to $\mathbf u$". The distance from $\mathbf y$ to the line is $\|\mathbf y-\hat{\mathbf y}\|$.</p>
+    <h4>Orthonormal = orthogonal + every vector has length 1</h4>
+    <p>A matrix $U$ with orthonormal columns satisfies $U^TU=I$, and multiplying by it never changes lengths or angles (it's a rigid motion).</p>
+  </div>
+  <div class="box def"><span class="tag">Definitions</span>
+    <p>$\{\mathbf u_1,\dots,\mathbf u_p\}$ is an <span class="term">orthogonal set</span> if $\mathbf u_i\cdot\mathbf u_j=0$ for all $i\neq j$. An <span class="term">orthogonal basis</span> of $W$ is a basis that is an orthogonal set. An <span class="term">orthonormal set</span> is an orthogonal set of unit vectors.</p>
+  </div>
+  <div class="box thm"><span class="tag">Theorem 4 · §6.2</span>
+    <p>An orthogonal set of <strong>nonzero</strong> vectors is linearly independent, hence a basis for the subspace it spans.</p>
+  </div>
+  <div class="box thm"><span class="tag">Theorem 5 · §6.2</span>
+    <p>If $\{\mathbf u_1,\dots,\mathbf u_p\}$ is an orthogonal basis for $W$ and $\mathbf y\in W$, then $\mathbf y=c_1\mathbf u_1+\cdots+c_p\mathbf u_p$ with $c_j=\dfrac{\mathbf y\cdot\mathbf u_j}{\mathbf u_j\cdot\mathbf u_j}$.</p>
+  </div>
+  <div class="box def"><span class="tag">Orthogonal projection onto a line</span>
+    <p>For $\mathbf u\neq\mathbf 0$ and $L=\operatorname{Span}\{\mathbf u\}$: $\hat{\mathbf y}=\operatorname{proj}_L\mathbf y=\dfrac{\mathbf y\cdot\mathbf u}{\mathbf u\cdot\mathbf u}\mathbf u$ (the <span class="term">orthogonal projection of $\mathbf y$ onto $\mathbf u$</span>), and $\mathbf z=\mathbf y-\hat{\mathbf y}$ is the <span class="term">component of $\mathbf y$ orthogonal to $\mathbf u$</span>. Replacing $\mathbf u$ by $c\mathbf u$ gives the same $\hat{\mathbf y}$: it depends only on the line.</p>
+  </div>
+  <div class="box thm"><span class="tag">Theorem 6 · §6.2</span>
+    <p>An $m\times n$ matrix $U$ has orthonormal columns <strong>iff</strong> $U^TU=I$.</p>
+  </div>
+  <div class="box thm"><span class="tag">Theorem 7 · §6.2</span>
+    <p>If $U$ has orthonormal columns: (a) $\|U\mathbf x\|=\|\mathbf x\|$; (b) $(U\mathbf x)\cdot(U\mathbf y)=\mathbf x\cdot\mathbf y$; (c) $(U\mathbf x)\cdot(U\mathbf y)=0$ iff $\mathbf x\cdot\mathbf y=0$.</p>
+  </div>
+  <div class="box def"><span class="tag">Orthogonal matrix</span>
+    <p>A <strong>square</strong> invertible $U$ with $U^{-1}=U^T$, i.e. a square matrix with orthonormal columns. Its rows are orthonormal too, and $\det U=\pm1$.</p>
+  </div>
+  <div class="box worked"><span class="tag">Full worked examples · 6.2</span>
+    <div class="wx">
+      <h5>Example A · is the set orthogonal? (Exercise 5)</h5>
+      <p class="q">Is $\{(3,-2,1,3),\ (-1,3,-3,4),\ (3,8,7,0)\}$ an orthogonal set?</p>
+      <p class="plain">In plain words: check every pair. With 3 vectors there are 3 pairs.</p>
+      <div class="step">
+      <b class="n">1.</b><div>$\mathbf u_1\cdot\mathbf u_2=-3-6-3+12=0$.</div>
+      <b class="n">2.</b><div>$\mathbf u_1\cdot\mathbf u_3=9-16+7+0=0$.</div>
+      <b class="n">3.</b><div>$\mathbf u_2\cdot\mathbf u_3=-3+24-21+0=0$.</div>
+      </div>
+      <p class="ans"><strong>Answer:</strong> yes, orthogonal.</p>
+    </div>
+    <div class="wx">
+      <h5>Example B · weights from an orthogonal basis (Exercises 7, 9)</h5>
+      <p class="q">$\mathbf u_1=(2,-3)$, $\mathbf u_2=(6,4)$, $\mathbf x=(9,-7)$. Show $\{\mathbf u_1,\mathbf u_2\}$ is an orthogonal basis of $\mathbb R^2$ and write $\mathbf x$ in it.</p>
+      <p class="plain">In plain words: check the dot product is 0, then each weight is (x·u)/(u·u). No row reduction.</p>
+      <div class="step">
+      <b class="n">1.</b><div>$\mathbf u_1\cdot\mathbf u_2=12-12=0$: orthogonal, nonzero ⇒ independent ⇒ a basis of $\mathbb R^2$ (2 vectors).</div>
+      <b class="n">2.</b><div>$c_1=\dfrac{\mathbf x\cdot\mathbf u_1}{\mathbf u_1\cdot\mathbf u_1}=\dfrac{18+21}{13}=3$.</div>
+      <b class="n">3.</b><div>$c_2=\dfrac{\mathbf x\cdot\mathbf u_2}{\mathbf u_2\cdot\mathbf u_2}=\dfrac{54-28}{52}=\dfrac12$.</div>
+      <b class="n">4.</b><div>Check: $3(2,-3)+\tfrac12(6,4)=(6+3,\ -9+2)=(9,-7)$ ✓. (Exercise 9 in $\mathbb R^3$: $\mathbf x=(8,-4,-3)=\tfrac52\mathbf u_1-\tfrac32\mathbf u_2+2\mathbf u_3$.)</div>
+      </div>
+      <p class="ans"><strong>Answer:</strong> $\mathbf x=3\mathbf u_1+\tfrac12\mathbf u_2$.</p>
+    </div>
+    <div class="wx">
+      <h5>Example C · distance from a point to a line (Exercise 15)</h5>
+      <p class="q">$\mathbf y=(3,1)$, $\mathbf u=(8,6)$. Distance from $\mathbf y$ to the line through $\mathbf u$ and the origin.</p>
+      <p class="plain">In plain words: find the shadow $\hat{\mathbf y}$ on the line; the distance is how far $\mathbf y$ is from its shadow.</p>
+      <div class="step">
+      <b class="n">1.</b><div>$\hat{\mathbf y}=\dfrac{\mathbf y\cdot\mathbf u}{\mathbf u\cdot\mathbf u}\mathbf u=\dfrac{24+6}{100}(8,6)=\dfrac{3}{10}(8,6)=(12/5,\ 9/5)$.</div>
+      <b class="n">2.</b><div>$\mathbf y-\hat{\mathbf y}=(3/5,\ -4/5)$. (Check: $\perp\mathbf u$: $\tfrac{24}{5}-\tfrac{24}{5}=0$ ✓)</div>
+      <b class="n">3.</b><div>Distance $=\|\mathbf y-\hat{\mathbf y}\|=\sqrt{9/25+16/25}=1$.</div>
+      </div>
+      <p class="ans"><strong>Answer:</strong> distance $=1$.</p>
+    </div>
+    <div class="wx">
+      <h5>Example D · orthonormal? normalize (Exercise 17)</h5>
+      <p class="q">Is $\{(1/3,1/3,1/3),\ (-1/2,0,1/2)\}$ orthonormal? If only orthogonal, normalize.</p>
+      <p class="plain">In plain words: orthonormal needs two things: perpendicular pairs, and every vector of length 1.</p>
+      <div class="step">
+      <b class="n">1.</b><div>Dot product: $-\tfrac16+0+\tfrac16=0$ ⇒ orthogonal.</div>
+      <b class="n">2.</b><div>Lengths: $\|\mathbf u_1\|^2=\tfrac13$, $\|\mathbf u_2\|^2=\tfrac12$ ⇒ not unit vectors.</div>
+      <b class="n">3.</b><div>Normalize: $(1/\sqrt3,1/\sqrt3,1/\sqrt3)$ and $(-1/\sqrt2,0,1/\sqrt2)$.</div>
+      </div>
+      <p class="ans"><strong>Answer:</strong> orthogonal but not orthonormal; normalized set as above.</p>
+    </div>
+  </div>
+  <div class="box warn"><span class="tag w">Watch out · True/False traps</span>
+    <ul>
+      <li>"Not every linearly independent set is orthogonal": <strong>true</strong>. "Not every orthogonal set is independent": <strong>true</strong> (it may contain $\mathbf 0$).</li>
+      <li>"If $\mathbf y$ is a combination of nonzero orthogonal vectors, the weights can be found without row operations": <strong>true</strong> (Theorem 5).</li>
+      <li>"If $\mathbf u_i\cdot\mathbf u_j=0$ for $i\neq j$, the set is orthonormal": <strong>false</strong>; also need unit length.</li>
+      <li>"Normalizing orthogonal vectors can make them non-orthogonal": <strong>false</strong>; scaling keeps right angles.</li>
+      <li>"If $A$ has orthonormal columns, $\mathbf x\mapsto A\mathbf x$ preserves lengths": <strong>true</strong> (Theorem 7).</li>
+      <li>"A matrix with orthonormal columns is an orthogonal matrix": <strong>false</strong> unless it's <strong>square</strong>.</li>
+      <li>"An orthogonal matrix is invertible": <strong>true</strong> ($U^{-1}=U^T$).</li>
+      <li>"proj of $\mathbf y$ onto $\mathbf v$ equals proj onto $c\mathbf v$ for $c\neq0$": <strong>true</strong> (depends only on the line).</li>
+      <li>"$\|\hat{\mathbf y}\|$ is the distance from $\mathbf y$ to $L$": <strong>false</strong>; the distance is $\|\mathbf y-\hat{\mathbf y}\|$.</li>
+      <li>$U^TU=I$ for orthonormal columns, but $UU^T\neq I$ unless $U$ is square.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================ 6.3 ============================ -->
+<section id="s63" class="sec">
+  <header class="sec-head">
+    <span class="sec-num">6.3</span>
+    <div><h2>Orthogonal Projections</h2>
+    <p class="sec-point">Every y splits uniquely into a piece in W plus a piece perpendicular to W. The piece in W, proj_W y, is the closest point of W to y.</p></div>
+  </header>
+  <div class="box start"><span class="tag">Start here · plain English</span>
+    <p class="big"><strong>The one idea:</strong> drop a perpendicular from $\mathbf y$ onto a subspace $W$. Where it lands is $\hat{\mathbf y}=\operatorname{proj}_W\mathbf y$: the <strong>closest point in $W$ to $\mathbf y$</strong>. What's left over, $\mathbf z=\mathbf y-\hat{\mathbf y}$, sticks straight out of $W$.</p>
+    <p>Analogy: the shadow of a pole on the ground at noon (sun straight overhead). The shadow is the projection onto the ground plane; the pole's height is the perpendicular part; the tip of the shadow is the point on the ground closest to the top of the pole.</p>
+    <h4>How to compute it (needs an orthogonal basis of $W$)</h4>
+    <div class="mth">$$\hat{\mathbf y}=\frac{\mathbf y\cdot\mathbf u_1}{\mathbf u_1\cdot\mathbf u_1}\mathbf u_1+\cdots+\frac{\mathbf y\cdot\mathbf u_p}{\mathbf u_p\cdot\mathbf u_p}\mathbf u_p$$</div>
+    <p>That's just the §6.2 line-projection done onto each basis vector and added up. <strong>Check that the $\mathbf u$'s are orthogonal first</strong>; if not, the formula is wrong (use Gram–Schmidt, §6.4).</p>
+    <h4>The three question types</h4>
+    <ul>
+      <li><strong>Decompose $\mathbf y$</strong> = (vector in $W$) + (vector in $W^\perp$): $\hat{\mathbf y}$ and $\mathbf y-\hat{\mathbf y}$.</li>
+      <li><strong>Closest point / best approximation</strong> to $\mathbf y$ in $W$: $\hat{\mathbf y}$.</li>
+      <li><strong>Distance</strong> from $\mathbf y$ to $W$: $\|\mathbf y-\hat{\mathbf y}\|$.</li>
+    </ul>
+  </div>
+  <div class="box thm"><span class="tag">Theorem 8 · §6.3 · Orthogonal Decomposition Theorem</span>
+    <p>Let $W$ be a subspace of $\mathbb R^n$. Each $\mathbf y\in\mathbb R^n$ can be written <strong>uniquely</strong> as $\mathbf y=\hat{\mathbf y}+\mathbf z$ with $\hat{\mathbf y}\in W$ and $\mathbf z\in W^\perp$. If $\{\mathbf u_1,\dots,\mathbf u_p\}$ is any orthogonal basis of $W$, then $\hat{\mathbf y}=\sum\frac{\mathbf y\cdot\mathbf u_j}{\mathbf u_j\cdot\mathbf u_j}\mathbf u_j$ and $\mathbf z=\mathbf y-\hat{\mathbf y}$.</p>
+    <p class="small">$\hat{\mathbf y}=\operatorname{proj}_W\mathbf y$ depends only on $W$, not on which orthogonal basis you use. If $\mathbf y$ is already in $W$, $\operatorname{proj}_W\mathbf y=\mathbf y$.</p>
+  </div>
+  <div class="box thm"><span class="tag">Theorem 9 · §6.3 · Best Approximation Theorem</span>
+    <p>$\hat{\mathbf y}=\operatorname{proj}_W\mathbf y$ is the closest point in $W$ to $\mathbf y$: $\|\mathbf y-\hat{\mathbf y}\|&lt;\|\mathbf y-\mathbf v\|$ for every $\mathbf v\in W$ with $\mathbf v\neq\hat{\mathbf y}$. The distance from $\mathbf y$ to $W$ is $\|\mathbf y-\hat{\mathbf y}\|$.</p>
+  </div>
+  <div class="box thm"><span class="tag">Theorem 10 · §6.3 · orthonormal basis</span>
+    <p>If $\{\mathbf u_1,\dots,\mathbf u_p\}$ is an <strong>orthonormal</strong> basis of $W$ and $U=[\,\mathbf u_1\cdots\mathbf u_p\,]$:</p>
+    <div class="mth">$$\operatorname{proj}_W\mathbf y=(\mathbf y\cdot\mathbf u_1)\mathbf u_1+\cdots+(\mathbf y\cdot\mathbf u_p)\mathbf u_p=UU^T\mathbf y$$</div>
+    <p class="small">$U^TU=I_p$ always; $UU^T$ is the projection matrix onto $W$ (it equals $I$ only if $U$ is square).</p>
+  </div>
+  <div class="box worked"><span class="tag">Full worked examples · 6.3</span>
+    <div class="wx">
+      <h5>Example A · projection onto a plane (Exercise 3)</h5>
+      <p class="q">$\mathbf y=(-1,4,3)$, $\mathbf u_1=(1,1,0)$, $\mathbf u_2=(-1,1,0)$. Verify orthogonal; find the projection of $\mathbf y$ onto $\operatorname{Span}\{\mathbf u_1,\mathbf u_2\}$.</p>
+      <p class="plain">In plain words: project onto each basis vector separately, then add.</p>
+      <div class="step">
+      <b class="n">1.</b><div>$\mathbf u_1\cdot\mathbf u_2=-1+1=0$ ✓ orthogonal.</div>
+      <b class="n">2.</b><div>$\dfrac{\mathbf y\cdot\mathbf u_1}{\mathbf u_1\cdot\mathbf u_1}=\dfrac{3}{2}$, $\ \dfrac{\mathbf y\cdot\mathbf u_2}{\mathbf u_2\cdot\mathbf u_2}=\dfrac{5}{2}$.</div>
+      <b class="n">3.</b><div>$\hat{\mathbf y}=\tfrac32(1,1,0)+\tfrac52(-1,1,0)=(-1,4,0)$.</div>
+      <b class="n">4.</b><div>Makes sense: $W$ is the $x_1x_2$-plane, so the projection just zeros out $x_3$.</div>
+      </div>
+      <p class="ans"><strong>Answer:</strong> $\hat{\mathbf y}=(-1,4,0)$.</p>
+    </div>
+    <div class="wx">
+      <h5>Example B · decompose y into W + W⊥ (Exercise 7)</h5>
+      <p class="q">$W=\operatorname{Span}\{\mathbf u_1,\mathbf u_2\}$, $\mathbf u_1=(1,3,-2)$, $\mathbf u_2=(5,1,4)$, $\mathbf y=(1,3,5)$. Write $\mathbf y$ as a vector in $W$ plus a vector orthogonal to $W$.</p>
+      <p class="plain">In plain words: the part in $W$ is the projection; the part orthogonal is what's left over.</p>
+      <div class="step">
+      <b class="n">1.</b><div>$\mathbf u_1\cdot\mathbf u_2=5+3-8=0$ ✓</div>
+      <b class="n">2.</b><div>$\dfrac{\mathbf y\cdot\mathbf u_1}{\mathbf u_1\cdot\mathbf u_1}=\dfrac{1+9-10}{14}=0$, $\ \dfrac{\mathbf y\cdot\mathbf u_2}{\mathbf u_2\cdot\mathbf u_2}=\dfrac{5+3+20}{42}=\dfrac23$.</div>
+      <b class="n">3.</b><div>$\hat{\mathbf y}=0\cdot\mathbf u_1+\tfrac23(5,1,4)=(10/3,\ 2/3,\ 8/3)$.</div>
+      <b class="n">4.</b><div>$\mathbf z=\mathbf y-\hat{\mathbf y}=(-7/3,\ 7/3,\ 7/3)$. Check: $\mathbf z\cdot\mathbf u_1=\tfrac{-7+21-14}{3}=0$, $\mathbf z\cdot\mathbf u_2=\tfrac{-35+7+28}{3}=0$ ✓</div>
+      </div>
+      <p class="ans"><strong>Answer:</strong> $\mathbf y=(10/3,2/3,8/3)+(-7/3,7/3,7/3)$.</p>
+    </div>
+    <div class="wx">
+      <h5>Example C · closest point (Exercise 11)</h5>
+      <p class="q">Closest point to $\mathbf y=(3,1,5,1)$ in $W=\operatorname{Span}\{\mathbf v_1,\mathbf v_2\}$, $\mathbf v_1=(3,1,-1,1)$, $\mathbf v_2=(1,-1,1,-1)$.</p>
+      <p class="plain">In plain words: “closest point” always means the projection (Best Approximation Theorem).</p>
+      <div class="step">
+      <b class="n">1.</b><div>$\mathbf v_1\cdot\mathbf v_2=3-1-1-1=0$ ✓</div>
+      <b class="n">2.</b><div>$\dfrac{\mathbf y\cdot\mathbf v_1}{\mathbf v_1\cdot\mathbf v_1}=\dfrac{9+1-5+1}{12}=\dfrac12$, $\ \dfrac{\mathbf y\cdot\mathbf v_2}{\mathbf v_2\cdot\mathbf v_2}=\dfrac{3-1+5-1}{4}=\dfrac32$.</div>
+      <b class="n">3.</b><div>$\hat{\mathbf y}=\tfrac12(3,1,-1,1)+\tfrac32(1,-1,1,-1)=(3,-1,1,-1)$.</div>
+      </div>
+      <p class="ans"><strong>Answer:</strong> $(3,-1,1,-1)$.</p>
+    </div>
+    <div class="wx">
+      <h5>Example D · distance to a plane (Exercise 15)</h5>
+      <p class="q">Distance from $\mathbf y=(5,-9,5)$ to the plane spanned by $\mathbf u_1=(-3,-5,1)$, $\mathbf u_2=(-3,2,1)$.</p>
+      <p class="plain">In plain words: project, subtract, take the length.</p>
+      <div class="step">
+      <b class="n">1.</b><div>$\mathbf u_1\cdot\mathbf u_2=9-10+1=0$ ✓</div>
+      <b class="n">2.</b><div>Weights: $\dfrac{-15+45+5}{35}=1$ and $\dfrac{-15-18+5}{14}=-2$. So $\hat{\mathbf y}=\mathbf u_1-2\mathbf u_2=(3,-9,-1)$.</div>
+      <b class="n">3.</b><div>$\mathbf y-\hat{\mathbf y}=(2,0,6)$, length $\sqrt{4+36}=\sqrt{40}=2\sqrt{10}$.</div>
+      </div>
+      <p class="ans"><strong>Answer:</strong> $2\sqrt{10}$.</p>
+    </div>
+    <div class="wx">
+      <h5>Example E · UᵀU vs UUᵀ (Exercise 17)</h5>
+      <p class="q">$U=[\,\mathbf u_1\ \mathbf u_2\,]$ with $\mathbf u_1=(2/3,1/3,2/3)$, $\mathbf u_2=(-2/3,2/3,1/3)$, $\mathbf y=(4,8,1)$. Compute $U^TU$, $UU^T$, and $\operatorname{proj}_W\mathbf y$.</p>
+      <p class="plain">In plain words: orthonormal columns ⇒ $U^TU=I$ (small), but $UU^T$ is the bigger projection matrix, not $I$.</p>
+      <div class="step">
+      <b class="n">1.</b><div>$U^TU=\left[\begin{smallmatrix}1&0\\0&1\end{smallmatrix}\right]=I_2$ (columns are orthonormal).</div>
+      <b class="n">2.</b><div>$UU^T=\tfrac19\left[\begin{smallmatrix}8&-2&2\\-2&5&4\\2&4&5\end{smallmatrix}\right]\neq I_3$.</div>
+      <b class="n">3.</b><div>$\operatorname{proj}_W\mathbf y=UU^T\mathbf y=(\mathbf y\cdot\mathbf u_1)\mathbf u_1+(\mathbf y\cdot\mathbf u_2)\mathbf u_2=6\mathbf u_1+3\mathbf u_2=(2,4,5)$.</div>
+      </div>
+      <p class="ans"><strong>Answer:</strong> $U^TU=I_2$; $UU^T$ as above; projection $(2,4,5)$.</p>
+    </div>
+  </div>
+  <div class="box warn"><span class="tag w">Watch out · True/False traps</span>
+    <ul>
+      <li>The projection formula needs an <strong>orthogonal</strong> basis. Always check the dot products first.</li>
+      <li>"If $\mathbf z\perp\mathbf u_1,\mathbf u_2$ and $W=\operatorname{Span}\{\mathbf u_1,\mathbf u_2\}$, then $\mathbf z\in W^\perp$": <strong>true</strong>.</li>
+      <li>"$\mathbf y-\operatorname{proj}_W\mathbf y$ is orthogonal to $W$": <strong>true</strong>.</li>
+      <li>"$\operatorname{proj}_W\mathbf y$ can depend on the orthogonal basis used": <strong>false</strong>.</li>
+      <li>"If $\mathbf y\in W$, then $\operatorname{proj}_W\mathbf y=\mathbf y$": <strong>true</strong>.</li>
+      <li>"The best approximation to $\mathbf y$ in $W$ is $\mathbf y-\operatorname{proj}_W\mathbf y$": <strong>false</strong>; it's $\operatorname{proj}_W\mathbf y$.</li>
+      <li>"If $\mathbf v$ is in both $W$ and $W^\perp$, $\mathbf v=\mathbf 0$": <strong>true</strong>.</li>
+      <li>"If $\mathbf y=\mathbf z_1+\mathbf z_2$ with $\mathbf z_1\in W$, $\mathbf z_2\in W^\perp$, then $\mathbf z_1=\operatorname{proj}_W\mathbf y$": <strong>true</strong> (uniqueness).</li>
+      <li>"If $U$ ($n\times p$) has orthonormal columns, $UU^T\mathbf x=\mathbf x$ for all $\mathbf x$": <strong>false</strong> (only if square); $UU^T\mathbf y$ is the projection onto Col U.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================ 6.4 ============================ -->
+<section id="s64" class="sec">
+  <header class="sec-head">
+    <span class="sec-num">6.4</span>
+    <div><h2>The Gram–Schmidt Process</h2>
+    <p class="sec-point">Turn any basis into an orthogonal one by subtracting from each vector its projection onto the earlier ones. Normalizing the result and recording the weights gives A = QR.</p></div>
+  </header>
+  <div class="box start"><span class="tag">Start here · plain English</span>
+    <p class="big"><strong>The one idea:</strong> take the vectors one at a time. Keep the first. From each later vector, <strong>subtract its shadow on the vectors you've already kept</strong>. What's left is perpendicular to all of them.</p>
+    <p>Analogy: squaring up a crooked bookshelf. Stand the first board up as it is. Then take the second board and remove whatever part of its lean goes along the first, so it ends up at a right angle. Each new board gets the parts that go along the already-square boards removed.</p>
+    <div class="mth">$$\mathbf v_1=\mathbf x_1,\qquad \mathbf v_2=\mathbf x_2-\frac{\mathbf x_2\cdot\mathbf v_1}{\mathbf v_1\cdot\mathbf v_1}\mathbf v_1,\qquad \mathbf v_3=\mathbf x_3-\frac{\mathbf x_3\cdot\mathbf v_1}{\mathbf v_1\cdot\mathbf v_1}\mathbf v_1-\frac{\mathbf x_3\cdot\mathbf v_2}{\mathbf v_2\cdot\mathbf v_2}\mathbf v_2$$</div>
+    <h4>Tips that save time</h4>
+    <ul>
+      <li>You may <strong>scale</strong> any $\mathbf v_k$ to clear fractions before continuing (e.g. $(3,\tfrac32,\tfrac32)\to(2,1,1)$). Scaling doesn't affect orthogonality.</li>
+      <li>Always project onto the <strong>new</strong> $\mathbf v$'s, not the original $\mathbf x$'s.</li>
+      <li>Check as you go: each new $\mathbf v_k$ should dot to 0 with all earlier ones.</li>
+      <li>Orthonormal basis: normalize <strong>at the end</strong>.</li>
+    </ul>
+    <h4>QR in one sentence</h4>
+    <p>$Q$ = the orthonormal vectors from Gram–Schmidt as columns; $R=Q^TA$ (upper triangular, positive diagonal). Then $A=QR$.</p>
+  </div>
+  <div class="box thm"><span class="tag">Theorem 11 · §6.4 · Gram–Schmidt</span>
+    <p>Given a basis $\{\mathbf x_1,\dots,\mathbf x_p\}$ of a nonzero subspace $W$, define $\mathbf v_1=\mathbf x_1$ and</p>
+    <div class="mth">$$\mathbf v_k=\mathbf x_k-\frac{\mathbf x_k\cdot\mathbf v_1}{\mathbf v_1\cdot\mathbf v_1}\mathbf v_1-\cdots-\frac{\mathbf x_k\cdot\mathbf v_{k-1}}{\mathbf v_{k-1}\cdot\mathbf v_{k-1}}\mathbf v_{k-1}$$</div>
+    <p>Then $\{\mathbf v_1,\dots,\mathbf v_p\}$ is an orthogonal basis for $W$, and $\operatorname{Span}\{\mathbf v_1,\dots,\mathbf v_k\}=\operatorname{Span}\{\mathbf x_1,\dots,\mathbf x_k\}$ for each $k$.</p>
+    <p class="small">Each step is $\mathbf v_{k}=\mathbf x_{k}-\operatorname{proj}_{W_{k-1}}\mathbf x_{k}$. So every nonzero subspace of $\mathbb R^n$ has an orthogonal (and orthonormal) basis.</p>
+  </div>
+  <div class="box thm"><span class="tag">Theorem 12 · §6.4 · QR Factorization</span>
+    <p>If $A$ ($m\times n$) has linearly independent columns, then $A=QR$, where $Q$ is $m\times n$ with orthonormal columns forming a basis of Col A, and $R$ is $n\times n$, upper triangular, invertible, with positive diagonal entries.</p>
+    <p class="small">To find $R$: since $Q^TQ=I$, $R=Q^TA$.</p>
+  </div>
+  <div class="box worked"><span class="tag">Full worked examples · 6.4</span>
+    <div class="wx">
+      <h5>Example A · Gram–Schmidt with two vectors (Exercises 3, 7)</h5>
+      <p class="q">$\mathbf x_1=(2,-5,1)$, $\mathbf x_2=(4,-1,2)$. Orthogonal basis for $W=\operatorname{Span}\{\mathbf x_1,\mathbf x_2\}$, then an orthonormal one.</p>
+      <p class="plain">In plain words: keep $\mathbf x_1$; from $\mathbf x_2$ remove its shadow on $\mathbf x_1$.</p>
+      <div class="step">
+      <b class="n">1.</b><div>$\mathbf v_1=(2,-5,1)$. $\ \mathbf x_2\cdot\mathbf v_1=8+5+2=15$, $\ \mathbf v_1\cdot\mathbf v_1=30$.</div>
+      <b class="n">2.</b><div>$\mathbf v_2=\mathbf x_2-\tfrac{15}{30}\mathbf v_1=(4,-1,2)-(1,-\tfrac52,\tfrac12)=(3,\tfrac32,\tfrac32)$. Scale by $\tfrac23$: $(2,1,1)$.</div>
+      <b class="n">3.</b><div>Check: $(2,-5,1)\cdot(2,1,1)=4-5+1=0$ ✓</div>
+      <b class="n">4.</b><div>Normalize: $\|\mathbf v_1\|=\sqrt{30}$, $\|(2,1,1)\|=\sqrt6$ ⇒ $\{\tfrac1{\sqrt{30}}(2,-5,1),\ \tfrac1{\sqrt6}(2,1,1)\}$.</div>
+      </div>
+      <p class="ans"><strong>Answer:</strong> orthogonal: $\{(2,-5,1),(2,1,1)\}$; orthonormal: as above.</p>
+    </div>
+    <div class="wx">
+      <h5>Example B · three vectors, column space (Exercise 11)</h5>
+      <p class="q">Orthogonal basis for Col A, $A=\left[\begin{smallmatrix}1&2&5\\-1&1&-4\\-1&4&-3\\1&-4&7\\1&2&1\end{smallmatrix}\right]$.</p>
+      <p class="plain">In plain words: same process, three times. Subtract the shadows on every earlier $\mathbf v$.</p>
+      <div class="step">
+      <b class="n">1.</b><div>$\mathbf v_1=\mathbf x_1=(1,-1,-1,1,1)$, $\ \mathbf v_1\cdot\mathbf v_1=5$.</div>
+      <b class="n">2.</b><div>$\mathbf x_2\cdot\mathbf v_1=2-1-4-4+2=-5$ ⇒ $\mathbf v_2=\mathbf x_2+\mathbf v_1=(3,0,3,-3,3)$, $\ \mathbf v_2\cdot\mathbf v_2=36$.</div>
+      <b class="n">3.</b><div>$\mathbf x_3\cdot\mathbf v_1=5+4+3+7+1=20$, $\ \mathbf x_3\cdot\mathbf v_2=15-9-21+3=-12$.</div>
+      <b class="n">4.</b><div>$\mathbf v_3=\mathbf x_3-\tfrac{20}{5}\mathbf v_1+\tfrac{12}{36}\mathbf v_2=(5,-4,-3,7,1)-(4,-4,-4,4,4)+(1,0,1,-1,1)=(2,0,2,2,-2)$.</div>
+      </div>
+      <p class="ans"><strong>Answer:</strong> $\{(1,-1,-1,1,1),\ (3,0,3,-3,3),\ (2,0,2,2,-2)\}$ (you can scale the last two to $(1,0,1,-1,1)$ and $(1,0,1,1,-1)$).</p>
+    </div>
+    <div class="wx">
+      <h5>Example C · QR factorization (Exercise 15)</h5>
+      <p class="q">Find a QR factorization of the matrix $A$ in Example B.</p>
+      <p class="plain">In plain words: normalize the Gram–Schmidt vectors to get $Q$; then $R=Q^TA$.</p>
+      <div class="step">
+      <b class="n">1.</b><div>Lengths: $\sqrt5$, $6$, $4$. So $Q=\left[\begin{smallmatrix}1/\sqrt5&1/2&1/2\\-1/\sqrt5&0&0\\-1/\sqrt5&1/2&1/2\\1/\sqrt5&-1/2&1/2\\1/\sqrt5&1/2&-1/2\end{smallmatrix}\right]$.</div>
+      <b class="n">2.</b><div>$R=Q^TA$: each entry is (column of $Q$)·(column of $A$).</div>
+      <b class="n">3.</b><div>$R=\left[\begin{smallmatrix}\sqrt5&-\sqrt5&4\sqrt5\\0&6&-2\\0&0&4\end{smallmatrix}\right]$ (upper triangular, positive diagonal ✓).</div>
+      </div>
+      <p class="ans"><strong>Answer:</strong> $A=QR$ with $Q$, $R$ as above.</p>
+    </div>
+  </div>
+  <div class="box warn"><span class="tag w">Watch out · True/False traps</span>
+    <ul>
+      <li>"If $\{\mathbf v_1,\mathbf v_2,\mathbf v_3\}$ is an orthogonal basis of $W$, so is $\{\mathbf v_1,\mathbf v_2,c\mathbf v_3\}$": <strong>true</strong> if $c\neq0$.</li>
+      <li>"Gram–Schmidt produces from an independent set an orthogonal set with the same spans at each step": <strong>true</strong> (property (1)).</li>
+      <li>"If $\mathbf x\notin W$, then $\mathbf x-\operatorname{proj}_W\mathbf x\neq\mathbf 0$": <strong>true</strong>.</li>
+      <li>"If $A=QR$ with $Q$ having orthonormal columns, then $R=Q^TA$": <strong>true</strong>.</li>
+      <li>"In $A=QR$, the columns of $Q$ form an orthonormal basis of Col A": <strong>true</strong>.</li>
+      <li>A common error: projecting $\mathbf x_3$ onto $\mathbf x_1,\mathbf x_2$ instead of onto $\mathbf v_1,\mathbf v_2$.</li>
+      <li>QR needs $A$ to have <strong>independent columns</strong>.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================ 6.5 ============================ -->
+<section id="s65" class="sec">
+  <header class="sec-head">
+    <span class="sec-num">6.5</span>
+    <div><h2>Least-Squares Problems</h2>
+    <p class="sec-point">When Ax = b has no solution, find x̂ that makes Ax̂ as close to b as possible. Solve the normal equations AᵀAx̂ = Aᵀb.</p></div>
+  </header>
+  <div class="box start"><span class="tag">Start here · plain English</span>
+    <p class="big"><strong>The one idea:</strong> if $A\mathbf x=\mathbf b$ is inconsistent, $\mathbf b$ isn't in Col A. The best you can do is hit the point of Col A <strong>closest to $\mathbf b$</strong>, which is the projection $\hat{\mathbf b}=\operatorname{proj}_{\operatorname{Col}A}\mathbf b$ (§6.3). A least-squares solution $\hat{\mathbf x}$ is any $\mathbf x$ with $A\hat{\mathbf x}=\hat{\mathbf b}$.</p>
+    <p>Analogy: you can't reach a shelf. The best you can do is stand directly underneath it, the point on the floor closest to it. $\hat{\mathbf b}$ is that spot, and $\hat{\mathbf x}$ is the set of directions that gets you there.</p>
+    <h4>The recipe: normal equations</h4>
+    <div class="step">
+      <b class="n">1.</b><div>Compute $A^TA$ (square, $n\times n$) and $A^T\mathbf b$.</div>
+      <b class="n">2.</b><div>Solve $A^TA\,\hat{\mathbf x}=A^T\mathbf b$. (For $2\times2$, use the inverse formula; otherwise row reduce.)</div>
+      <b class="n">3.</b><div>(If asked) least-squares error $=\|\mathbf b-A\hat{\mathbf x}\|$.</div>
+    </div>
+    <p><strong>Why it works:</strong> the leftover $\mathbf b-A\hat{\mathbf x}$ must be perpendicular to Col A, i.e. to every column of $A$: $A^T(\mathbf b-A\hat{\mathbf x})=\mathbf 0$. Rearranged, that's the normal equations.</p>
+    <h4>Shortcuts</h4>
+    <ul>
+      <li><strong>Orthogonal columns:</strong> skip the normal equations. $\hat{\mathbf b}=\sum\frac{\mathbf b\cdot\mathbf a_j}{\mathbf a_j\cdot\mathbf a_j}\mathbf a_j$, and those weights are $\hat{\mathbf x}$.</li>
+      <li><strong>Have $A=QR$:</strong> solve $R\hat{\mathbf x}=Q^T\mathbf b$ by back-substitution.</li>
+    </ul>
+  </div>
+  <div class="box def"><span class="tag">Definition</span>
+    <p>For $A$ ($m\times n$) and $\mathbf b\in\mathbb R^m$, a <span class="term">least-squares solution</span> of $A\mathbf x=\mathbf b$ is $\hat{\mathbf x}\in\mathbb R^n$ with $\|\mathbf b-A\hat{\mathbf x}\|\le\|\mathbf b-A\mathbf x\|$ for all $\mathbf x\in\mathbb R^n$. The number $\|\mathbf b-A\hat{\mathbf x}\|$ is the <span class="term">least-squares error</span>.</p>
+  </div>
+  <div class="box thm"><span class="tag">Theorem 13 · §6.5</span>
+    <p>The least-squares solutions of $A\mathbf x=\mathbf b$ are exactly the solutions of the <span class="term">normal equations</span> $A^TA\mathbf x=A^T\mathbf b$ (which are always consistent).</p>
+  </div>
+  <div class="box thm"><span class="tag">Theorem 14 · §6.5</span>
+    <p>For $m\times n$ $A$, these are equivalent: (a) $A\mathbf x=\mathbf b$ has a <strong>unique</strong> least-squares solution for each $\mathbf b$; (b) the columns of $A$ are linearly independent; (c) $A^TA$ is invertible. Then $\hat{\mathbf x}=(A^TA)^{-1}A^T\mathbf b$.</p>
+    <p class="small">If the columns are dependent, there are infinitely many least-squares solutions (free variables in the normal equations), but $\hat{\mathbf b}=A\hat{\mathbf x}$ is still unique.</p>
+  </div>
+  <div class="box thm"><span class="tag">Theorem 15 · §6.5</span>
+    <p>If $A$ has independent columns and $A=QR$, the unique least-squares solution is $\hat{\mathbf x}=R^{-1}Q^T\mathbf b$; in practice solve $R\hat{\mathbf x}=Q^T\mathbf b$.</p>
+  </div>
+  <div class="box worked"><span class="tag">Full worked examples · 6.5</span>
+    <div class="wx">
+      <h5>Example A · normal equations (Exercise 3)</h5>
+      <p class="q">Least-squares solution of $A\mathbf x=\mathbf b$, $A=\left[\begin{smallmatrix}1&-2\\-1&2\\0&3\\2&5\end{smallmatrix}\right]$, $\mathbf b=(3,1,-4,2)$.</p>
+      <p class="plain">In plain words: multiply both sides by $A^T$ to get a small square system, then solve it.</p>
+      <div class="step">
+      <b class="n">1.</b><div>$A^TA=\left[\begin{smallmatrix}1+1+0+4&-2-2+0+10\\ \cdot&4+4+9+25\end{smallmatrix}\right]=\left[\begin{smallmatrix}6&6\\6&42\end{smallmatrix}\right]$.</div>
+      <b class="n">2.</b><div>$A^T\mathbf b=(3-1+0+4,\ -6+2-12+10)=(6,-6)$.</div>
+      <b class="n">3.</b><div>Solve $\left[\begin{smallmatrix}6&6\\6&42\end{smallmatrix}\right]\hat{\mathbf x}=\left[\begin{smallmatrix}6\\-6\end{smallmatrix}\right]$: $\det=252-36=216$, $\hat{\mathbf x}=\tfrac1{216}\left[\begin{smallmatrix}42&-6\\-6&6\end{smallmatrix}\right]\left[\begin{smallmatrix}6\\-6\end{smallmatrix}\right]=\tfrac1{216}\left[\begin{smallmatrix}288\\-72\end{smallmatrix}\right]$.</div>
+      </div>
+      <p class="ans"><strong>Answer:</strong> $\hat{\mathbf x}=(4/3,\ -1/3)$.</p>
+    </div>
+    <div class="wx">
+      <h5>Example B · infinitely many least-squares solutions (Exercise 5)</h5>
+      <p class="q">Describe all least-squares solutions: $A=\left[\begin{smallmatrix}1&1&0\\1&1&0\\1&0&1\\1&0&1\end{smallmatrix}\right]$, $\mathbf b=(1,3,8,2)$.</p>
+      <p class="plain">In plain words: column 1 = column 2 + column 3, so the columns are dependent. Expect a free variable in the normal equations.</p>
+      <div class="step">
+      <b class="n">1.</b><div>$A^TA=\left[\begin{smallmatrix}4&2&2\\2&2&0\\2&0&2\end{smallmatrix}\right]$, $A^T\mathbf b=(14,4,10)$.</div>
+      <b class="n">2.</b><div>Row reduce $[\,A^TA\mid A^T\mathbf b\,]\sim\left[\begin{smallmatrix}1&0&1&5\\0&1&-1&-3\\0&0&0&0\end{smallmatrix}\right]$.</div>
+      <b class="n">3.</b><div>$x_1=5-x_3$, $x_2=-3+x_3$, $x_3$ free.</div>
+      </div>
+      <p class="ans"><strong>Answer:</strong> $\hat{\mathbf x}=(5,-3,0)+x_3(-1,1,1)$.</p>
+    </div>
+    <div class="wx">
+      <h5>Example C · orthogonal columns shortcut (Exercise 11)</h5>
+      <p class="q">$A=\left[\begin{smallmatrix}4&0&1\\1&-5&1\\6&1&0\\1&-1&-5\end{smallmatrix}\right]$, $\mathbf b=(9,0,0,0)$. Find $\hat{\mathbf b}=\operatorname{proj}_{\operatorname{Col}A}\mathbf b$ and $\hat{\mathbf x}$.</p>
+      <p class="plain">In plain words: the columns are orthogonal, so project onto each column separately. The weights you use are the least-squares solution.</p>
+      <div class="step">
+      <b class="n">1.</b><div>Check: $\mathbf a_1\cdot\mathbf a_2=0-5+6-1=0$, $\mathbf a_1\cdot\mathbf a_3=4+1+0-5=0$, $\mathbf a_2\cdot\mathbf a_3=0-5+0+5=0$ ✓</div>
+      <b class="n">2.</b><div>Weights: $\dfrac{\mathbf b\cdot\mathbf a_1}{\mathbf a_1\cdot\mathbf a_1}=\dfrac{36}{54}=\dfrac23$, $\ \dfrac{0}{27}=0$, $\ \dfrac{9}{27}=\dfrac13$.</div>
+      <b class="n">3.</b><div>$\hat{\mathbf b}=\tfrac23\mathbf a_1+\tfrac13\mathbf a_3=(3,1,4,-1)$.</div>
+      </div>
+      <p class="ans"><strong>Answer:</strong> $\hat{\mathbf b}=(3,1,4,-1)$, $\hat{\mathbf x}=(2/3,\ 0,\ 1/3)$.</p>
+    </div>
+    <div class="wx">
+      <h5>Example D · which candidate could be a least-squares solution? (Exercise 13)</h5>
+      <p class="q">$A=\left[\begin{smallmatrix}3&4\\-2&1\\3&4\end{smallmatrix}\right]$, $\mathbf b=(11,-9,5)$, $\mathbf u=(5,-1)$, $\mathbf v=(5,-2)$. Compare $A\mathbf u$, $A\mathbf v$ with $\mathbf b$. Could $\mathbf u$ be a least-squares solution?</p>
+      <p class="plain">In plain words: a least-squares solution gives the <em>smallest</em> error. If another vector does better, the first can't be the answer.</p>
+      <div class="step">
+      <b class="n">1.</b><div>$A\mathbf u=(11,-11,11)$, so $\|\mathbf b-A\mathbf u\|^2=0^2+2^2+(-6)^2=40$.</div>
+      <b class="n">2.</b><div>$A\mathbf v=(7,-12,7)$, so $\|\mathbf b-A\mathbf v\|^2=4^2+3^2+(-2)^2=29$.</div>
+      <b class="n">3.</b><div>$\mathbf v$ gives a smaller error than $\mathbf u$.</div>
+      </div>
+      <p class="ans"><strong>Answer:</strong> $\mathbf u$ cannot be a least-squares solution ($\mathbf v$ is closer). ($\mathbf v$ might be; you'd need to check.)</p>
+    </div>
+  </div>
+  <div class="box warn"><span class="tag w">Watch out · True/False traps</span>
+    <ul>
+      <li>"The general least-squares problem is to find $\mathbf x$ making $A\mathbf x$ as close as possible to $\mathbf b$": <strong>true</strong>.</li>
+      <li>"A least-squares solution is an $\hat{\mathbf x}$ with $A\hat{\mathbf x}=\hat{\mathbf b}$, the projection of $\mathbf b$ onto Col A": <strong>true</strong>.</li>
+      <li>"A least-squares solution makes $\|\mathbf b-A\mathbf x\|\le\|\mathbf b-A\hat{\mathbf x}\|$": <strong>false</strong>: the inequality goes the other way.</li>
+      <li>"Any solution of $A^TA\mathbf x=A^T\mathbf b$ is a least-squares solution": <strong>true</strong> (Theorem 13).</li>
+      <li>"If the columns of $A$ are independent, the least-squares solution is unique": <strong>true</strong> (Theorem 14).</li>
+      <li>"If $\mathbf b\in\operatorname{Col}A$, every solution of $A\mathbf x=\mathbf b$ is a least-squares solution": <strong>true</strong> (error 0).</li>
+      <li>"The least-squares solution is the point in Col A closest to $\mathbf b$": <strong>false</strong>: that point is $\hat{\mathbf b}=A\hat{\mathbf x}$; $\hat{\mathbf x}$ is a list of weights in $\mathbb R^n$.</li>
+      <li>"A least-squares solution is a list of weights that builds $\hat{\mathbf b}$ from the columns of $A$": <strong>true</strong>.</li>
+      <li>$\hat{\mathbf x}=(A^TA)^{-1}A^T\mathbf b$ only when $A^TA$ is invertible (independent columns).</li>
+      <li>If $\mathbf b$ is orthogonal to the columns of $A$, then $\hat{\mathbf b}=\mathbf 0$ and $\hat{\mathbf x}$ solves $A\mathbf x=\mathbf 0$.</li>
+    </ul>
+  </div>
+</section>
+
 <!-- ============================ MAP ============================ -->
 <section id="map" class="sec">
   <header class="sec-head">
@@ -3266,8 +3860,27 @@ window.MathJax = {
     <li><span>Thm 6 · §5.3</span><div>$n$ distinct eigenvalues ⇒ diagonalizable.</div></li>
     <li><span>Thm 7 · §5.3</span><div>Eigenspace dim ≤ multiplicity; diagonalizable iff dims add to $n$.</div></li>
     <li><span>Thm 8 · §5.4</span><div>If $A=PDP^{-1}$, then $D$ is the matrix of $\mathbf x\mapsto A\mathbf x$ in the basis of columns of $P$.</div></li>
+    <li><span>Thm 9 · §5.5</span><div>Real $2\times2$ $A$ with eigenvalue $a-bi$, eigenvector $\mathbf v$: $A=PCP^{-1}$, $P=[\operatorname{Re}\mathbf v\ \operatorname{Im}\mathbf v]$, $C=\left[\begin{smallmatrix}a&-b\\b&a\end{smallmatrix}\right]$.</div></li>
   </ol>
-  <p class="foot">Source: Lay, Lay &amp; McDonald, <em>Linear Algebra and Its Applications</em>, Math 54 second custom edition (Pearson, 2021), Chapter 1 (§1.1–1.5, 1.7–1.9), Chapter 2 (§2.1–2.3), Chapter 3 (§3.1–3.3, excluding Cramer's Rule) and Chapter 4 (§4.1–4.6) and Chapter 5 (§5.1–5.4). Theorem, example, and practice-problem numbers follow the book.</p>
+  <p class="small" style="margin-top:14px"><strong>Chapter 6 restarts the numbering at 1.</strong></p>
+  <ol class="thm-index">
+    <li><span>Thm 1 · §6.1</span><div>Inner product properties: symmetric, linear in each slot, $\mathbf u\cdot\mathbf u\ge0$ with equality only for $\mathbf 0$.</div></li>
+    <li><span>Thm 2 · §6.1</span><div>Pythagorean Theorem: $\mathbf u\perp\mathbf v$ iff $\|\mathbf u+\mathbf v\|^2=\|\mathbf u\|^2+\|\mathbf v\|^2$.</div></li>
+    <li><span>Thm 3 · §6.1</span><div>$(\operatorname{Row}A)^\perp=\operatorname{Nul}A$, $(\operatorname{Col}A)^\perp=\operatorname{Nul}A^T$.</div></li>
+    <li><span>Thm 4 · §6.2</span><div>An orthogonal set of nonzero vectors is linearly independent.</div></li>
+    <li><span>Thm 5 · §6.2</span><div>Orthogonal basis weights: $c_j=\frac{\mathbf y\cdot\mathbf u_j}{\mathbf u_j\cdot\mathbf u_j}$.</div></li>
+    <li><span>Thm 6 · §6.2</span><div>$U$ has orthonormal columns iff $U^TU=I$.</div></li>
+    <li><span>Thm 7 · §6.2</span><div>Orthonormal columns preserve lengths, dot products and orthogonality.</div></li>
+    <li><span>Thm 8 · §6.3</span><div>Orthogonal Decomposition: $\mathbf y=\hat{\mathbf y}+\mathbf z$ uniquely, $\hat{\mathbf y}\in W$, $\mathbf z\in W^\perp$.</div></li>
+    <li><span>Thm 9 · §6.3</span><div>Best Approximation: $\operatorname{proj}_W\mathbf y$ is the closest point of $W$ to $\mathbf y$.</div></li>
+    <li><span>Thm 10 · §6.3</span><div>Orthonormal basis: $\operatorname{proj}_W\mathbf y=\sum(\mathbf y\cdot\mathbf u_j)\mathbf u_j=UU^T\mathbf y$.</div></li>
+    <li><span>Thm 11 · §6.4</span><div>Gram–Schmidt turns a basis into an orthogonal basis with the same nested spans.</div></li>
+    <li><span>Thm 12 · §6.4</span><div>QR: independent columns ⇒ $A=QR$, $Q$ orthonormal columns, $R$ upper triangular invertible, positive diagonal.</div></li>
+    <li><span>Thm 13 · §6.5</span><div>Least-squares solutions = solutions of $A^TA\mathbf x=A^T\mathbf b$.</div></li>
+    <li><span>Thm 14 · §6.5</span><div>Unique LS solution for every $\mathbf b$ ⇔ independent columns ⇔ $A^TA$ invertible; then $\hat{\mathbf x}=(A^TA)^{-1}A^T\mathbf b$.</div></li>
+    <li><span>Thm 15 · §6.5</span><div>With $A=QR$: $\hat{\mathbf x}=R^{-1}Q^T\mathbf b$ (solve $R\hat{\mathbf x}=Q^T\mathbf b$).</div></li>
+  </ol>
+  <p class="foot">Source: Lay, Lay &amp; McDonald, <em>Linear Algebra and Its Applications</em>, Math 54 second custom edition (Pearson, 2021), Chapter 1 (§1.1–1.5, 1.7–1.9), Chapter 2 (§2.1–2.3), Chapter 3 (§3.1–3.3, excluding Cramer's Rule) and Chapter 4 (§4.1–4.6), Chapter 5 (§5.1–5.5) and Chapter 6 (§6.1–6.5). Theorem, example, and practice-problem numbers follow the book.</p>
 </section>
 </main>
 </div>

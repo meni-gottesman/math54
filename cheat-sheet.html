@@ -52,11 +52,11 @@ ol,ul{margin:0;padding-left:18px} li{margin:0 0 2px}
 
 <div class="page">
 <header class="hero">
-  <p class="eyebrow">Math 54 · Lay · §1.1–1.9 (skipping 1.6) · §2.1–2.3 · §3.1–3.3 · §4.1–4.6 · §5.1–5.4</p>
+  <p class="eyebrow">Math 54 · Lay · §1.1–1.9 (skipping 1.6) · §2.1–2.3 · §3.1–3.3 · §4.1–4.6 · §5.1–5.5 · §6.1–6.5</p>
   <h1>Linear Equations through Bases</h1>
   <p class="lede">One rule per row, one example per rule. Theorem numbers are the book's — each chapter restarts at 1, so theorems are tagged with their section. Everything reduces to row-reducing $[\,A\ \ \mathbf b\,]$ and counting pivots.</p>
   <nav class="jump">
-    <a href="#s11"><b>1.1</b>Systems</a><a href="#s12"><b>1.2</b>Row reduction</a><a href="#s13"><b>1.3</b>Vectors &amp; Span</a><a href="#s14"><b>1.4</b>$A\mathbf x=\mathbf b$</a><a href="#s15"><b>1.5</b>Solution sets</a><a class="skip" href="#s17"><b>1.6</b><span>Applications</span></a><a href="#s17"><b>1.7</b>Independence</a><a href="#s18"><b>1.8</b>Linear maps</a><a href="#s19"><b>1.9</b>Standard matrix</a><a href="#s21"><b>2.1</b>Matrix ops</a><a href="#s22"><b>2.2</b>Inverse</a><a href="#s23"><b>2.3</b>IMT</a><a href="#s31"><b>3.1</b>Determinants</a><a href="#s32"><b>3.2</b>det properties</a><a href="#s33"><b>3.3</b>Volume</a><a href="#s41"><b>4.1</b>Subspaces</a><a href="#s42"><b>4.2</b>Nul, Col, Row</a><a href="#s43"><b>4.3</b>Bases</a><a href="#s44"><b>4.4</b>Coordinates</a><a href="#s45"><b>4.5</b>Dimension</a><a href="#s46"><b>4.6</b>Change of basis</a><a href="#s51"><b>5.1</b>Eigenvectors</a><a href="#s52"><b>5.2</b>Char. equation</a><a href="#s53"><b>5.3</b>Diagonalize</a><a href="#s54"><b>5.4</b>B-matrix</a><a href="#map"><b>map</b>Dictionary</a>
+    <a href="#s11"><b>1.1</b>Systems</a><a href="#s12"><b>1.2</b>Row reduction</a><a href="#s13"><b>1.3</b>Vectors &amp; Span</a><a href="#s14"><b>1.4</b>$A\mathbf x=\mathbf b$</a><a href="#s15"><b>1.5</b>Solution sets</a><a class="skip" href="#s17"><b>1.6</b><span>Applications</span></a><a href="#s17"><b>1.7</b>Independence</a><a href="#s18"><b>1.8</b>Linear maps</a><a href="#s19"><b>1.9</b>Standard matrix</a><a href="#s21"><b>2.1</b>Matrix ops</a><a href="#s22"><b>2.2</b>Inverse</a><a href="#s23"><b>2.3</b>IMT</a><a href="#s31"><b>3.1</b>Determinants</a><a href="#s32"><b>3.2</b>det properties</a><a href="#s33"><b>3.3</b>Volume</a><a href="#s41"><b>4.1</b>Subspaces</a><a href="#s42"><b>4.2</b>Nul, Col, Row</a><a href="#s43"><b>4.3</b>Bases</a><a href="#s44"><b>4.4</b>Coordinates</a><a href="#s45"><b>4.5</b>Dimension</a><a href="#s46"><b>4.6</b>Change of basis</a><a href="#s51"><b>5.1</b>Eigenvectors</a><a href="#s52"><b>5.2</b>Char. equation</a><a href="#s53"><b>5.3</b>Diagonalize</a><a href="#s54"><b>5.4</b>B-matrix</a><a href="#s55"><b>5.5</b>Complex λ</a><a href="#s61"><b>6.1</b>Dot product</a><a href="#s62"><b>6.2</b>Orthogonal sets</a><a href="#s63"><b>6.3</b>Projections</a><a href="#s64"><b>6.4</b>Gram–Schmidt</a><a href="#s65"><b>6.5</b>Least squares</a><a href="#map"><b>map</b>Dictionary</a>
   </nav>
 </header>
 
@@ -395,6 +395,78 @@ ol,ul{margin:0;padding-left:18px} li{margin:0 0 2px}
   </div>
 </section>
 
+<!-- 5.5 -->
+<section id="s55" class="sec">
+  <div class="sec-head"><span class="sec-num">5.5</span><h2>Complex Eigenvalues</h2></div>
+  <div class="rows">
+    <div class="hdr"><span>Know</span><span>Example</span></div>
+    <div class="row"><div class="k"><b>Eigenvalues:</b> $\lambda^2-(\operatorname{tr}A)\lambda+\det A=0$; negative discriminant ⇒ $\lambda=a\pm bi$. Real $A$ ⇒ conjugate pairs; eigenvector of $\bar\lambda$ is $\bar{\mathbf v}$.</div><div class="e">$\left[\begin{smallmatrix}1&5\\-2&3\end{smallmatrix}\right]$: $\lambda^2-4\lambda+13$ ⇒ $\lambda=2\pm3i$.</div></div>
+    <div class="row"><div class="k"><b>Eigenvector:</b> use <b>one row</b> of $A-\lambda I$. From row $[\,p\ \ q\,]$: $\mathbf v=(-q,\ p)$.</div><div class="e">$\lambda=2-3i$: row 2 $[-2\ \ 1+3i]$ ⇒ $\mathbf v=(1+3i,\ 2)$.</div></div>
+    <div class="row"><div class="k"><b>Rotation-scaling</b> $C=\left[\begin{smallmatrix}a&-b\\b&a\end{smallmatrix}\right]$: $r=\sqrt{a^2+b^2}=|\lambda|$, $\varphi$ = angle of point $(a,b)$.</div><div class="e">$\left[\begin{smallmatrix}3&3\\-3&3\end{smallmatrix}\right]$: $a=3,b=-3$ ⇒ $r=3\sqrt2$, $\varphi=-\pi/4$.</div></div>
+    <div class="row"><div class="k"><span class="tag">Thm 9 · 5.5</span>$\lambda=a-bi$, eigenvector $\mathbf v$ ⇒ $A=PCP^{-1}$, $P=[\operatorname{Re}\mathbf v\ \operatorname{Im}\mathbf v]$.</div><div class="e">$\left[\begin{smallmatrix}1&-2\\1&3\end{smallmatrix}\right]$, $\lambda=2-i$, $\mathbf v=(-1-i,1)$ ⇒ $P=\left[\begin{smallmatrix}-1&-1\\1&0\end{smallmatrix}\right]$, $C=\left[\begin{smallmatrix}2&-1\\1&2\end{smallmatrix}\right]$.</div></div>
+    <div class="row warn"><div class="k"><span class="tag w">Watch</span>Use $a-bi$ (minus) with $C$'s $-b$ in the top right. $A^k\mathbf x$ moves on an ellipse ($r=1$) or spirals ($r\ne1$), <b>not</b> always a circle.</div><div class="e">Two non-real eigenvalues ⇒ no real eigenvectors.</div></div>
+  </div>
+</section>
+
+<!-- 6.1 -->
+<section id="s61" class="sec">
+  <div class="sec-head"><span class="sec-num">6.1</span><h2>Inner Product, Length, Orthogonality</h2></div>
+  <div class="rows">
+    <div class="hdr"><span>Know</span><span>Example</span></div>
+    <div class="row"><div class="k">$\mathbf u\cdot\mathbf v=\mathbf u^T\mathbf v=\sum u_iv_i$. $\|\mathbf v\|=\sqrt{\mathbf v\cdot\mathbf v}$. Unit vector $\mathbf v/\|\mathbf v\|$. $\operatorname{dist}(\mathbf u,\mathbf v)=\|\mathbf u-\mathbf v\|$.</div><div class="e">$(-30,40)$: length 50 ⇒ unit $(-3/5,4/5)$. dist$((10,-3),(-1,-5))=\sqrt{121+4}=5\sqrt5$.</div></div>
+    <div class="row"><div class="k"><b>Orthogonal:</b> $\mathbf u\cdot\mathbf v=0$. <span class="tag">Thm 2 · 6.1</span>Pythagoras: $\mathbf u\perp\mathbf v$ ⇔ $\|\mathbf u+\mathbf v\|^2=\|\mathbf u\|^2+\|\mathbf v\|^2$.</div><div class="e">$(3,2,-5,0)\cdot(-4,1,-2,6)=-12+2+10=0$ ✓</div></div>
+    <div class="row"><div class="k"><b>$W^\perp$</b> = all vectors ⟂ to every vector of $W$ (enough: ⟂ to a spanning set). Subspace; $\dim W+\dim W^\perp=n$. <span class="tag">Thm 3 · 6.1</span>$(\operatorname{Row}A)^\perp=\operatorname{Nul}A$, $(\operatorname{Col}A)^\perp=\operatorname{Nul}A^T$.</div><div class="e">$W=\operatorname{Span}\{(1,0,1),(0,1,1)\}$: rows of a matrix, Nul ⇒ $W^\perp=\operatorname{Span}\{(-1,-1,1)\}$.</div></div>
+    <div class="row warn"><div class="k"><span class="tag w">Watch</span>$\mathbf v\cdot\mathbf v=\|\mathbf v\|^2$ (squared). $\|c\mathbf v\|=|c|\|\mathbf v\|$. Nul A ⟂ Row A (not Col A).</div><div class="e">$\mathbf x\in W\cap W^\perp$ ⇒ $\mathbf x=\mathbf 0$.</div></div>
+  </div>
+</section>
+
+<!-- 6.2 -->
+<section id="s62" class="sec">
+  <div class="sec-head"><span class="sec-num">6.2</span><h2>Orthogonal Sets</h2></div>
+  <div class="rows">
+    <div class="hdr"><span>Know</span><span>Example</span></div>
+    <div class="row"><div class="k"><span class="tag">Thm 4 · 6.2</span>Orthogonal set of <b>nonzero</b> vectors is independent. <span class="tag">Thm 5 · 6.2</span>Weights in an orthogonal basis: $c_j=\dfrac{\mathbf y\cdot\mathbf u_j}{\mathbf u_j\cdot\mathbf u_j}$.</div><div class="e">$\mathbf u_1=(2,-3),\mathbf u_2=(6,4),\mathbf x=(9,-7)$: $c_1=39/13=3$, $c_2=26/52=1/2$.</div></div>
+    <div class="row"><div class="k"><b>Projection onto a line:</b> $\hat{\mathbf y}=\dfrac{\mathbf y\cdot\mathbf u}{\mathbf u\cdot\mathbf u}\mathbf u$; $\mathbf z=\mathbf y-\hat{\mathbf y}\perp\mathbf u$; distance to line $=\|\mathbf y-\hat{\mathbf y}\|$.</div><div class="e">$\mathbf y=(3,1),\mathbf u=(8,6)$: $\hat{\mathbf y}=\tfrac{30}{100}\mathbf u=(12/5,9/5)$, $\mathbf y-\hat{\mathbf y}=(3/5,-4/5)$, dist $1$.</div></div>
+    <div class="row"><div class="k"><b>Orthonormal</b> = orthogonal + unit length. <span class="tag">Thm 6 · 6.2</span>orthonormal columns ⇔ $U^TU=I$. <span class="tag">Thm 7 · 6.2</span>$\|U\mathbf x\|=\|\mathbf x\|$, $(U\mathbf x)\cdot(U\mathbf y)=\mathbf x\cdot\mathbf y$.</div><div class="e"><b>Orthogonal matrix:</b> square, $U^{-1}=U^T$, rows orthonormal too.</div></div>
+    <div class="row warn"><div class="k"><span class="tag w">Watch</span>Orthogonal ≠ orthonormal (need unit length). Orthonormal columns but not square ⇒ <b>not</b> an orthogonal matrix, and $UU^T\ne I$.</div><div class="e">Scaling keeps orthogonality. proj onto $\mathbf u$ = proj onto $c\mathbf u$.</div></div>
+  </div>
+</section>
+
+<!-- 6.3 -->
+<section id="s63" class="sec">
+  <div class="sec-head"><span class="sec-num">6.3</span><h2>Orthogonal Projections</h2></div>
+  <div class="rows">
+    <div class="hdr"><span>Know</span><span>Example</span></div>
+    <div class="row"><div class="k"><span class="tag">Thm 8 · 6.3</span>$\mathbf y=\hat{\mathbf y}+\mathbf z$ uniquely, $\hat{\mathbf y}\in W$, $\mathbf z\in W^\perp$. With an <b>orthogonal</b> basis: $\hat{\mathbf y}=\sum\dfrac{\mathbf y\cdot\mathbf u_j}{\mathbf u_j\cdot\mathbf u_j}\mathbf u_j$.</div><div class="e">$\mathbf u_1=(1,3,-2),\mathbf u_2=(5,1,4),\mathbf y=(1,3,5)$: weights $0,\tfrac23$ ⇒ $\hat{\mathbf y}=(\tfrac{10}3,\tfrac23,\tfrac83)$, $\mathbf z=(-\tfrac73,\tfrac73,\tfrac73)$.</div></div>
+    <div class="row"><div class="k"><span class="tag">Thm 9 · 6.3</span><b>Best approximation:</b> $\hat{\mathbf y}$ is the closest point of $W$ to $\mathbf y$; distance $=\|\mathbf y-\hat{\mathbf y}\|$.</div><div class="e">$\mathbf y=(5,-9,5)$, $\mathbf u_1=(-3,-5,1),\mathbf u_2=(-3,2,1)$: $\hat{\mathbf y}=\mathbf u_1-2\mathbf u_2=(3,-9,-1)$, dist $\|(2,0,6)\|=2\sqrt{10}$.</div></div>
+    <div class="row"><div class="k"><span class="tag">Thm 10 · 6.3</span>Orthonormal basis: $\operatorname{proj}_W\mathbf y=\sum(\mathbf y\cdot\mathbf u_j)\mathbf u_j=UU^T\mathbf y$.</div><div class="e">$\mathbf u_1=\tfrac13(2,1,2),\mathbf u_2=\tfrac13(-2,2,1)$, $\mathbf y=(4,8,1)$: $6\mathbf u_1+3\mathbf u_2=(2,4,5)$.</div></div>
+    <div class="row warn"><div class="k"><span class="tag w">Watch</span>Check the basis is orthogonal <b>before</b> using the formula. Best approximation is $\hat{\mathbf y}$, not $\mathbf y-\hat{\mathbf y}$. $\mathbf y\in W$ ⇒ proj $=\mathbf y$.</div><div class="e">$\hat{\mathbf y}$ doesn't depend on which orthogonal basis you pick.</div></div>
+  </div>
+</section>
+
+<!-- 6.4 -->
+<section id="s64" class="sec">
+  <div class="sec-head"><span class="sec-num">6.4</span><h2>Gram–Schmidt and QR</h2></div>
+  <div class="rows">
+    <div class="hdr"><span>Know</span><span>Example</span></div>
+    <div class="row"><div class="k"><span class="tag">Thm 11 · 6.4</span>$\mathbf v_1=\mathbf x_1$, $\mathbf v_k=\mathbf x_k-\sum_{j&lt;k}\dfrac{\mathbf x_k\cdot\mathbf v_j}{\mathbf v_j\cdot\mathbf v_j}\mathbf v_j$. Same spans at each step. Scale freely; normalize at the end.</div><div class="e">$\mathbf x_1=(2,-5,1),\mathbf x_2=(4,-1,2)$: $\mathbf v_2=\mathbf x_2-\tfrac{15}{30}\mathbf x_1=(3,\tfrac32,\tfrac32)\to(2,1,1)$.</div></div>
+    <div class="row"><div class="k"><span class="tag">Thm 12 · 6.4</span>Independent columns ⇒ $A=QR$: $Q$ = normalized Gram–Schmidt vectors, $R=Q^TA$ upper triangular, positive diagonal.</div><div class="e">Ex. 11/15: $\mathbf v$'s $(1,-1,-1,1,1),(3,0,3,-3,3),(2,0,2,2,-2)$; $R=\left[\begin{smallmatrix}\sqrt5&-\sqrt5&4\sqrt5\\0&6&-2\\0&0&4\end{smallmatrix}\right]$.</div></div>
+    <div class="row warn"><div class="k"><span class="tag w">Watch</span>Project onto the <b>new</b> $\mathbf v$'s, not the old $\mathbf x$'s. Check each new $\mathbf v_k$ dots to 0 with earlier ones.</div><div class="e">QR requires independent columns.</div></div>
+  </div>
+</section>
+
+<!-- 6.5 -->
+<section id="s65" class="sec">
+  <div class="sec-head"><span class="sec-num">6.5</span><h2>Least Squares</h2></div>
+  <div class="rows">
+    <div class="hdr"><span>Know</span><span>Example</span></div>
+    <div class="row"><div class="k">$\hat{\mathbf x}$ minimizes $\|\mathbf b-A\mathbf x\|$; $A\hat{\mathbf x}=\hat{\mathbf b}=\operatorname{proj}_{\operatorname{Col}A}\mathbf b$. <span class="tag">Thm 13 · 6.5</span>LS solutions = solutions of $A^TA\mathbf x=A^T\mathbf b$. Error $\|\mathbf b-A\hat{\mathbf x}\|$.</div><div class="e">$A=\left[\begin{smallmatrix}1&-2\\-1&2\\0&3\\2&5\end{smallmatrix}\right],\mathbf b=(3,1,-4,2)$: $A^TA=\left[\begin{smallmatrix}6&6\\6&42\end{smallmatrix}\right]$, $A^T\mathbf b=(6,-6)$ ⇒ $\hat{\mathbf x}=(\tfrac43,-\tfrac13)$.</div></div>
+    <div class="row"><div class="k"><span class="tag">Thm 14 · 6.5</span>Unique LS for every $\mathbf b$ ⇔ independent columns ⇔ $A^TA$ invertible; $\hat{\mathbf x}=(A^TA)^{-1}A^T\mathbf b$. Dependent columns ⇒ free variable, infinitely many.</div><div class="e">Ex. 5: $[A^TA\mid A^T\mathbf b]\sim\left[\begin{smallmatrix}1&0&1&5\\0&1&-1&-3\\0&0&0&0\end{smallmatrix}\right]$ ⇒ $\hat{\mathbf x}=(5,-3,0)+x_3(-1,1,1)$.</div></div>
+    <div class="row"><div class="k"><b>Orthogonal columns:</b> $\hat x_j=\dfrac{\mathbf b\cdot\mathbf a_j}{\mathbf a_j\cdot\mathbf a_j}$ directly. <span class="tag">Thm 15 · 6.5</span>$A=QR$ ⇒ solve $R\hat{\mathbf x}=Q^T\mathbf b$.</div><div class="e">Ex. 11: $\mathbf b=(9,0,0,0)$, weights $\tfrac{36}{54},\tfrac0{27},\tfrac9{27}$ ⇒ $\hat{\mathbf x}=(\tfrac23,0,\tfrac13)$, $\hat{\mathbf b}=(3,1,4,-1)$.</div></div>
+    <div class="row warn"><div class="k"><span class="tag w">Watch</span>$\hat{\mathbf x}$ is a list of weights in $\mathbb R^n$; the closest point is $A\hat{\mathbf x}$. $\|\mathbf b-A\hat{\mathbf x}\|\le\|\mathbf b-A\mathbf x\|$ (not ≥).</div><div class="e">Candidate test: compare errors; if another $\mathbf x$ gives smaller $\|\mathbf b-A\mathbf x\|$, the candidate isn't LS.</div></div>
+  </div>
+</section>
+
 <!-- MAP -->
 <section id="map" class="sec">
   <div class="sec-head"><span class="sec-num">map</span><h2>Master dictionary ($A$ is $m\times n$, $T(\mathbf x)=A\mathbf x$)</h2></div>
@@ -413,7 +485,7 @@ ol,ul{margin:0;padding-left:18px} li{margin:0 0 2px}
   <p style="margin-top:10px"><b>If $A$ is square ($m=n$), the two columns collapse into one</b> — that is the Invertible Matrix Theorem: $A$ invertible ⇔ $A\sim I_n$ ⇔ $n$ pivots ⇔ columns independent ⇔ columns span $\mathbb R^n$ ⇔ one-to-one ⇔ onto ⇔ $A^{T}$ invertible ⇔ $\det A\ne0$, and then $\mathbf x=A^{-1}\mathbf b$. For non-square $A$ they stay independent.</p>
   <p><b>One specific $\mathbf b$:</b> $A\mathbf x=\mathbf b$ consistent ⇔ $\mathbf b\in$ Span(columns) ⇔ $\mathbf b$ in range of $T$ ⇔ last column of $[A\ \mathbf b]$ not a pivot column. Solutions $=\mathbf p+$ (solutions of $A\mathbf x=\mathbf 0$).</p>
   <p><b>Counting:</b> #pivots $\le\min(m,n)$; free variables $=n-$#pivots; $p&gt;n$ vectors in $\mathbb R^n$ ⇒ dependent; homogeneous with more unknowns than equations ⇒ nontrivial solutions.</p>
-  <p class="foot">Lay, Lay &amp; McDonald, <em>Linear Algebra and Its Applications</em>, Math 54 custom ed.: Ch. 1 (§1.6 omitted), §2.1–2.3, §3.1–3.3 (no Cramer's Rule), §4.1–4.6, §5.1–5.4. Full notes: <a href="notes.html">Math 54 Notes</a>.</p>
+  <p class="foot">Lay, Lay &amp; McDonald, <em>Linear Algebra and Its Applications</em>, Math 54 custom ed.: Ch. 1 (§1.6 omitted), §2.1–2.3, §3.1–3.3 (no Cramer's Rule), §4.1–4.6, §5.1–5.5, §6.1–6.5. Full notes: <a href="notes.html">Math 54 Notes</a>.</p>
 </section>
 </div>
 </body></html>
