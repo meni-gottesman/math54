@@ -112,6 +112,18 @@ em{font-style:italic}
 .box.proc li{margin:0 0 8px}
 .box.proc li::marker{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;color:var(--accent)}
 .box.fact{border-style:dashed}
+.box.mastery{border:2px dashed var(--accent);background:var(--surface);padding-top:26px}
+.box.mastery .tag{color:var(--accent);background:var(--surface);font-weight:600}
+.mq{border-top:1px solid var(--rule);padding:14px 0 6px}
+.mq:first-of-type{border-top:0;padding-top:0}
+.mq-test{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+.mq .q{margin:0 0 8px}
+.mq details{margin:4px 0}
+.mq summary{cursor:pointer;color:var(--accent);font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:14px;font-weight:600}
+.mq summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mq details[open] summary{margin-bottom:8px}
+.mq .ans{background:var(--accent-soft);padding:6px 10px;margin:8px 0 4px}
+
 .ex{margin:16px 0 18px;padding:0 0 0 16px;border-left:1px solid var(--rule)}
 .ex .ex-tag{display:block;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
 .skills{margin:28px 0 0;padding:16px 18px;background:var(--code-bg);border:1px solid var(--rule)}
@@ -1757,6 +1769,43 @@ window.MathJax = {
     <li>Decide whether a given vector lies in $\operatorname{Span}\{\mathbf v_1,\dots,\mathbf v_p\}$ by row reduction.</li>
     <li>Work with $\mathbb P_n$, function spaces and $M_{m\times n}$ as vector spaces.</li>
   </ul></div>
+  <div class="box mastery"><span class="tag">Check mastery · try before opening</span>
+    <div class="mq">
+      <p class="mq-test">Q1 · tests: Subspace test, including traps where only closure under addition fails</p>
+      <p class="q">Which of these are subspaces? (a) $\{A\in M_{2\times2}: A^T=-A\}$ (b) $\{A\in M_{2\times2}:\det A=0\}$ (c) $\{\mathbf p\in\mathbb P_2:\ \mathbf p(0)\,\mathbf p(1)=0\}$</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>(a) $0^T=-0$ ✓. If $A^T=-A$, $B^T=-B$: $(A+B)^T=-A-B$ ✓, $(cA)^T=-cA$ ✓. <strong>Subspace.</strong></div>
+          <b class="n">2.</b><div>(b) Contains 0 and closed under scaling, but $\left[\begin{smallmatrix}1&0\\0&0\end{smallmatrix}\right]+\left[\begin{smallmatrix}0&0\\0&1\end{smallmatrix}\right]=I$ has $\det=1$. <strong>Not a subspace.</strong></div>
+          <b class="n">3.</b><div>(c) $\mathbf p=t$ and $\mathbf q=1-t$ are both in it ($0\cdot1=0$ and $1\cdot0=0$), but $\mathbf p+\mathbf q=1$ gives $1\cdot1=1$. <strong>Not a subspace.</strong></div>
+        </div>
+        <p class="ans">Only (a). For (b) and (c), the zero vector and scaling both pass, so the counterexample has to use addition.</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q2 · tests: Turning a parametric set into a span, and not assuming 3 parameters means 3 dimensions</p>
+      <p class="q">$H$ $=\{(a+2b,\ b-c,\ a+2c):\ a,b,c\in\mathbb R\}$. Show $H$ is a subspace of $\mathbb R^3$ and describe it geometrically. Is $H=\mathbb R^3$?</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>Split by parameter: $a(1,0,1)+b(2,1,0)$ $+c(0,-1,2)$. So $H=\operatorname{Span}\{\dots\}$, a subspace (Theorem 1).</div>
+          <b class="n">2.</b><div>$\det\left[\begin{smallmatrix}1&2&0\\0&1&-1\\1&0&2\end{smallmatrix}\right]=1(2)-2(0+1)$ $+0=0$ ⇒ dependent.</div>
+          <b class="n">3.</b><div>Indeed $(0,-1,2)=2(1,0,1)$ $-(2,1,0)$, so $H=\operatorname{Span}\{(1,0,1),(2,1,0)\}$.</div>
+        </div>
+        <p class="ans">$H$ is a plane through the origin, <strong>not</strong> all of $\mathbb R^3$.</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q3 · tests: Reasoning about subspaces abstractly (intersection vs union)</p>
+      <p class="q">$H$ and $K$ are subspaces of $V$. Is $H\cap K$ always a subspace? Is $H\cup K$?</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>$H\cap K$: $\mathbf 0$ is in both. If $\mathbf u,\mathbf v$ are in both, then $\mathbf u+\mathbf v$ and $c\mathbf u$ are in both (each one is a subspace). Always a subspace.</div>
+          <b class="n">2.</b><div>$H\cup K$: in $\mathbb R^2$ take $H$ = $x$-axis, $K$ = $y$-axis. $(1,0)+(0,1)=(1,1)$ is in neither.</div>
+        </div>
+        <p class="ans">Intersection: always. Union: generally not (only when one contains the other).</p>
+      </details>
+    </div>
+  </div>
 </section>
 
 <!-- ============================ 4.2 ============================ -->
@@ -1912,6 +1961,45 @@ window.MathJax = {
     <li>Say which $\mathbb R^k$ each of Nul A, Col A, Row A lives in.</li>
     <li>Prove a map between vector spaces is linear and find its kernel and range.</li>
   </ul></div>
+  <div class="box mastery"><span class="tag">Check mastery · try before opening</span>
+    <div class="mq">
+      <p class="mq-test">Q1 · tests: Bases for Nul, Col, Row from one row reduction, and which matrix each one comes from</p>
+      <p class="q">$A=\left[\begin{smallmatrix}1&-2&0&3\\2&-4&1&4\\-1&2&1&-5\end{smallmatrix}\right]$. Find bases for Nul A, Col A, Row A. Each is a subspace of which $\mathbb R^k$?</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>$A\sim\left[\begin{smallmatrix}1&-2&0&3\\0&0&1&-2\\0&0&0&0\end{smallmatrix}\right]$. Pivot columns 1 and 3.</div>
+          <b class="n">2.</b><div>Nul: $x_1=2x_2-3x_4$, $x_3=2x_4$ ⇒ basis $\{(2,1,0,0),\ (-3,0,2,1)\}$ ⊂ $\mathbb R^4$.</div>
+          <b class="n">3.</b><div>Col: pivot columns <strong>of A</strong>: $\{(1,2,-1),\ (0,1,1)\}$ ⊂ $\mathbb R^3$.</div>
+          <b class="n">4.</b><div>Row: nonzero rows <strong>of the echelon form</strong>: $\{(1,-2,0,3),\ (0,0,1,-2)\}$ ⊂ $\mathbb R^4$.</div>
+        </div>
+        <p class="ans">dims: Nul 2, Col 2, Row 2 (and $2+2=4=n$ ✓).</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q2 · tests: Kernel and range of a map that is not given by a matrix</p>
+      <p class="q">$T:\mathbb P_2\to\mathbb R^2$, $T(\mathbf p)=(\mathbf p(0),\ \mathbf p(1))$. Find the kernel and range of $T$.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>Kernel: $\mathbf p(0)=\mathbf p(1)=0$ ⇒ roots 0 and 1 ⇒ $\mathbf p=c\,t(t-1)$. Kernel $=\operatorname{Span}\{t^2-t\}$.</div>
+          <b class="n">2.</b><div>Range: $T(a+bt)=(a,\ a+b)$. Any $(y_1,y_2)$ is hit by $a=y_1$, $b=y_2-y_1$. Range $=\mathbb R^2$.</div>
+          <b class="n">3.</b><div>Sanity check: $\dim\ker+\dim\operatorname{range}=1+2=3=\dim\mathbb P_2$.</div>
+        </div>
+        <p class="ans">$\ker T=\operatorname{Span}\{t^2-t\}$, range $=\mathbb R^2$.</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q3 · tests: Testing membership quickly; Col A ≠ Col(rref A)</p>
+      <p class="q">Same $A$ as question 1. (a) Is $\mathbf w=(-3,0,2,1)$ in Nul A? (b) Is $\mathbf u=(1,3,2)$ in Col A? (c) Is Col A equal to the column space of the echelon form?</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>(a) Just multiply: $A\mathbf w=\mathbf 0$ ✓. Yes. (Nul membership: one multiplication.)</div>
+          <b class="n">2.</b><div>(b) Row reduce $[A\mid\mathbf u]$: the last column becomes a pivot ⇒ inconsistent. No.</div>
+          <b class="n">3.</b><div>(c) No: every echelon column has 3rd entry 0, but $(1,2,-1)\in\operatorname{Col}A$ doesn't. Row ops change the column space, but not the row space or the null space.</div>
+        </div>
+        <p class="ans">(a) yes, (b) no, (c) no.</p>
+      </details>
+    </div>
+  </div>
 </section>
 
 <!-- ============================ 4.3 ============================ -->
@@ -2056,6 +2144,43 @@ window.MathJax = {
     <li>Find a basis for a subspace described by an equation or by letters.</li>
     <li>Test independence of polynomials and functions without matrices (Theorem 4, identities, plugging in $t$-values).</li>
   </ul></div>
+  <div class="box mastery"><span class="tag">Check mastery · try before opening</span>
+    <div class="mq">
+      <p class="mq-test">Q1 · tests: Spanning Set Theorem: picking a basis out of a dependent set</p>
+      <p class="q">$\mathbf v_1=(1,0,-1,2)$, $\mathbf v_2=(2,1,0,1)$, $\mathbf v_3=(0,1,2,-3)$, $\mathbf v_4=(1,1,1,1)$. Find a basis for $H=\operatorname{Span}\{\mathbf v_1,\dots,\mathbf v_4\}$ chosen from the $\mathbf v$'s.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>Row reduce $[\mathbf v_1\ \mathbf v_2\ \mathbf v_3\ \mathbf v_4]$: pivots in columns 1, 2, 4.</div>
+          <b class="n">2.</b><div>Column 3 isn't a pivot: $\mathbf v_3=\mathbf v_2-2\mathbf v_1$, so it adds nothing to the span.</div>
+        </div>
+        <p class="ans">$\{\mathbf v_1,\mathbf v_2,\mathbf v_4\}$; $\dim H=3$.</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q2 · tests: Testing a polynomial set for basis, when the dependence isn't obvious</p>
+      <p class="q">Is $\{1+t,\ t+t^2,\ 1-t^2\}$ a basis for $\mathbb P_2$?</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>Coordinates in $\{1,t,t^2\}$: columns $(1,1,0),(0,1,1),(1,0,-1)$.</div>
+          <b class="n">2.</b><div>$\det\left[\begin{smallmatrix}1&0&1\\1&1&0\\0&1&-1\end{smallmatrix}\right]=1(-1)-0+1(1)$ $=0$ ⇒ dependent.</div>
+          <b class="n">3.</b><div>Explicitly: $1-t^2=(1+t)-(t+t^2)$.</div>
+        </div>
+        <p class="ans">No: the set is dependent, and it spans only a 2-dimensional subspace.</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q3 · tests: Proving a new set is a basis by checking independence</p>
+      <p class="q">$\{\mathbf v_1,\mathbf v_2,\mathbf v_3\}$ is a basis of $V$. Prove $\{\mathbf v_1+\mathbf v_2,\ \mathbf v_2+\mathbf v_3,\ \mathbf v_3+\mathbf v_1\}$ is also a basis.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>Suppose $a(\mathbf v_1+\mathbf v_2)$ $+b(\mathbf v_2+\mathbf v_3)$ $+c(\mathbf v_3+\mathbf v_1)$ $=\mathbf 0$. Regroup: $(a+c)\mathbf v_1+(a+b)\mathbf v_2$ $+(b+c)\mathbf v_3$ $=\mathbf 0$.</div>
+          <b class="n">2.</b><div>The $\mathbf v$'s are independent ⇒ $a+c=a+b=b+c=0$ ⇒ $a=b=c=0$. So the new set is independent.</div>
+          <b class="n">3.</b><div>3 independent vectors in a 3-dimensional space form a basis (Basis Theorem, §4.5).</div>
+        </div>
+        <p class="ans">It's a basis.</p>
+      </details>
+    </div>
+  </div>
 </section>
 
 <!-- ============================ 4.4 ============================ -->
@@ -2244,6 +2369,42 @@ window.MathJax = {
     <li>Use coordinate vectors to test independence/spanning of polynomials.</li>
     <li>Explain why the coordinate map is an isomorphism and what that buys you.</li>
   </ul></div>
+  <div class="box mastery"><span class="tag">Check mastery · try before opening</span>
+    <div class="mq">
+      <p class="mq-test">Q1 · tests: B-coordinates in a subspace; deciding whether x is even in H</p>
+      <p class="q">$\mathbf b_1=(1,0,2)$, $\mathbf b_2=(-1,1,0)$, $H=\operatorname{Span}\{\mathbf b_1,\mathbf b_2\}$. (a) Is $\mathbf x=(5,-2,6)$ in $H$? If so, find $[\mathbf x]_{\mathcal B}$. (b) Is $\mathbf y=(1,1,1)$ in $H$?</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>(a) $c_1\mathbf b_1+c_2\mathbf b_2$ $=(c_1-c_2,\ c_2,\ 2c_1)$. Then $c_2=-2$ and $c_1=3$, and the first entry checks: $3+2=5$ ✓.</div>
+          <b class="n">2.</b><div>(b) $c_2=1$, $2c_1=1$ ⇒ $c_1=\tfrac12$, but $c_1-c_2=-\tfrac12\neq1$. Inconsistent.</div>
+        </div>
+        <p class="ans">(a) yes, $[\mathbf x]_{\mathcal B}=(3,-2)$, a vector in $\mathbb R^2$ even though $\mathbf x\in\mathbb R^3$. (b) $\mathbf y\notin H$.</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q2 · tests: Coordinates relative to a non-standard polynomial basis</p>
+      <p class="q">$\mathcal B=\{1,\ 1+t,\ (1+t)^2\}$. Find $[\mathbf p]_{\mathcal B}$ for $\mathbf p=3-t+2t^2$.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>Let $s=1+t$, so $t=s-1$: $\ 3-(s-1)+2(s-1)^2=3-s+1$ $+2s^2-4s+2$ $=6-5s+2s^2$.</div>
+          <b class="n">2.</b><div>Check: $6-5(1+t)+2(1+2t+t^2)=3-t$ $+2t^2$ ✓</div>
+        </div>
+        <p class="ans">$[\mathbf p]_{\mathcal B}=(6,-5,2)$.</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q3 · tests: Using the coordinate isomorphism to turn a polynomial question into a matrix question</p>
+      <p class="q">Are $1+2t^3$, $\ 2+t-3t^2$, $\ -t+2t^2-t^3$ linearly independent in $\mathbb P_3$?</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>Coordinate vectors in $\{1,t,t^2,t^3\}$: $(1,0,0,2)$, $(2,1,-3,0)$, $(0,-1,2,-1)$.</div>
+          <b class="n">2.</b><div>The coordinate map is one-to-one and linear, so the polynomials are independent iff these vectors are.</div>
+          <b class="n">3.</b><div>Row reduce the $4\times3$ matrix: rank 3 (a pivot in every column).</div>
+        </div>
+        <p class="ans">Independent.</p>
+      </details>
+    </div>
+  </div>
 </section>
 
 <!-- ============================ 4.5 ============================ -->
@@ -2477,6 +2638,42 @@ window.MathJax = {
     <li>Use the Basis Theorem: right count + one condition ⇒ basis.</li>
     <li>Add the five new IMT statements (basis, Col = $\mathbb R^n$, rank $n$, nullity 0, Nul = {0}).</li>
   </ul></div>
+  <div class="box mastery"><span class="tag">Check mastery · try before opening</span>
+    <div class="mq">
+      <p class="mq-test">Q1 · tests: Rank Theorem bookkeeping for all four subspaces</p>
+      <p class="q">(a) $A$ is $5\times7$ with rank 3. Find dim Nul A, dim Row A, dim Col A, dim Nul $A^T$. (b) Can a $6\times9$ matrix have a 2-dimensional null space? (c) $A$ is $5\times8$ and $A\mathbf x=\mathbf b$ is consistent for every $\mathbf b$. Find dim Nul A.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>(a) Nul $=7-3=4$; Row $=$ Col $=3$; Nul $A^T=5-3=2$ ($A^T$ is $7\times5$).</div>
+          <b class="n">2.</b><div>(b) rank $=9-2=7$, but rank $\le6$ (only 6 rows). Impossible.</div>
+          <b class="n">3.</b><div>(c) Consistent for every $\mathbf b$ ⇒ Col A $=\mathbb R^5$ ⇒ rank 5 ⇒ nullity $8-5=3$.</div>
+        </div>
+        <p class="ans">(a) 4, 3, 3, 2. (b) No. (c) 3.</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q2 · tests: Dimension of a subspace defined by conditions (no matrix given)</p>
+      <p class="q">Find $\dim\{\mathbf p\in\mathbb P_3:\ \mathbf p(1)=0\text{ and }\mathbf p'(1)=0\}$.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>$\mathbf p(1)=\mathbf p'(1)=0$ means 1 is a double root: $\mathbf p=(t-1)^2\mathbf q$ with $\mathbf q\in\mathbb P_1$.</div>
+          <b class="n">2.</b><div>Basis: $\{(t-1)^2,\ t(t-1)^2\}$. Alternatively: $\dim\mathbb P_3=4$, minus 2 independent linear conditions.</div>
+        </div>
+        <p class="ans">Dimension 2.</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q3 · tests: Rank of an outer product (links ch. 4 and ch. 6)</p>
+      <p class="q">$\mathbf u\in\mathbb R^m$ and $\mathbf v\in\mathbb R^n$ are nonzero. Find the rank of $A=\mathbf u\mathbf v^T$ and describe Nul A.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>Column $j$ of $\mathbf u\mathbf v^T$ is $v_j\mathbf u$: every column is a multiple of $\mathbf u$. So Col A $=\operatorname{Span}\{\mathbf u\}$ and rank $=1$.</div>
+          <b class="n">2.</b><div>$A\mathbf x=\mathbf u(\mathbf v^T\mathbf x)$ $=(\mathbf v\cdot\mathbf x)\mathbf u$ $=\mathbf 0$ ⟺ $\mathbf v\cdot\mathbf x=0$.</div>
+        </div>
+        <p class="ans">Rank 1. Nul A $=\{\mathbf x:\mathbf v\cdot\mathbf x=0\}$, which has dimension $n-1$.</p>
+      </details>
+    </div>
+  </div>
 </section>
 
 <!-- ============================ 4.6 ============================ -->
@@ -2655,6 +2852,44 @@ window.MathJax = {
     <li>Use it to convert $[\mathbf x]_{\mathcal B}$ to $[\mathbf x]_{\mathcal C}$, including for polynomial bases.</li>
     <li>Identify which way a given $P$ converts by looking at what its columns are.</li>
   </ul></div>
+  <div class="box mastery"><span class="tag">Check mastery · try before opening</span>
+    <div class="mq">
+      <p class="mq-test">Q1 · tests: Computing P_{C←B} by row reduction and converting coordinates</p>
+      <p class="q">$\mathcal B=\{(1,2),(1,3)\}$, $\mathcal C=\{(1,1),(0,1)\}$. Find $\underset{\mathcal C\leftarrow\mathcal B}{P}$ and use it to convert $[\mathbf x]_{\mathcal B}=(3,-1)$ into $[\mathbf x]_{\mathcal C}$. Check your answer.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>$[\,\mathbf c_1\ \mathbf c_2\mid\mathbf b_1\ \mathbf b_2\,]\sim[\,I\mid P\,]$ gives $P=\left[\begin{smallmatrix}1&1\\1&2\end{smallmatrix}\right]$.</div>
+          <b class="n">2.</b><div>$[\mathbf x]_{\mathcal C}=P(3,-1)=(2,1)$.</div>
+          <b class="n">3.</b><div>Check: $\mathbf x=3(1,2)-(1,3)=(2,3)$ and $2(1,1)+1(0,1)=(2,3)$ ✓</div>
+        </div>
+        <p class="ans">$P=\left[\begin{smallmatrix}1&1\\1&2\end{smallmatrix}\right]$, $[\mathbf x]_{\mathcal C}=(2,1)$.</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q2 · tests: Both directions, and the inverse relationship, in a polynomial space</p>
+      <p class="q">In $\mathbb P_2$: $\mathcal B=\{1,t,t^2\}$, $\mathcal C=\{1,\ 1+t,\ 1+t+t^2\}$. Find $\underset{\mathcal B\leftarrow\mathcal C}{P}$ and $\underset{\mathcal C\leftarrow\mathcal B}{P}$.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>$\underset{\mathcal B\leftarrow\mathcal C}{P}$: columns are the $\mathcal C$ vectors written in $\mathcal B$ (easy direction): $\left[\begin{smallmatrix}1&1&1\\0&1&1\\0&0&1\end{smallmatrix}\right]$.</div>
+          <b class="n">2.</b><div>$\underset{\mathcal C\leftarrow\mathcal B}{P}$ is its inverse: $\left[\begin{smallmatrix}1&-1&0\\0&1&-1\\0&0&1\end{smallmatrix}\right]$.</div>
+          <b class="n">3.</b><div>Check column 3: $t^2=(1+t+t^2)-(1+t)$ ⇒ $(0,-1,1)$ ✓</div>
+        </div>
+        <p class="ans">As above; they are inverses of each other.</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q3 · tests: Running the definition backwards: recovering the basis from P</p>
+      <p class="q">$\underset{\mathcal C\leftarrow\mathcal B}{P}=\left[\begin{smallmatrix}2&1\\1&1\end{smallmatrix}\right]$, $\mathbf b_1=(1,0)$, $\mathbf b_2=(1,1)$. Find $\mathbf c_1,\mathbf c_2$.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>The columns of $P$ are $[\mathbf b_j]_{\mathcal C}$: $\mathbf b_1=2\mathbf c_1+\mathbf c_2$ and $\mathbf b_2=\mathbf c_1+\mathbf c_2$.</div>
+          <b class="n">2.</b><div>Subtract: $\mathbf c_1=\mathbf b_1-\mathbf b_2=(0,-1)$. Then $\mathbf c_2=\mathbf b_2-\mathbf c_1=(1,2)$.</div>
+          <b class="n">3.</b><div>Check: $2(0,-1)+(1,2)=(1,0)$ ✓</div>
+        </div>
+        <p class="ans">$\mathbf c_1=(0,-1)$, $\mathbf c_2=(1,2)$.</p>
+      </details>
+    </div>
+  </div>
 </section>
 
 <!-- ============================ 5.1 ============================ -->
@@ -2766,6 +3001,43 @@ window.MathJax = {
       <li>"If $\mathbf v$ has eigenvalue 2, then $2\mathbf v$ has eigenvalue 4": <strong>false</strong>; $A(2\mathbf v)=2A\mathbf v=2\cdot2\mathbf v=2(2\mathbf v)$, so $2\mathbf v$ still has eigenvalue 2.</li>
       <li>"An eigenspace is the null space of a certain matrix": <strong>true</strong> ($A-\lambda I$).</li>
     </ul>
+  </div>
+  <div class="box mastery"><span class="tag">Check mastery · try before opening</span>
+    <div class="mq">
+      <p class="mq-test">Q1 · tests: Eigenspace basis when an eigenvalue has a 2-dimensional eigenspace</p>
+      <p class="q">$A=\left[\begin{smallmatrix}4&-1&6\\2&1&6\\2&-1&8\end{smallmatrix}\right]$ has eigenvalue 2. Find a basis for its eigenspace.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>$A-2I$ $=\left[\begin{smallmatrix}2&-1&6\\2&-1&6\\2&-1&6\end{smallmatrix}\right]\sim[\,2\ \ -1\ \ 6\,]$ (one equation).</div>
+          <b class="n">2.</b><div>$x_1=\tfrac12x_2-3x_3$ with $x_2,x_3$ free.</div>
+        </div>
+        <p class="ans">$\{(1,2,0),\ (-3,0,1)\}$: the eigenspace is a plane.</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q2 · tests: Getting eigenvalues from an algebraic identity, with no matrix</p>
+      <p class="q">(a) $A^2=A$. Which eigenvalues are possible? (b) $A^2=0$? (c) $A$ is invertible with $A\mathbf x=\lambda\mathbf x$. Show $\mathbf x$ is an eigenvector of $A^{-1}$.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>(a) $A\mathbf x=\lambda\mathbf x$ ⇒ $A^2\mathbf x=\lambda^2\mathbf x$. Since $A^2=A$: $\lambda^2\mathbf x=\lambda\mathbf x$ with $\mathbf x\neq\mathbf 0$ ⇒ $\lambda\in\{0,1\}$.</div>
+          <b class="n">2.</b><div>(b) $\lambda^2\mathbf x=\mathbf 0$ ⇒ $\lambda=0$ only.</div>
+          <b class="n">3.</b><div>(c) $\lambda\neq0$ (invertible ⇒ 0 not an eigenvalue). Apply $A^{-1}$: $\mathbf x=\lambda A^{-1}\mathbf x$ ⇒ $A^{-1}\mathbf x=\tfrac1\lambda\mathbf x$.</div>
+        </div>
+        <p class="ans">(a) 0 or 1. (b) only 0. (c) eigenvalue $1/\lambda$, same eigenvector.</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q3 · tests: Eigenvalue facts that look like formulas but are false</p>
+      <p class="q">True or false, with a reason: (a) If $\lambda$ is an eigenvalue of $A$ and $\mu$ of $B$, then $\lambda+\mu$ is an eigenvalue of $A+B$. (b) Eigenvectors for distinct eigenvalues are independent. (c) Row reducing $A$ keeps the eigenvalues.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>(a) False: $A=\left[\begin{smallmatrix}1&0\\0&0\end{smallmatrix}\right]$, $B=\left[\begin{smallmatrix}0&0\\0&1\end{smallmatrix}\right]$; $1+1=2$, but $A+B=I$ has only eigenvalue 1. (It works only for a <em>shared</em> eigenvector.)</div>
+          <b class="n">2.</b><div>(b) True (Theorem 2).</div>
+          <b class="n">3.</b><div>(c) False: $\left[\begin{smallmatrix}1&1\\0&2\end{smallmatrix}\right]$ (eigenvalues 1, 2) row reduces to $I$ (eigenvalue 1).</div>
+        </div>
+        <p class="ans">F, T, F.</p>
+      </details>
+    </div>
   </div>
 </section>
 
@@ -2887,6 +3159,44 @@ window.MathJax = {
       <li>"The identity matrix's eigenvalue 1 has multiplicity $n$": <strong>true</strong>.</li>
       <li>Sign check: always write $A-\lambda I$ (subtract on the diagonal only), and expand carefully; most errors are arithmetic.</li>
     </ul>
+  </div>
+  <div class="box mastery"><span class="tag">Check mastery · try before opening</span>
+    <div class="mq">
+      <p class="mq-test">Q1 · tests: Characteristic polynomial of a non-triangular 3×3 by expanding along a smart row or column</p>
+      <p class="q">$A=\left[\begin{smallmatrix}4&0&-1\\0&4&-1\\1&0&2\end{smallmatrix}\right]$. Find the eigenvalues and their algebraic multiplicities.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>Column 2 of $A-\lambda I$ has a single nonzero entry, $4-\lambda$. Expand along it:</div>
+          <b class="n">2.</b><div>$\det(A-\lambda I)$ $=(4-\lambda)\big[(4-\lambda)(2-\lambda)+1\big]$ $=(4-\lambda)(\lambda^2-6\lambda+9)$.</div>
+          <b class="n">3.</b><div>$=(4-\lambda)(\lambda-3)^2$.</div>
+        </div>
+        <p class="ans">$\lambda=4$ (mult. 1), $\lambda=3$ (mult. 2).</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q2 · tests: Similarity: a shared characteristic polynomial does not make two matrices similar</p>
+      <p class="q">$A=\left[\begin{smallmatrix}2&1\\0&2\end{smallmatrix}\right]$, $B=2I$. Same characteristic polynomial? Similar?</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>Both are $(\lambda-2)^2$.</div>
+          <b class="n">2.</b><div>If $A=P(2I)P^{-1}$, then $A=2PP^{-1}=2I$. Contradiction. Nothing except $2I$ itself is similar to $2I$.</div>
+        </div>
+        <p class="ans">Same polynomial, but <strong>not</strong> similar.</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q3 · tests: Linking eigenvalues to determinants</p>
+      <p class="q">$A$ is $3\times3$ with eigenvalues $1,2,-3$. Find $\det A$, $\det(A-2I)$, $\det(A^{-1})$, $\det(2A)$, and the eigenvalues of $A^T$.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>$\det A$ = product of the eigenvalues $=-6$.</div>
+          <b class="n">2.</b><div>2 is an eigenvalue ⇒ $A-2I$ is singular ⇒ $\det=0$.</div>
+          <b class="n">3.</b><div>$\det A^{-1}=-\tfrac16$. $\ \det(2A)=2^3(-6)=-48$ (don't forget the cube).</div>
+          <b class="n">4.</b><div>$A^T$ has the same characteristic polynomial: eigenvalues $1,2,-3$.</div>
+        </div>
+        <p class="ans">$-6,\ 0,\ -\tfrac16,\ -48$; eigenvalues $1,2,-3$.</p>
+      </details>
+    </div>
   </div>
 </section>
 
@@ -3014,6 +3324,44 @@ window.MathJax = {
       <li>The order matters: column $i$ of $P$ must go with the $i$-th diagonal entry of $D$.</li>
     </ul>
   </div>
+  <div class="box mastery"><span class="tag">Check mastery · try before opening</span>
+    <div class="mq">
+      <p class="mq-test">Q1 · tests: Diagonalizing when an eigenvalue repeats</p>
+      <p class="q">Diagonalize $A=\left[\begin{smallmatrix}1&3&3\\-3&-5&-3\\3&3&1\end{smallmatrix}\right]$ (eigenvalues $1,-2,-2$).</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>$\lambda=1$: solve $(A-I)\mathbf x=\mathbf 0$ ⇒ $(1,-1,1)$.</div>
+          <b class="n">2.</b><div>$\lambda=-2$: $A+2I$ $=\left[\begin{smallmatrix}3&3&3\\-3&-3&-3\\3&3&3\end{smallmatrix}\right]\sim[\,1\ 1\ 1\,]$ ⇒ $(-1,1,0),(-1,0,1)$: 2-dimensional ✓.</div>
+          <b class="n">3.</b><div>3 independent eigenvectors ⇒ diagonalizable.</div>
+        </div>
+        <p class="ans">$P=\left[\begin{smallmatrix}1&-1&-1\\-1&1&0\\1&0&1\end{smallmatrix}\right]$, $D=\operatorname{diag}(1,-2,-2)$.</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q2 · tests: Telling when a matrix fails to be diagonalizable (geometric vs algebraic multiplicity)</p>
+      <p class="q">(a) $B=\left[\begin{smallmatrix}2&4&3\\-4&-6&-3\\3&3&1\end{smallmatrix}\right]$ has the <em>same</em> eigenvalues $1,-2,-2$. Is it diagonalizable? (b) A $5\times5$ matrix has two eigenvalues with eigenspaces of dimension 3 and 2. Diagonalizable?</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>(a) $B+2I=\left[\begin{smallmatrix}4&4&3\\-4&-4&-3\\3&3&3\end{smallmatrix}\right]$ has rank 2 ⇒ eigenspace of $-2$ is only 1-dimensional ($(-1,1,0)$).</div>
+          <b class="n">2.</b><div>Total: $1+1=2&lt;3$ eigenvectors ⇒ not diagonalizable.</div>
+          <b class="n">3.</b><div>(b) $3+2=5$ ⇒ yes (Theorem 7).</div>
+        </div>
+        <p class="ans">(a) No. (b) Yes. The eigenvalues alone can't tell you; the eigenspace dimensions can.</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q3 · tests: Using A = PDP⁻¹ to get a formula for Aᵏ</p>
+      <p class="q">$A=\left[\begin{smallmatrix}7&2\\-4&1\end{smallmatrix}\right]$. Find a formula for $A^k$.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>$\lambda^2-8\lambda+15$ ⇒ $\lambda=5,3$. Eigenvectors: $(1,-1)$ for 5, $(1,-2)$ for 3.</div>
+          <b class="n">2.</b><div>$P=\left[\begin{smallmatrix}1&1\\-1&-2\end{smallmatrix}\right]$, $P^{-1}=\left[\begin{smallmatrix}2&1\\-1&-1\end{smallmatrix}\right]$.</div>
+          <b class="n">3.</b><div>$A^k=PD^kP^{-1}$. Check with $k=1$: $(10-3,\ 5-3;\ 6-10,\ 6-5)$ $=(7,2;-4,1)$ ✓</div>
+        </div>
+        <p class="ans">$A^k=\left[\begin{smallmatrix}2\cdot5^k-3^k&5^k-3^k\\2\cdot3^k-2\cdot5^k&2\cdot3^k-5^k\end{smallmatrix}\right]$.</p>
+      </details>
+    </div>
+  </div>
 </section>
 
 <!-- ============================ 5.4 ============================ -->
@@ -3120,6 +3468,42 @@ window.MathJax = {
       <li>If $A$ is similar to $B$: $A^2$ is similar to $B^2$; if $A$ is invertible so is $B$; if $A$ is diagonalizable so is $B$; similar matrices have the same rank, determinant and trace.</li>
     </ul>
   </div>
+  <div class="box mastery"><span class="tag">Check mastery · try before opening</span>
+    <div class="mq">
+      <p class="mq-test">Q1 · tests: B-matrix of a map on polynomials, then using it to find eigen-polynomials</p>
+      <p class="q">$T:\mathbb P_2\to\mathbb P_2$, $T(\mathbf p)=(t+1)\mathbf p'(t)$. Find $[T]$ in $\{1,t,t^2\}$, then find a basis of $\mathbb P_2$ in which $[T]$ is diagonal.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>$T(1)=0$, $T(t)=1+t$, $T(t^2)=2t+2t^2$ ⇒ $[T]=\left[\begin{smallmatrix}0&1&0\\0&1&2\\0&0&2\end{smallmatrix}\right]$.</div>
+          <b class="n">2.</b><div>Triangular ⇒ eigenvalues 0, 1, 2. Eigenvectors $(1,0,0)$, $(1,1,0)$, $(1,2,1)$.</div>
+          <b class="n">3.</b><div>Translate back to polynomials: $1$, $1+t$, $1+2t+t^2=(1+t)^2$.</div>
+        </div>
+        <p class="ans">In $\{1,\ 1+t,\ (1+t)^2\}$, $[T]=\operatorname{diag}(0,1,2)$.</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q2 · tests: [T]_B = P⁻¹AP, and seeing that a basis can give a triangular (not diagonal) matrix</p>
+      <p class="q">$A=\left[\begin{smallmatrix}4&-9\\4&-8\end{smallmatrix}\right]$, $\mathcal B=\{(3,2),(2,1)\}$. Find $[T]_{\mathcal B}$ for $T(\mathbf x)=A\mathbf x$.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>$P=\left[\begin{smallmatrix}3&2\\2&1\end{smallmatrix}\right]$, $P^{-1}=\left[\begin{smallmatrix}-1&2\\2&-3\end{smallmatrix}\right]$.</div>
+          <b class="n">2.</b><div>$P^{-1}AP=\left[\begin{smallmatrix}-2&1\\0&-2\end{smallmatrix}\right]$.</div>
+        </div>
+        <p class="ans">$[T]_{\mathcal B}=\left[\begin{smallmatrix}-2&1\\0&-2\end{smallmatrix}\right]$. (A has only one eigenvalue, $-2$, with a 1-dimensional eigenspace, so no basis makes it diagonal.)</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q3 · tests: Reading facts about T directly from the B-matrix</p>
+      <p class="q">$[T]_{\mathcal B}$ is upper triangular. What is $T(\mathbf b_1)$? Check this with question 2.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>Column 1 of $[T]_{\mathcal B}$ is $[T(\mathbf b_1)]_{\mathcal B}$ $=(a_{11},0,\dots,0)$ ⇒ $T(\mathbf b_1)=a_{11}\mathbf b_1$.</div>
+          <b class="n">2.</b><div>Question 2: $A(3,2)=(-6,-4)=-2(3,2)$ ✓</div>
+        </div>
+        <p class="ans">$\mathbf b_1$ is an eigenvector of $T$ with eigenvalue $a_{11}$.</p>
+      </details>
+    </div>
+  </div>
 </section>
 
 <!-- ============================ 5.5 ============================ -->
@@ -3213,6 +3597,44 @@ window.MathJax = {
       <li>Two complex (non-real) eigenvalues ⇒ no real eigenvectors at all.</li>
       <li>Shortcut for the eigenvector: from a row $[\,p\ \ q\,]$ of $A-\lambda I$, the vector $(-q,\ p)$ works.</li>
     </ul>
+  </div>
+  <div class="box mastery"><span class="tag">Check mastery · try before opening</span>
+    <div class="mq">
+      <p class="mq-test">Q1 · tests: The full complex-eigenvalue pipeline: λ, v, P, C, r, φ, and long-run behavior</p>
+      <p class="q">$A=\left[\begin{smallmatrix}-1&-5\\1&3\end{smallmatrix}\right]$. Find $P$, $C$ with $A=PCP^{-1}$, the scale $r$, the angle $\varphi$, and describe $A^k\mathbf x$.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>trace 2, det 2 ⇒ $\lambda^2-2\lambda+2$ ⇒ $\lambda=1\pm i$. Use $1-i$: $a=1,b=1$.</div>
+          <b class="n">2.</b><div>Row 2 of $A-(1-i)I$ is $[\,1\ \ 2+i\,]$ ⇒ $\mathbf v=(-2-i,\ 1)$.</div>
+          <b class="n">3.</b><div>$P=\left[\begin{smallmatrix}-2&-1\\1&0\end{smallmatrix}\right]$, $C=\left[\begin{smallmatrix}1&-1\\1&1\end{smallmatrix}\right]$ (check: $PCP^{-1}=A$ ✓).</div>
+          <b class="n">4.</b><div>$r=\sqrt2&gt;1$, $\varphi=\pi/4$.</div>
+        </div>
+        <p class="ans">Points rotate by $45^\circ$ (in $P$-coordinates) and grow by $\sqrt2$ each step: they spiral <strong>outward</strong>.</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q2 · tests: Using conjugate pairs to reason about real matrices</p>
+      <p class="q">(a) Must every real $3\times3$ matrix have a real eigenvalue? (b) Can a real $2\times2$ matrix have eigenvalues $i$ and $2$?</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>(a) Its characteristic polynomial is a real cubic. Non-real roots come in conjugate pairs, so at most 2 of the 3 roots are non-real. Yes.</div>
+          <b class="n">2.</b><div>(b) No: $i$ forces $-i$ as well, which would make 3 roots of a quadratic.</div>
+        </div>
+        <p class="ans">(a) Yes. (b) No.</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q3 · tests: Computing a power by thinking of C as a rotation</p>
+      <p class="q">$C=\left[\begin{smallmatrix}1/2&-\sqrt3/2\\\sqrt3/2&1/2\end{smallmatrix}\right]$. Find $C^6$ and $C^{100}$ without multiplying.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>$a=\tfrac12$, $b=\tfrac{\sqrt3}2$ ⇒ $r=1$, $\varphi=\pi/3$: a pure rotation by $60^\circ$.</div>
+          <b class="n">2.</b><div>$C^6$ = rotation by $360^\circ$ $=I$.</div>
+          <b class="n">3.</b><div>$100=6\cdot16+4$ ⇒ $C^{100}=C^4$ = rotation by $240^\circ$ $=\left[\begin{smallmatrix}-1/2&\sqrt3/2\\-\sqrt3/2&-1/2\end{smallmatrix}\right]$.</div>
+        </div>
+        <p class="ans">$C^6=I$; $C^{100}$ = rotation by $240^\circ$.</p>
+      </details>
+    </div>
   </div>
 </section>
 
@@ -3320,6 +3742,43 @@ window.MathJax = {
       <li>If $\mathbf x$ is in both $W$ and $W^\perp$, then $\mathbf x\cdot\mathbf x=0$, so $\mathbf x=\mathbf 0$.</li>
     </ul>
   </div>
+  <div class="box mastery"><span class="tag">Check mastery · try before opening</span>
+    <div class="mq">
+      <p class="mq-test">Q1 · tests: Finding W⊥ when W = Col A, using Theorem 3</p>
+      <p class="q">$W$ $=\operatorname{Span}\{(1,0,1,1),\ (0,1,1,-1)\}$. Find a basis for $W^\perp$.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>$W^\perp=(\operatorname{Col}A)^\perp=\operatorname{Nul}A^T$: put the spanning vectors in as <strong>rows</strong>.</div>
+          <b class="n">2.</b><div>$x_1+x_3+x_4=0$, $x_2+x_3-x_4=0$, with $x_3,x_4$ free.</div>
+          <b class="n">3.</b><div>$\mathbf x=x_3(-1,-1,1,0)$ $+x_4(-1,1,0,1)$. Check $\dim$: $2+2=4$ ✓</div>
+        </div>
+        <p class="ans">$\{(-1,-1,1,0),\ (-1,1,0,1)\}$.</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q2 · tests: Doing algebra with the dot product, without coordinates</p>
+      <p class="q">$\|\mathbf u\|=3$, $\|\mathbf v\|=4$, $\mathbf u\cdot\mathbf v=-2$. Find $\|2\mathbf u-\mathbf v\|$. Then prove $\|\mathbf u+\mathbf v\|^2+\|\mathbf u$ $-\mathbf v\|^2$ $=2\|\mathbf u\|^2+2\|\mathbf v\|^2$.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>$\|2\mathbf u-\mathbf v\|^2$ $=(2\mathbf u-\mathbf v)\cdot(2\mathbf u-\mathbf v)$ $=4\|\mathbf u\|^2-4\,\mathbf u\cdot\mathbf v$ $+\|\mathbf v\|^2$ $=36+8+16=60$.</div>
+          <b class="n">2.</b><div>Expand both: $\|\mathbf u\pm\mathbf v\|^2$ $=\|\mathbf u\|^2\pm2\mathbf u\cdot\mathbf v$ $+\|\mathbf v\|^2$. Adding cancels the $\pm2\mathbf u\cdot\mathbf v$ terms.</div>
+        </div>
+        <p class="ans">$\|2\mathbf u-\mathbf v\|=\sqrt{60}=2\sqrt{15}$.</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q3 · tests: Proof: Nul(AᵀA) = Nul A (the key fact behind §6.5)</p>
+      <p class="q">Prove: if $A^TA\mathbf x=\mathbf 0$, then $A\mathbf x=\mathbf 0$.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>Multiply on the left by $\mathbf x^T$: $\mathbf x^TA^TA\mathbf x=0$.</div>
+          <b class="n">2.</b><div>But $\mathbf x^TA^TA\mathbf x$ $=(A\mathbf x)^T(A\mathbf x)$ $=\|A\mathbf x\|^2$.</div>
+          <b class="n">3.</b><div>$\|A\mathbf x\|^2=0$ ⇒ $A\mathbf x=\mathbf 0$. (The converse is obvious.)</div>
+        </div>
+        <p class="ans">$\operatorname{Nul}(A^TA)=\operatorname{Nul}A$, so $A^TA$ is invertible ⟺ the columns of $A$ are independent.</p>
+      </details>
+    </div>
+  </div>
 </section>
 
 <!-- ============================ 6.2 ============================ -->
@@ -3421,6 +3880,43 @@ window.MathJax = {
       <li>"$\|\hat{\mathbf y}\|$ is the distance from $\mathbf y$ to $L$": <strong>false</strong>; the distance is $\|\mathbf y-\hat{\mathbf y}\|$.</li>
       <li>$U^TU=I$ for orthonormal columns, but $UU^T\neq I$ unless $U$ is square.</li>
     </ul>
+  </div>
+  <div class="box mastery"><span class="tag">Check mastery · try before opening</span>
+    <div class="mq">
+      <p class="mq-test">Q1 · tests: Using Uᵀ = U⁻¹ to solve a system instantly</p>
+      <p class="q">$U=\tfrac13\left[\begin{smallmatrix}1&2&2\\2&1&-2\\2&-2&1\end{smallmatrix}\right]$. Show $U$ is an orthogonal matrix and solve $U\mathbf x=(1,2,3)$ without row reducing.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>Columns: dot products $2+2-4=0$, $2-4+2=0$, $4-2-2=0$; each length $\sqrt{9}/3=1$. Square ⇒ orthogonal matrix.</div>
+          <b class="n">2.</b><div>$\mathbf x=U^{-1}\mathbf b=U^T\mathbf b$ $=\tfrac13(1+4+6,\ 2+2-6,\ 2-4+3)$.</div>
+        </div>
+        <p class="ans">$\mathbf x=(11/3,\ -2/3,\ 1/3)$.</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q2 · tests: Theorem 7 and what non-square orthonormal columns do and don't give you</p>
+      <p class="q">$U$ is $4\times2$ with orthonormal columns, and $\mathbf x,\mathbf y\in\mathbb R^2$ with $\|\mathbf x\|=5$ and $\mathbf x\cdot\mathbf y=0$. Find $\|U\mathbf x\|$ and $(U\mathbf x)\cdot(U\mathbf y)$. Is $UU^T=I_4$? Is $U$ an orthogonal matrix?</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>$\|U\mathbf x\|=\|\mathbf x\|=5$; $(U\mathbf x)\cdot(U\mathbf y)=\mathbf x\cdot\mathbf y=0$.</div>
+          <b class="n">2.</b><div>$U^TU=I_2$, but $UU^T$ has rank 2, so it can't equal $I_4$. It is the projection onto Col U.</div>
+          <b class="n">3.</b><div>Not an orthogonal matrix: that requires a square matrix.</div>
+        </div>
+        <p class="ans">5; 0; no; no.</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q3 · tests: Building a reflection from a projection</p>
+      <p class="q">Reflect $\mathbf y=(7,1)$ across the line $L$ through $\mathbf u=(1,2)$.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>$\hat{\mathbf y}=\tfrac{7+2}{5}(1,2)$ $=(9/5,\ 18/5)$.</div>
+          <b class="n">2.</b><div>Reflection = $\hat{\mathbf y}-(\mathbf y-\hat{\mathbf y})=2\hat{\mathbf y}$ $-\mathbf y$ $=(18/5-7,\ 36/5-1)$.</div>
+          <b class="n">3.</b><div>Check: the length is preserved: $\tfrac{289+961}{25}=50=\|\mathbf y\|^2$ ✓</div>
+        </div>
+        <p class="ans">$(-17/5,\ 31/5)$.</p>
+      </details>
+    </div>
   </div>
 </section>
 
@@ -3528,6 +4024,44 @@ window.MathJax = {
       <li>"If $U$ ($n\times p$) has orthonormal columns, $UU^T\mathbf x=\mathbf x$ for all $\mathbf x$": <strong>false</strong> (only if square); $UU^T\mathbf y$ is the projection onto Col U.</li>
     </ul>
   </div>
+  <div class="box mastery"><span class="tag">Check mastery · try before opening</span>
+    <div class="mq">
+      <p class="mq-test">Q1 · tests: Trap: projecting onto a span whose basis is NOT orthogonal</p>
+      <p class="q">$W=\operatorname{Span}\{(1,1,0),(1,0,1)\}$, $\mathbf y=(1,2,3)$. Find $\operatorname{proj}_W\mathbf y$ and the distance from $\mathbf y$ to $W$.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>$(1,1,0)\cdot(1,0,1)=1\neq0$: the formula can't be used directly. First orthogonalize: $\mathbf v_2=(1,0,1)-\tfrac12(1,1,0)$ $\to(1,-1,2)$.</div>
+          <b class="n">2.</b><div>$\hat{\mathbf y}=\tfrac32(1,1,0)$ $+\tfrac56(1,-1,2)$ $=(7/3,\ 2/3,\ 5/3)$.</div>
+          <b class="n">3.</b><div>$\mathbf y-\hat{\mathbf y}$ $=(-4/3,\ 4/3,\ 4/3)$: dot product 0 with both original vectors ✓</div>
+        </div>
+        <p class="ans">$\hat{\mathbf y}=(7/3,2/3,5/3)$, distance $=\tfrac43\sqrt3=4/\sqrt3$. (Using the formula on the non-orthogonal pair gives a wrong answer.)</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q2 · tests: Projection matrices: rank and eigenvalues (links ch. 5 and ch. 6)</p>
+      <p class="q">$\mathbf u=\tfrac13(1,2,2)$ and $P=\mathbf u\mathbf u^T$. Describe $P$: what is $P^2$, its rank, its eigenvalues and eigenspaces?</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>$P\mathbf y=(\mathbf y\cdot\mathbf u)\mathbf u$ = projection onto the line $L=\operatorname{Span}\{\mathbf u\}$ (Theorem 10).</div>
+          <b class="n">2.</b><div>Projecting twice changes nothing: $P^2=P$. Rank 1.</div>
+          <b class="n">3.</b><div>$P\mathbf u=\mathbf u$ ⇒ eigenvalue 1 on $L$; $P\mathbf z=\mathbf 0$ for $\mathbf z\in L^\perp$ ⇒ eigenvalue 0 on the plane $L^\perp$.</div>
+        </div>
+        <p class="ans">Eigenvalues $1,0,0$ with eigenspaces $L$ and $L^\perp$. So $P$ is diagonalizable.</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q3 · tests: Distance to a plane given by an equation, by projecting onto W⊥ instead</p>
+      <p class="q">$W$ $=\{\mathbf x\in\mathbb R^3:\ x_1+x_2+x_3=0\}$, $\mathbf y=(1,2,3)$. Find the closest point in $W$ and the distance.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>$W^\perp=\operatorname{Span}\{\mathbf n\}$ with $\mathbf n=(1,1,1)$. Projecting onto one vector is easier than onto a plane.</div>
+          <b class="n">2.</b><div>$\operatorname{proj}_{W^\perp}\mathbf y=\tfrac63(1,1,1)$ $=(2,2,2)$.</div>
+          <b class="n">3.</b><div>$\mathbf y=\hat{\mathbf y}+\mathbf z$ ⇒ $\hat{\mathbf y}=\mathbf y-(2,2,2)$ $=(-1,0,1)$ (check: $-1+0+1=0$ ✓).</div>
+        </div>
+        <p class="ans">Closest point $(-1,0,1)$; distance $\|(2,2,2)\|=2\sqrt3$.</p>
+      </details>
+    </div>
+  </div>
 </section>
 
 <!-- ============================ 6.4 ============================ -->
@@ -3608,6 +4142,43 @@ window.MathJax = {
       <li>A common error: projecting $\mathbf x_3$ onto $\mathbf x_1,\mathbf x_2$ instead of onto $\mathbf v_1,\mathbf v_2$.</li>
       <li>QR needs $A$ to have <strong>independent columns</strong>.</li>
     </ul>
+  </div>
+  <div class="box mastery"><span class="tag">Check mastery · try before opening</span>
+    <div class="mq">
+      <p class="mq-test">Q1 · tests: What Gram–Schmidt does with a dependent input</p>
+      <p class="q">Run Gram–Schmidt on $\mathbf x_1=(1,1,1,1)$, $\mathbf x_2=(1,2,3,4)$, $\mathbf x_3=(3,4,5,6)$. What happens, and what does it tell you?</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>$\mathbf v_2=\mathbf x_2-\tfrac{10}4\mathbf x_1$ $=(-\tfrac32,-\tfrac12,\tfrac12,\tfrac32)$ $\to(-3,-1,1,3)$.</div>
+          <b class="n">2.</b><div>$\mathbf v_3=\mathbf x_3-\tfrac{18}4\mathbf v_1$ $-\tfrac{10}{20}\mathbf v_2$ $=(3,4,5,6)$ $-(4.5,4.5,4.5,4.5)$ $-(-1.5,-.5,.5,1.5)$ $=\mathbf 0$.</div>
+        </div>
+        <p class="ans">$\mathbf v_3=\mathbf 0$ ⇒ $\mathbf x_3\in\operatorname{Span}\{\mathbf x_1,\mathbf x_2\}$ (in fact $\mathbf x_3=2\mathbf x_1+\mathbf x_2$). Drop it: $\{\mathbf v_1,\mathbf v_2\}$ is an orthogonal basis.</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q2 · tests: Building a QR factorization end to end</p>
+      <p class="q">Find $A=QR$ for $A=\left[\begin{smallmatrix}1&1\\1&0\\0&1\end{smallmatrix}\right]$.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>$\mathbf v_1=(1,1,0)$; $\mathbf v_2=(1,0,1)-\tfrac12(1,1,0)$ $\to(1,-1,2)$.</div>
+          <b class="n">2.</b><div>$Q=\left[\begin{smallmatrix}1/\sqrt2&1/\sqrt6\\1/\sqrt2&-1/\sqrt6\\0&2/\sqrt6\end{smallmatrix}\right]$.</div>
+          <b class="n">3.</b><div>$R=Q^TA$: $r_{11}=\sqrt2$, $r_{12}=1/\sqrt2$, $r_{22}=3/\sqrt6=\sqrt6/2$.</div>
+        </div>
+        <p class="ans">$R=\left[\begin{smallmatrix}\sqrt2&1/\sqrt2\\0&\sqrt6/2\end{smallmatrix}\right]$.</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q3 · tests: Combining §6.1 and §6.4: an orthonormal basis for a complement</p>
+      <p class="q">Find an orthonormal basis for $W^\perp$, where $W=\operatorname{Span}\{(1,1,1,1)\}\subset\mathbb R^4$.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>$W^\perp=\operatorname{Nul}[\,1\ 1\ 1\ 1\,]$: basis $(-1,1,0,0),(-1,0,1,0),(-1,0,0,1)$.</div>
+          <b class="n">2.</b><div>Gram–Schmidt: $\mathbf v_1=(-1,1,0,0)$, $\mathbf v_2\to(-1,-1,2,0)$, $\mathbf v_3\to(-1,-1,-1,3)$.</div>
+          <b class="n">3.</b><div>Normalize by $\sqrt2,\sqrt6,\sqrt{12}$.</div>
+        </div>
+        <p class="ans">$\{\tfrac1{\sqrt2}(-1,1,0,0),\ \tfrac1{\sqrt6}(-1,-1,2,0),\ \tfrac1{\sqrt{12}}(-1,-1,-1,3)\}$.</p>
+      </details>
+    </div>
   </div>
 </section>
 
@@ -3706,6 +4277,44 @@ window.MathJax = {
       <li>$\hat{\mathbf x}=(A^TA)^{-1}A^T\mathbf b$ only when $A^TA$ is invertible (independent columns).</li>
       <li>If $\mathbf b$ is orthogonal to the columns of $A$, then $\hat{\mathbf b}=\mathbf 0$ and $\hat{\mathbf x}$ solves $A\mathbf x=\mathbf 0$.</li>
     </ul>
+  </div>
+  <div class="box mastery"><span class="tag">Check mastery · try before opening</span>
+    <div class="mq">
+      <p class="mq-test">Q1 · tests: Normal equations vs QR on the same problem, and connecting x̂ to the projection</p>
+      <p class="q">$A=\left[\begin{smallmatrix}1&1\\1&0\\0&1\end{smallmatrix}\right]$, $\mathbf b=(1,2,3)$. Find $\hat{\mathbf x}$ two ways (normal equations, and $R\hat{\mathbf x}=Q^T\mathbf b$ with the QR from §6.4), and the least-squares error.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>$A^TA=\left[\begin{smallmatrix}2&1\\1&2\end{smallmatrix}\right]$, $A^T\mathbf b=(3,4)$ ⇒ $\hat{\mathbf x}=\tfrac13\left[\begin{smallmatrix}2&-1\\-1&2\end{smallmatrix}\right](3,4)$ $=(2/3,\ 5/3)$.</div>
+          <b class="n">2.</b><div>QR: $Q^T\mathbf b=(3/\sqrt2,\ 5/\sqrt6)$. Back-substitute: $\tfrac{\sqrt6}2x_2=\tfrac5{\sqrt6}$ ⇒ $x_2=\tfrac53$; then $\sqrt2x_1+\tfrac{x_2}{\sqrt2}=\tfrac3{\sqrt2}$ ⇒ $x_1=\tfrac23$ ✓</div>
+          <b class="n">3.</b><div>$A\hat{\mathbf x}=(7/3,2/3,5/3)$: the same projection as in §6.3 question 1.</div>
+        </div>
+        <p class="ans">$\hat{\mathbf x}=(2/3,5/3)$; error $=\|(-4/3,4/3,4/3)\|=4/\sqrt3$.</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q2 · tests: Explaining WHY a least-squares solution is unique or not</p>
+      <p class="q">Use §6.1 question 3 ($\operatorname{Nul}A^TA=\operatorname{Nul}A$) to explain: $A\mathbf x=\mathbf b$ has a unique least-squares solution ⟺ the columns of $A$ are independent. If they're dependent, describe the set of all LS solutions.</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>$A^TA$ is square ($n\times n$). It's invertible ⟺ $\operatorname{Nul}A^TA=\{\mathbf 0\}$ ⟺ $\operatorname{Nul}A=\{\mathbf 0\}$ ⟺ the columns of $A$ are independent.</div>
+          <b class="n">2.</b><div>Invertible ⇒ the normal equations have exactly one solution.</div>
+          <b class="n">3.</b><div>Dependent: all LS solutions are $\hat{\mathbf x}_p+\operatorname{Nul}A$ (a particular solution plus the homogeneous ones, as in §1.5).</div>
+        </div>
+        <p class="ans">Unique ⟺ independent columns. Otherwise there are infinitely many, all giving the same $A\hat{\mathbf x}=\hat{\mathbf b}$.</p>
+      </details>
+    </div>
+    <div class="mq">
+      <p class="mq-test">Q3 · tests: Interpreting a zero least-squares error</p>
+      <p class="q">$A=\left[\begin{smallmatrix}2&1\\-2&0\\2&3\end{smallmatrix}\right]$, $\mathbf b=(-5,8,1)$. Find $\hat{\mathbf x}$ and the least-squares error. What does the error tell you?</p>
+      <details><summary>Show solution</summary>
+        <div class="step">
+          <b class="n">1.</b><div>$A^TA=\left[\begin{smallmatrix}12&8\\8&10\end{smallmatrix}\right]$, $A^T\mathbf b=(-24,-2)$, $\det=56$.</div>
+          <b class="n">2.</b><div>$\hat{\mathbf x}$ $=\tfrac1{56}\left[\begin{smallmatrix}10&-8\\-8&12\end{smallmatrix}\right](-24,-2)$ $=(-4,3)$.</div>
+          <b class="n">3.</b><div>$A\hat{\mathbf x}=(-5,8,1)=\mathbf b$ ⇒ error 0.</div>
+        </div>
+        <p class="ans">$\hat{\mathbf x}=(-4,3)$, error 0: $\mathbf b\in\operatorname{Col}A$, so the least-squares solution is an exact solution of $A\mathbf x=\mathbf b$.</p>
+      </details>
+    </div>
   </div>
 </section>
 
