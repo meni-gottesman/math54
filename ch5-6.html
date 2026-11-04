@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chapters 5–6 From Scratch</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Sans:wght@600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+:root{--bg:#F6F7F9;--surface:#FFFFFF;--ink:#1B1F27;--muted:#5E6775;--accent:#1F4E9C;--accent-soft:#E8EEF9;--amber:#A66A12;--amber-soft:#FBF2E0;--rule:#D8DDE5;--grid:#E4E7EC;--red:#B3261E;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#13161B;--surface:#1B1F26;--ink:#E7EAF0;--muted:#9AA4B3;--accent:#8AB0EC;--accent-soft:#1E2A40;--amber:#E2A64C;--amber-soft:#2E2414;--rule:#2A303A;--grid:#2A303A;--red:#F0857D;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#13161B;--surface:#1B1F26;--ink:#E7EAF0;--muted:#9AA4B3;--accent:#8AB0EC;--accent-soft:#1E2A40;--amber:#E2A64C;--amber-soft:#2E2414;--rule:#2A303A;--grid:#2A303A;--red:#F0857D;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Source Serif 4",Georgia,serif;font-size:18px;line-height:1.6}
+.page{max-width:760px;margin:0 auto;padding:48px 16px 80px}
+.eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.eyebrow a{color:inherit}
+h1,h2,h3,summary{font-family:"IBM Plex Sans",system-ui,sans-serif}
+h1{font-size:clamp(30px,6vw,40px);line-height:1.1;margin:0 0 12px}
+h2{font-size:25px;line-height:1.2;margin:56px 0 4px;scroll-margin-top:12px}
+h2 .n{color:var(--accent);margin-right:8px}
+h3{font-size:16px;margin:24px 0 6px;color:var(--accent)}
+.chap{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-top:2px solid var(--ink);margin:64px 0 -36px;padding-top:10px}
+.lede{color:var(--muted);margin:0 0 20px}
+.q{font-size:20px;line-height:1.45;margin:4px 0 14px}
+p{margin:0 0 12px}
+.jump{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}
+.jump a{font:600 14px "IBM Plex Sans",system-ui,sans-serif;text-decoration:none;color:var(--accent);background:var(--surface);border:1px solid var(--rule);padding:6px 11px}
+.jump a:hover{background:var(--accent-soft)}
+.box{background:var(--surface);border:1px solid var(--rule);padding:14px 16px;margin:14px 0}
+.box.key{border-left:4px solid var(--accent);background:var(--accent-soft)}
+.box.warn{border-left:4px solid var(--amber);background:var(--amber-soft)}
+.box h3:first-child{margin-top:0}
+.steps{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 10px;margin:8px 0}
+.steps>b{font-family:"IBM Plex Mono",ui-monospace,monospace;color:var(--accent);font-size:15px;padding-top:2px}
+.term{font-weight:600}
+details{background:var(--surface);border:1px dashed var(--accent);padding:12px 16px;margin:14px 0}
+summary{cursor:pointer;color:var(--accent);font-weight:600;font-size:15px}
+summary:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+details .t{margin:0}
+details[open] summary{margin-bottom:8px}
+svg.fig{display:block;width:100%;height:auto;margin:6px 0}
+svg.fig text{font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:18px;fill:var(--ink)}
+svg.fig .m{fill:var(--muted)} svg.fig .a{fill:var(--accent)} svg.fig .r{fill:var(--red)}
+.cap{font-size:14.5px;color:var(--muted);margin-top:-2px}
+mjx-container[jax="SVG"][display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;margin:10px 0!important}
+mjx-container[jax="SVG"]:not([display="true"]){display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle}
+.foot{margin-top:48px;font-size:14px;color:var(--muted)}
+.foot a{color:var(--accent)}
+</style>
+<script>
+window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},svg:{fontCache:'global'}};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+</head><body><div class="page">
+<p class="eyebrow"><a href="index.html">Math 54</a> · Midterm 2</p>
+<h1>Chapters 5–6 From Scratch</h1>
+<p class="lede">No background assumed beyond multiplying a matrix by a vector. Read in order: each section uses the one before it, and the same small matrix runs through most of the page.</p>
+<div class="jump"><a href="#s51">5.1</a><a href="#s52">5.2</a><a href="#s53">5.3</a><a href="#s54">5.4</a><a href="#s55">5.5</a><a href="#s61">6.1</a><a href="#s62">6.2</a><a href="#s63">6.3</a><a href="#s64">6.4</a><a href="#s65">6.5</a></div>
+
+<div class="box key"><h3>The whole story in four sentences</h3>
+<p><strong>Chapter 5:</strong> a matrix moves arrows around, but a few special arrows only get longer or shorter. Those arrows make the matrix easy to understand and easy to compute with.</p>
+<p style="margin:0"><strong>Chapter 6:</strong> right angles make calculations easy. When an equation has no exact solution, a right angle also finds the closest answer.</p></div>
+
+<p class="chap">Chapter 5 · Eigenvalues</p>
+
+<h2 id="s51"><span class="n">5.1</span>Eigenvectors and eigenvalues</h2>
+<p class="q">Which arrows does a matrix only stretch, without turning?</p>
+<p>Multiplying a matrix by a vector gives a new vector. Think of it as the matrix moving an arrow. Here is the matrix we'll use throughout:</p>
+$$A=\begin{bmatrix}2&1\\1&2\end{bmatrix}$$
+<p>Try three arrows:</p>
+$$A\begin{bmatrix}1\\0\end{bmatrix}=\begin{bmatrix}2\\1\end{bmatrix}$$
+$$A\begin{bmatrix}1\\1\end{bmatrix}=\begin{bmatrix}3\\3\end{bmatrix}$$
+$$A\begin{bmatrix}1\\-1\end{bmatrix}=\begin{bmatrix}1\\-1\end{bmatrix}$$
+<svg class="fig" viewBox="0 0 640 250" role="img" aria-label="Before and after multiplying by A. The arrow (1,0) turns to (2,1). The arrow (1,1) stays on its line and becomes (3,3). The arrow (1,-1) does not change.">
+  <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="context-stroke"/></marker></defs>
+  <g stroke="var(--grid)"><path d="M20 150H300M90 20V240M340 150H620M410 20V240"/></g>
+  <text x="90" y="16" class="m">Before</text><text x="410" y="16" class="m">After multiplying by A</text>
+  <g stroke-width="2.5" fill="none" marker-end="url(#ah)">
+    <path d="M90 150L130 150" stroke="var(--red)"/>
+    <path d="M90 150L130 110" stroke="var(--accent)"/>
+    <path d="M90 150L130 190" stroke="var(--amber)"/>
+    <path d="M410 150L490 110" stroke="var(--red)"/>
+    <path d="M410 150L530 30" stroke="var(--accent)"/>
+    <path d="M410 150L450 190" stroke="var(--amber)"/>
+  </g>
+  <text x="136" y="154" class="r">(1,0)</text><text x="136" y="108" class="a">(1,1)</text><text x="136" y="208">(1,−1)</text>
+  <text x="498" y="112" class="r">(2,1): turned</text><text x="505" y="40" class="a" text-anchor="end">(3,3): 3× longer</text><text x="440" y="214">(1,−1): unchanged</text>
+</svg>
+<p class="cap">The red arrow changed direction. The blue and orange arrows stayed on their own lines.</p>
+<p>Those two special arrows have names. $(1,1)$ is an <span class="term">eigenvector</span> with <span class="term">eigenvalue</span> 3, because $A$ multiplied it by 3. $(1,-1)$ is an eigenvector with eigenvalue 1, because $A$ multiplied it by 1.</p>
+<div class="box key"><h3>The definition, in symbols and words</h3>
+$$A\mathbf x=\lambda\mathbf x,\qquad \mathbf x\neq\mathbf 0$$
+<p style="margin:0">"Doing $A$ to the arrow $\mathbf x$ is the same as multiplying it by the plain number $\lambda$." $\lambda$ (lambda) is just the stretch factor. It can be negative (flips the arrow) or 0 (crushes it). The zero vector never counts as an eigenvector.</p></div>
+<h3>Problem type: is this an eigenvector?</h3>
+<p>Multiply and look. If $A\mathbf v$ is a multiple of $\mathbf v$, yes, and the multiple is $\lambda$.</p>
+<h3>Problem type: given $\lambda$, find the eigenvectors</h3>
+<p>Move everything in $A\mathbf x=\lambda\mathbf x$ to one side: $(A-\lambda I)\mathbf x=\mathbf 0$. ($I$ is there because you can't subtract a number from a matrix. $A-\lambda I$ means "subtract $\lambda$ from each diagonal entry.") That is a null space problem from Chapter 4. For $\lambda=3$:</p>
+$$A-3I=\begin{bmatrix}-1&1\\1&-1\end{bmatrix}\sim\begin{bmatrix}1&-1\\0&0\end{bmatrix}$$
+<p>So $x_1=x_2$, which means every solution looks like this:</p>
+$$\mathbf x=x_2\begin{bmatrix}1\\1\end{bmatrix}$$
+<p>All those multiples of $(1,1)$ together are the <span class="term">eigenspace</span> of $\lambda=3$. Stretching an eigenvector still gives an eigenvector, so there's always a whole line (or plane) of them, and you report a basis.</p>
+<p><strong>Quick facts:</strong> a triangular matrix's eigenvalues are its diagonal entries. If 0 is an eigenvalue, $A\mathbf x=\mathbf 0$ has a nonzero solution, so $A$ is not invertible.</p>
+<details><summary>Try it: is $(1,1)$ an eigenvector of $\left[\begin{smallmatrix}4&1\\2&3\end{smallmatrix}\right]$?</summary><p class="t">Multiply: $(4+1,\ 2+3)=(5,5)=5(1,1)$. Yes, with eigenvalue 5.</p></details>
+
+<h2 id="s52"><span class="n">5.2</span>Finding the eigenvalues</h2>
+<p class="q">How do you find $\lambda$ when nobody gives it to you?</p>
+<p>We need a <em>nonzero</em> solution to $(A-\lambda I)\mathbf x=\mathbf 0$. A square matrix has a nonzero null vector exactly when it isn't invertible, and that's exactly when its determinant is 0. So:</p>
+<div class="box key"><h3>The characteristic equation</h3>
+$$\det(A-\lambda I)=0$$
+<p style="margin:0">Its solutions are the eigenvalues. That's the reason determinants show up here.</p></div>
+<p>For our matrix, subtract $\lambda$ from the diagonal and take the determinant:</p>
+$$\begin{aligned}\det\begin{bmatrix}2-\lambda&1\\1&2-\lambda\end{bmatrix}&=(2-\lambda)^2-1\\&=\lambda^2-4\lambda+3\\&=(\lambda-3)(\lambda-1)\end{aligned}$$
+<p>So $\lambda=3$ and $\lambda=1$, the same two we saw. Then find each eigenvector as in 5.1.</p>
+<p><strong>2×2 shortcut:</strong> the equation is always $\lambda^2-(\text{trace})\lambda+\det A=0$. The trace is the sum of the diagonal. Here: trace 4, det 3.</p>
+<p><span class="term">Algebraic multiplicity</span> is how many times a root repeats. In $(\lambda-3)^2(\lambda-1)$, the root 3 has multiplicity 2.</p>
+<p><span class="term">Similar matrices:</span> $A$ and $B$ are similar if $A=PBP^{-1}$. They describe the same action written in different coordinates, so they have the same eigenvalues (Theorem 4). The reverse fails: same eigenvalues doesn't guarantee similar.</p>
+<details><summary>Try it: eigenvalues and eigenvectors of $\left[\begin{smallmatrix}4&1\\2&3\end{smallmatrix}\right]$</summary><p class="t">Trace 7, det 10: $\lambda^2-7\lambda+10=(\lambda-5)(\lambda-2)$. For $\lambda=5$: $(1,1)$. For $\lambda=2$: $A-2I=\left[\begin{smallmatrix}2&1\\2&1\end{smallmatrix}\right]$, so $2x_1+x_2=0$, giving $(1,-2)$.</p></details>
+
+<h2 id="s53"><span class="n">5.3</span>Diagonalization</h2>
+<p class="q">Why do we care? Because eigenvectors make huge powers easy.</p>
+<p>Suppose you need $A^{10}$ times $(5,1)$. Multiplying ten times is painful. Instead, write $(5,1)$ using the eigenvectors:</p>
+$$\begin{bmatrix}5\\1\end{bmatrix}=3\begin{bmatrix}1\\1\end{bmatrix}+2\begin{bmatrix}1\\-1\end{bmatrix}$$
+<p>Each time $A$ acts, the first piece is multiplied by 3 and the second by 1. They don't interfere. So after ten rounds:</p>
+$$\begin{aligned}A^{10}\begin{bmatrix}5\\1\end{bmatrix}&=3\cdot3^{10}\begin{bmatrix}1\\1\end{bmatrix}+2\cdot1^{10}\begin{bmatrix}1\\-1\end{bmatrix}\\&=\begin{bmatrix}177149\\177145\end{bmatrix}\end{aligned}$$
+<p>Diagonalizing packages that trick into one formula:</p>
+<div class="box key"><h3>$A=PDP^{-1}$</h3>
+<p><strong>$P$</strong> has the eigenvectors as columns. <strong>$D$</strong> is diagonal, with the eigenvalues in the same order.</p>
+$$\underbrace{\begin{bmatrix}2&1\\1&2\end{bmatrix}}_{A}=\underbrace{\begin{bmatrix}1&1\\1&-1\end{bmatrix}}_{P}\underbrace{\begin{bmatrix}3&0\\0&1\end{bmatrix}}_{D}\underbrace{\tfrac12\begin{bmatrix}1&1\\1&-1\end{bmatrix}}_{P^{-1}}$$
+<p style="margin:0">Read it right to left: $P^{-1}$ translates into eigenvector language, $D$ does the stretching, $P$ translates back. It's like translating a sentence into a language where the math is easy, doing it, and translating back.</p></div>
+<p>Powers are now simple, because the middle $P^{-1}P$ pairs cancel: $A^k=PD^kP^{-1}$, and $D^k$ just raises each diagonal entry to the $k$. (Check: $k=2$ gives $\left[\begin{smallmatrix}5&4\\4&5\end{smallmatrix}\right]$, which equals $A^2$.)</p>
+<h3>Problem type: diagonalize $A$</h3>
+<div class="steps">
+<b>1.</b><div>Find the eigenvalues.</div>
+<b>2.</b><div>Find a basis for each eigenspace.</div>
+<b>3.</b><div>Count the vectors. An $n\times n$ matrix needs $n$ of them. If you have fewer, stop: it's not diagonalizable.</div>
+<b>4.</b><div>Put them in $P$, and the matching eigenvalues in $D$. Check $AP=PD$, which avoids computing $P^{-1}$.</div>
+</div>
+<h3>When does it fail?</h3>
+<p>When there aren't enough eigenvectors. $\left[\begin{smallmatrix}1&1\\0&1\end{smallmatrix}\right]$ has $\lambda=1$ twice, but $A-I=\left[\begin{smallmatrix}0&1\\0&0\end{smallmatrix}\right]$ forces $x_2=0$, so its only eigenvectors are multiples of $(1,0)$. One direction isn't enough for a 2×2.</p>
+<p><strong>Theorems in one line:</strong> diagonalizable ⇔ $n$ independent eigenvectors (Thm 5). $n$ different eigenvalues guarantees it (Thm 6). With repeats, each eigenspace's dimension must equal its multiplicity (Thm 7).</p>
+<div class="box warn"><h3>Don't mix these up</h3><p style="margin:0">Invertible and diagonalizable are unrelated. Invertible asks "is 0 an eigenvalue?" Diagonalizable asks "are there enough eigenvectors?"</p></div>
+<details><summary>Try it: diagonalize $\left[\begin{smallmatrix}4&1\\2&3\end{smallmatrix}\right]$</summary><p class="t">From 5.2's exercise: $P=\left[\begin{smallmatrix}1&1\\1&-2\end{smallmatrix}\right]$, $D=\left[\begin{smallmatrix}5&0\\0&2\end{smallmatrix}\right]$. Two different eigenvalues, so it works.</p></details>
+
+<h2 id="s54"><span class="n">5.4</span>Matrices of linear transformations</h2>
+<p class="q">The same action can have different matrices, depending on the coordinates you use.</p>
+<p>A <span class="term">linear transformation</span> $T$ is the action itself. A matrix is how you write it down after choosing a basis, the way one sentence can be written in English or Spanish.</p>
+<div class="box key"><h3>The one rule</h3><p style="margin:0">Column $j$ of the matrix is: <strong>what $T$ does to basis vector $j$, written in that basis.</strong></p></div>
+<p><strong>Example with polynomials.</strong> Let $T(\mathbf p)=\mathbf p'$ (the derivative) on polynomials of degree ≤2, with basis $\{1,t,t^2\}$. Coefficient lists are in the order (constant, $t$, $t^2$):</p>
+<div class="steps">
+<b>1.</b><div>$T(1)=0$, which is $(0,0,0)$.</div>
+<b>2.</b><div>$T(t)=1$, which is $(1,0,0)$.</div>
+<b>3.</b><div>$T(t^2)=2t$, which is $(0,2,0)$.</div>
+</div>
+$$[T]_{\mathcal B}=\begin{bmatrix}0&1&0\\0&0&2\\0&0&0\end{bmatrix}$$
+<p><strong>Example with our matrix.</strong> Use the eigenvectors as the basis: $\mathbf b_1=(1,1)$, $\mathbf b_2=(1,-1)$. Then $T(\mathbf b_1)=3\mathbf b_1$ and $T(\mathbf b_2)=1\mathbf b_2$, so the columns are $(3,0)$ and $(0,1)$:</p>
+$$[T]_{\mathcal B}=\begin{bmatrix}3&0\\0&1\end{bmatrix}=D$$
+<p>That's what diagonalization means: <strong>in the eigenvector basis, the action is pure stretching</strong> (Theorem 8).</p>
+<p><strong>Formula for any basis in $\mathbb R^n$:</strong> $[T]_{\mathcal B}=P^{-1}AP$, where $P$'s columns are the basis vectors.</p>
+<details><summary>Try it: $T(\mathbf p)=\mathbf p+\mathbf p'$ on $\{1,t\}$</summary><p class="t">$T(1)=1$ gives $(1,0)$. $T(t)=t+1$ gives $(1,1)$. Matrix: $\left[\begin{smallmatrix}1&1\\0&1\end{smallmatrix}\right]$.</p></details>
+
+<h2 id="s55"><span class="n">5.5</span>Complex eigenvalues</h2>
+<p class="q">What if a matrix turns every arrow, so that no arrow stays on its line?</p>
+<p>Take a 90° rotation, $\left[\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\right]$. Every arrow turns, so no real eigenvector can exist. The algebra agrees: $\lambda^2+1=0$ has no real solutions, only $\lambda=\pm i$, where $i^2=-1$.</p>
+<div class="box key"><h3>What a complex eigenvalue means</h3><p style="margin:0">Complex eigenvalues signal <strong>rotation</strong>. For a real matrix they come in pairs $a\pm bi$. The pair tells you the rotation angle and the stretch.</p></div>
+<p>The cleanest case is a matrix of this shape:</p>
+$$C=\begin{bmatrix}a&-b\\b&a\end{bmatrix}$$
+<p>Its eigenvalues are $a\pm bi$. Two numbers describe it: the stretch $r=\sqrt{a^2+b^2}$, and the angle $\varphi$ of the point $(a,b)$.</p>
+<p>Multiplying by $C$ rotates by $\varphi$ and scales by $r$. Example: $\left[\begin{smallmatrix}1&-1\\1&1\end{smallmatrix}\right]$ has $a=1,b=1$, so $r=\sqrt2$ and $\varphi=45^\circ$. Check: it sends $(1,0)$ to $(1,1)$, which is turned $45^\circ$ and has length $\sqrt2$.</p>
+<h3>Problem type: find $P$ and $C$ with $A=PCP^{-1}$</h3>
+<p>Most matrices aren't in that neat shape, but they're the same thing in other coordinates (Theorem 9). Take $A=\left[\begin{smallmatrix}1&-2\\1&3\end{smallmatrix}\right]$:</p>
+<div class="steps">
+<b>1.</b><div>Trace 4, det 5: $\lambda^2-4\lambda+5=0$. The quadratic formula gives $\lambda=2\pm i$.</div>
+<b>2.</b><div>Choose the one with the minus sign: $\lambda=2-i$, so $a=2$, $b=1$.</div>
+<b>3.</b><div>Write $A-\lambda I$ and use one row. Row 2 is $[\,1\ \ \ 1+i\,]$, so $x_1+(1+i)x_2=0$. Taking $x_2=1$: $\mathbf v=(-1-i,\ 1)$.</div>
+<b>4.</b><div>Split $\mathbf v$ into real and imaginary parts: $\mathbf v=(-1,1)+i(-1,0)$. Those are the columns of $P$: $P=\left[\begin{smallmatrix}-1&-1\\1&0\end{smallmatrix}\right]$.</div>
+<b>5.</b><div>$C=\left[\begin{smallmatrix}a&-b\\b&a\end{smallmatrix}\right]=\left[\begin{smallmatrix}2&-1\\1&2\end{smallmatrix}\right]$. Check: $AP=PC$.</div>
+</div>
+<p><strong>Long-run behavior:</strong> $r&lt;1$ spirals in, $r=1$ goes around an ellipse, $r&gt;1$ spirals out.</p>
+<details><summary>Try it: eigenvalues, $r$ and $\varphi$ for $\left[\begin{smallmatrix}3&-4\\4&3\end{smallmatrix}\right]$</summary><p class="t">$a=3,b=4$: $\lambda=3\pm4i$, $r=5$, $\varphi\approx53^\circ$ (the angle of the point $(3,4)$).</p></details>
+
+<p class="chap">Chapter 6 · Orthogonality</p>
+
+<h2 id="s61"><span class="n">6.1</span>Dot product, length, right angles</h2>
+<p class="q">One operation gives you length, distance and right angles in any dimension.</p>
+<p>The <span class="term">dot product</span> multiplies matching entries and adds, producing one number:</p>
+$$(1,2,2)\cdot(2,-1,0)=2-2+0=0$$
+<p>It measures how much two arrows point the same way: positive means similar direction, negative means opposite-ish, and <strong>0 means a right angle</strong>. "<span class="term">Orthogonal</span>" is the math word for perpendicular.</p>
+<ul>
+<li><strong>Length:</strong> $\|\mathbf v\|=\sqrt{\mathbf v\cdot\mathbf v}$. For $(3,4)$: $\sqrt{9+16}=5$. It's just the Pythagorean theorem.</li>
+<li><strong>Unit vector</strong> (length 1, same direction): divide by the length. $(3,4)\to(3/5,4/5)$.</li>
+<li><strong>Distance</strong> between two points: subtract them, then take the length.</li>
+</ul>
+<p>Notice that our eigenvectors are orthogonal: $(1,1)\cdot(1,-1)=0$. We'll use that pair below.</p>
+<h3>$W^\perp$, "W perp"</h3>
+<p>If $W$ is a subspace, $W^\perp$ is <strong>everything perpendicular to all of $W$</strong>. If $W$ is the floor, $W^\perp$ is the vertical line through the origin. Their dimensions add up to $n$.</p>
+<p><strong>To find it:</strong> $\mathbf z$ must have dot product 0 with each spanning vector of $W$. Put those vectors in as the <em>rows</em> of a matrix and find the null space. Example: for $W=\operatorname{Span}\{(1,0,1),(0,1,1)\}$, the equations $z_1+z_3=0$ and $z_2+z_3=0$ give $W^\perp=\operatorname{Span}\{(-1,-1,1)\}$.</p>
+<p><strong>Why Theorem 3 is true:</strong> $A\mathbf x=\mathbf 0$ says each row of $A$ dotted with $\mathbf x$ is 0. So $\operatorname{Nul}A$ is exactly what's perpendicular to the rows: $(\operatorname{Row}A)^\perp=\operatorname{Nul}A$. Applying this to $A^T$ gives $(\operatorname{Col}A)^\perp=\operatorname{Nul}A^T$.</p>
+<details><summary>Try it: length and unit vector of $(1,2,2)$</summary><p class="t">Length $\sqrt{1+4+4}=3$. Unit vector: $(1/3,\ 2/3,\ 2/3)$.</p></details>
+
+<h2 id="s62"><span class="n">6.2</span>Orthogonal sets and shadows</h2>
+<p class="q">When your basis vectors are perpendicular, you can find weights without row reducing.</p>
+<p>Write $\mathbf y=(3,1)$ using $\mathbf u_1=(1,1)$ and $\mathbf u_2=(1,-1)$. Because they're perpendicular, each weight comes from a quick formula:</p>
+$$c=\frac{\mathbf y\cdot\mathbf u}{\mathbf u\cdot\mathbf u}$$
+$$c_1=\frac{4}{2}=2,\qquad c_2=\frac{2}{2}=1$$
+<p>Check: $2(1,1)+1(1,-1)=(3,1)$. Dotting with $\mathbf u_1$ makes the $\mathbf u_2$ part vanish, since it's perpendicular. That's why each weight can be found on its own.</p>
+<h3>Projection: the shadow of an arrow on a line</h3>
+<svg class="fig" viewBox="0 0 640 230" role="img" aria-label="The arrow y=(3,1), its shadow y-hat=(2,2) on the line through u=(1,1), and the perpendicular leftover z from the shadow to y.">
+  <path d="M60 200H600M100 20V215" stroke="var(--grid)"/>
+  <path d="M100 200L270 30" stroke="var(--muted)" stroke-dasharray="4 4"/>
+  <g stroke-width="2.5" fill="none" marker-end="url(#ah)">
+    <path d="M100 200L340 120" stroke="var(--red)"/>
+    <path d="M100 200L260 40" stroke="var(--accent)"/>
+    <path d="M260 40L340 120" stroke="var(--amber)"/>
+  </g>
+  <text x="350" y="124" class="r">y = (3,1)</text>
+  <text x="222" y="72" class="a" text-anchor="end">ŷ = (2,2), shadow</text>
+  <text x="312" y="72">z = (1,−1), leftover</text>
+  <text x="278" y="30" class="m">line through u = (1,1)</text>
+</svg>
+<p class="cap">Shine a light perpendicular to the line. The shadow of y lands at ŷ, and the leftover z meets the line at a right angle.</p>
+<div class="box key"><h3>Projection onto the line through $\mathbf u$</h3>
+$$\hat{\mathbf y}=\frac{\mathbf y\cdot\mathbf u}{\mathbf u\cdot\mathbf u}\,\mathbf u,\qquad \mathbf z=\mathbf y-\hat{\mathbf y}$$
+<p style="margin:0">Then $\mathbf y=\hat{\mathbf y}+\mathbf z$: "the part along $\mathbf u$" plus "the part perpendicular to $\mathbf u$." The distance from $\mathbf y$ to the line is $\|\mathbf z\|$.</p></div>
+<p>Here: $\hat{\mathbf y}=\tfrac42(1,1)=(2,2)$ and $\mathbf z=(3,1)-(2,2)=(1,-1)$. Check: $(1,-1)\cdot(1,1)=0$.</p>
+<h3>Orthonormal columns</h3>
+<p><span class="term">Orthonormal</span> means perpendicular <em>and</em> each of length 1. If a matrix $U$ has orthonormal columns, then $U^TU=I$, because the entries of $U^TU$ are the dot products of the columns: 1 on the diagonal, 0 elsewhere. Multiplying by $U$ also keeps lengths and angles the same: $\|U\mathbf x\|=\|\mathbf x\|$.</p>
+<p>A <strong>square</strong> matrix like this is called an <span class="term">orthogonal matrix</span>, and then $U^{-1}=U^T$, so you get the inverse for free.</p>
+<details><summary>Try it: project $(4,2)$ onto the line through $(1,1)$</summary><p class="t">$\frac{4+2}{2}=3$, so $\hat{\mathbf y}=(3,3)$ and $\mathbf z=(1,-1)$. Check: $(1,-1)\cdot(1,1)=0$.</p></details>
+
+<h2 id="s63"><span class="n">6.3</span>Projecting onto a plane</h2>
+<p class="q">What's the closest point on a plane to a point off the plane?</p>
+<p>Picture a pole's tip above the floor. The closest floor point is straight below it. That point is the projection, $\hat{\mathbf y}=\operatorname{proj}_W\mathbf y$.</p>
+<p><strong>To compute it:</strong> take a shadow on each vector of an <em>orthogonal</em> basis of $W$, and add the shadows up.</p>
+$$\hat{\mathbf y}=\frac{\mathbf y\cdot\mathbf u_1}{\mathbf u_1\cdot\mathbf u_1}\mathbf u_1+\frac{\mathbf y\cdot\mathbf u_2}{\mathbf u_2\cdot\mathbf u_2}\mathbf u_2$$
+<p><strong>Example.</strong> $\mathbf y=(1,2,3)$, and $W$ is the floor, with $\mathbf u_1=(1,1,0)$, $\mathbf u_2=(1,-1,0)$.</p>
+<div class="steps">
+<b>1.</b><div>Check they're perpendicular: $\mathbf u_1\cdot\mathbf u_2=0$.</div>
+<b>2.</b><div>Weights: $\tfrac32$ and $-\tfrac12$.</div>
+<b>3.</b><div>$\hat{\mathbf y}=\tfrac32(1,1,0)-\tfrac12(1,-1,0)=(1,2,0)$. That's the closest point. It makes sense: the point directly below $(1,2,3)$.</div>
+<b>4.</b><div>Leftover: $\mathbf z=\mathbf y-\hat{\mathbf y}=(0,0,3)$. Distance from $\mathbf y$ to $W$: $\|\mathbf z\|=3$.</div>
+</div>
+<div class="box key"><h3>The three theorems, in words</h3>
+<p><strong>Thm 8:</strong> every $\mathbf y$ splits in exactly one way into (a piece in $W$) + (a piece perpendicular to $W$).</p>
+<p><strong>Thm 9:</strong> the piece in $W$ is the closest point of $W$ to $\mathbf y$.</p>
+<p style="margin:0"><strong>Thm 10:</strong> if the basis is orthonormal, the formula shortens to $\hat{\mathbf y}=UU^T\mathbf y$.</p></div>
+<div class="box warn"><h3>The most common mistake</h3><p style="margin:0">The formula only works if the basis is orthogonal. <strong>Check the dot products first.</strong> If they aren't 0, use Gram–Schmidt (next section) before projecting.</p></div>
+<details><summary>Try it: $\mathbf y=(3,4,5)$, $\mathbf u_1=(1,0,1)$, $\mathbf u_2=(1,0,-1)$</summary><p class="t">The dot product of the $\mathbf u$'s is 0. Weights: $\tfrac82=4$ and $\tfrac{-2}{2}=-1$. $\hat{\mathbf y}=4\mathbf u_1-\mathbf u_2=(3,0,5)$. $\mathbf z=(0,4,0)$. Distance 4.</p></details>
+
+<h2 id="s64"><span class="n">6.4</span>Gram–Schmidt and QR</h2>
+<p class="q">The last two sections need perpendicular vectors. What if yours aren't?</p>
+<p>Gram–Schmidt straightens them. Keep the first vector. From each later vector, <strong>subtract its shadow on the vectors you've already kept</strong>. By section 6.2, what's left is perpendicular to them.</p>
+<p><strong>Example.</strong> $\mathbf x_1=(1,1,0)$, $\mathbf x_2=(1,0,1)$ (their dot product is 1, so they aren't perpendicular).</p>
+<div class="steps">
+<b>1.</b><div>Keep the first: $\mathbf v_1=(1,1,0)$.</div>
+<b>2.</b><div>Shadow of $\mathbf x_2$ on $\mathbf v_1$: $\tfrac{\mathbf x_2\cdot\mathbf v_1}{\mathbf v_1\cdot\mathbf v_1}\mathbf v_1=\tfrac12(1,1,0)$.</div>
+<b>3.</b><div>Subtract: $\mathbf v_2=(1,0,1)-(\tfrac12,\tfrac12,0)=(\tfrac12,-\tfrac12,1)$. Multiply by 2 to clear fractions: $(1,-1,2)$.</div>
+<b>4.</b><div>Check: $(1,1,0)\cdot(1,-1,2)=0$.</div>
+</div>
+<p>A third vector works the same way: subtract its shadows on $\mathbf v_1$ <em>and</em> $\mathbf v_2$. Always use the new $\mathbf v$'s, not the original $\mathbf x$'s.</p>
+<h3>QR: a record of what Gram–Schmidt did</h3>
+<p>$A=QR$ splits a matrix into two parts. <strong>$Q$</strong> has the straightened vectors, scaled to length 1. <strong>$R$</strong> is upper triangular and holds the recipe for rebuilding the original columns from them.</p>
+<div class="steps">
+<b>1.</b><div>Run Gram–Schmidt on the columns of $A$.</div>
+<b>2.</b><div>Divide each result by its length. These are the columns of $Q$.</div>
+<b>3.</b><div>Compute $R=Q^TA$. (It works because $Q^TQ=I$.)</div>
+</div>
+<p>With the columns above, $A=\left[\begin{smallmatrix}1&1\\1&0\\0&1\end{smallmatrix}\right]$:</p>
+$$Q=\begin{bmatrix}1/\sqrt2&1/\sqrt6\\1/\sqrt2&-1/\sqrt6\\0&2/\sqrt6\end{bmatrix}$$
+$$R=\begin{bmatrix}\sqrt2&1/\sqrt2\\0&\sqrt6/2\end{bmatrix}$$
+<details><summary>Try it: straighten $\mathbf x_1=(1,0,1)$, $\mathbf x_2=(1,1,0)$</summary><p class="t">Shadow: $\tfrac12(1,0,1)$. $\mathbf v_2=(\tfrac12,1,-\tfrac12)$, which scales to $(1,2,-1)$. Check: $(1,0,1)\cdot(1,2,-1)=0$.</p></details>
+
+<h2 id="s65"><span class="n">6.5</span>Least squares</h2>
+<p class="q">When $A\mathbf x=\mathbf b$ has no solution, what's the best you can do?</p>
+<p><strong>The simplest possible case.</strong> You measure one number twice and get 1 and 3. That's the system $x=1$, $x=3$, which has no solution. The sensible compromise is the average, 2. Least squares finds that compromise automatically.</p>
+<p>In general: $A\mathbf x$ can only reach vectors in $\operatorname{Col}A$. If $\mathbf b$ isn't in there, aim for the closest point that is, $\hat{\mathbf b}$. That's the projection from 6.3. A <span class="term">least-squares solution</span> $\hat{\mathbf x}$ is whatever gets you there: $A\hat{\mathbf x}=\hat{\mathbf b}$.</p>
+<div class="box key"><h3>The normal equations</h3>
+$$A^TA\,\hat{\mathbf x}=A^T\mathbf b$$
+<p style="margin:0"><strong>Where this comes from:</strong> the leftover $\mathbf b-A\hat{\mathbf x}$ must be perpendicular to every column of $A$. That says $A^T(\mathbf b-A\hat{\mathbf x})=\mathbf 0$. Rearranging gives the equation above.</p></div>
+<p>Test it on the measurements: $A=\left[\begin{smallmatrix}1\\1\end{smallmatrix}\right]$, $\mathbf b=(1,3)$. Then $A^TA=2$ and $A^T\mathbf b=4$, so $2\hat x=4$ and $\hat x=2$. The average, as promised.</p>
+<h3>Problem type: find the least-squares solution</h3>
+<p>$A=\left[\begin{smallmatrix}1&1\\1&0\\0&1\end{smallmatrix}\right]$, $\mathbf b=(1,2,3)$. (No exact solution: rows 2 and 3 force $x_1=2$, $x_2=3$, but row 1 needs their sum to be 1.)</p>
+<div class="steps">
+<b>1.</b><div>$A^TA=\left[\begin{smallmatrix}2&1\\1&2\end{smallmatrix}\right]$ and $A^T\mathbf b=(3,4)$.</div>
+<b>2.</b><div>Solve $\left[\begin{smallmatrix}2&1\\1&2\end{smallmatrix}\right]\hat{\mathbf x}=\left[\begin{smallmatrix}3\\4\end{smallmatrix}\right]$: $\hat{\mathbf x}=(2/3,\ 5/3)$.</div>
+<b>3.</b><div>Closest point: $\hat{\mathbf b}=A\hat{\mathbf x}=(7/3,\ 2/3,\ 5/3)$.</div>
+<b>4.</b><div>Error: $\|\mathbf b-\hat{\mathbf b}\|=\|(-4/3,\ 4/3,\ 4/3)\|=4/\sqrt3$.</div>
+</div>
+<p><strong>Shortcuts and special cases:</strong></p>
+<ul>
+<li><strong>Independent columns:</strong> exactly one answer, $\hat{\mathbf x}=(A^TA)^{-1}A^T\mathbf b$ (Thm 14).</li>
+<li><strong>Dependent columns:</strong> the normal equations have a free variable, so infinitely many $\hat{\mathbf x}$, all reaching the same $\hat{\mathbf b}$.</li>
+<li><strong>Orthogonal columns:</strong> each weight is $\frac{\mathbf b\cdot\mathbf a_j}{\mathbf a_j\cdot\mathbf a_j}$, the formula from 6.2.</li>
+<li><strong>Have $A=QR$:</strong> solve $R\hat{\mathbf x}=Q^T\mathbf b$ from the bottom up (Thm 15).</li>
+<li><strong>Error 0:</strong> $\mathbf b$ was in $\operatorname{Col}A$, so $\hat{\mathbf x}$ is an exact solution.</li>
+</ul>
+<div class="box warn"><h3>Don't mix these up</h3><p style="margin:0">$\hat{\mathbf x}$ is a list of weights. $\hat{\mathbf b}=A\hat{\mathbf x}$ is the closest point. True/false questions like to swap them.</p></div>
+<details><summary>Try it: $x=1$, $x=2$, $x=6$</summary><p class="t">$A=(1,1,1)$ as a column, $\mathbf b=(1,2,6)$. $A^TA=3$, $A^T\mathbf b=9$, so $\hat x=3$, the average. Error: $\|(-2,-1,3)\|=\sqrt{14}$.</p></details>
+
+<h2 style="margin-top:64px">How it all connects</h2>
+<div class="steps">
+<b>•</b><div>Eigenvectors: solve a <strong>null space</strong> problem (Ch. 4), found using a <strong>determinant</strong> (Ch. 3).</div>
+<b>•</b><div>Diagonalizing: a <strong>change of basis</strong> (Ch. 4) to the eigenvector basis.</div>
+<b>•</b><div>Dot product → perpendicular → shadow → closest point → least squares. Each one is built from the one before.</div>
+<b>•</b><div>Gram–Schmidt: repeated shadows that make the formulas usable.</div>
+</div>
+<p class="foot">Theorem numbers follow the Math 54 custom edition of Lay. More practice: <a href="notes.html">full notes</a> and <a href="flashcards.html">flashcards</a>.</p>
+</div></body></html>
