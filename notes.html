@@ -188,8 +188,7 @@ window.MathJax = {
     <li class="chap"><span>Ch. 3 · Determinants</span></li>
     <li><a href="#s31"><span class="n">3.1</span><span class="t">Introduction to Determinants</span></a></li>
     <li><a href="#s32"><span class="n">3.2</span><span class="t">Properties of Determinants</span></a></li>
-    <li class="skip"><a href="#s33" aria-label="Cramer's Rule, excluded"><span class="n">3.3</span><span class="t">Cramer's Rule</span></a></li>
-    <li><a href="#s33"><span class="n">3.3</span><span class="t">Volume &amp; Linear Transformations</span></a></li>
+    <li><a href="#s33"><span class="n">3.3</span><span class="t">Cramer's Rule, Volume &amp; Linear Maps</span></a></li>
     <li class="chap"><span>Ch. 4 · Vector Spaces</span></li>
     <li><a href="#s41"><span class="n">4.1</span><span class="t">Vector Spaces &amp; Subspaces</span></a></li>
     <li><a href="#s42"><span class="n">4.2</span><span class="t">Nul, Col, Row &amp; Kernels</span></a></li>
@@ -219,7 +218,7 @@ window.MathJax = {
 <header class="hero">
   <p class="eyebrow">Math 54 · Lay, <em>Linear Algebra and Its Applications</em> (Berkeley custom ed.) · §1.1–6.5</p>
   <h1>Linear Equations, Matrix Algebra, Determinants &amp; Vector Spaces</h1>
-  <p class="lede">Everything through §6.5: §1.1–1.5, 1.7–1.9 (skipping §1.6), §2.1–2.3, §3.1–3.3 (excluding Cramer's Rule), §4.1–4.6, §5.1–5.5, and §6.1–6.5. Midterm 2 covers §4.1–4.6, §5.1–5.5 and §6.1–6.5. (Midterm 1 covered through §4.1.) Definitions and theorems use the book's numbering so you can cite them on homework. Each chapter restarts at Theorem 1, so every theorem is tagged with its section.</p>
+  <p class="lede">Everything through §6.5: §1.1–1.5, 1.7–1.9 (skipping §1.6), §2.1–2.3, §3.1–3.3, §4.1–4.6, §5.1–5.5, and §6.1–6.5. Midterm 2 covers §4.1–4.6, §5.1–5.5 and §6.1–6.5. (Midterm 1 covered through §4.1.) Definitions and theorems use the book's numbering so you can cite them on homework. Each chapter restarts at Theorem 1, so every theorem is tagged with its section.</p>
   <div class="thesis">
     <p>The whole chapter is one idea seen three ways, all solved by row-reducing the same augmented matrix:</p>
     <div class="mth">$$\underbrace{\begin{array}{c} a_{11}x_1+\cdots+a_{1n}x_n=b_1\\ \vdots \\ a_{m1}x_1+\cdots+a_{mn}x_n=b_m\end{array}}_{\text{linear system}}
@@ -1563,15 +1562,79 @@ window.MathJax = {
 <section id="s33" class="sec">
   <header class="sec-head">
     <span class="sec-num">3.3</span>
-    <div><h2>Volume and Linear Transformations</h2>
-    <p class="sec-point">$|\det A|$ is the area or volume of the box spanned by the columns, and a linear map scales every area or volume by $|\det A|$. (Cramer's Rule is <strong>not</strong> on the midterm.)</p></div>
+    <div><h2>Cramer's Rule, Volume, and Linear Transformations</h2>
+    <p class="sec-point">$|\det A|$ is the area or volume of the box spanned by the columns, and a linear map scales every area or volume by $|\det A|$. Cramer's Rule solves $A\mathbf x=\mathbf b$ with determinants.</p></div>
   </header>
 
   <div class="box warn"><span class="tag w">Exam scope</span>
-    <p><strong>Cramer's Rule (Theorem 7) is excluded</strong> from Midterm 1, so it is left out here. The book derives the adjugate inverse formula (Theorem 8) from Cramer's Rule. It is included below in case it's tested, but it may be excluded along with Cramer's Rule; check with your instructor. The core of §3.3 for the midterm is <strong>area/volume (Theorem 9)</strong> and <strong>how linear transformations scale area (Theorem 10)</strong>.</p>
+    <p><strong>Cramer's Rule (Theorem 7):</strong> excluded by name from Midterm 1, and Chapter 3 isn't on Midterm 2. <strong>For the final: not confirmed either way.</strong> The course hasn't said, and HW4 did assign it (§3.3 #3, 5, 9), so learn it and ask before the final. The adjugate formula (Theorem 8) comes from it and has the same status. The other core of §3.3 is <strong>area/volume (Theorem 9)</strong> and <strong>how linear transformations scale area (Theorem 10)</strong>.</p>
   </div>
 
-  <h3>A formula for $A^{-1}$ (adjugate) · possibly out of scope</h3>
+  <h3>Cramer's Rule · final: unconfirmed</h3>
+  <div class="box start"><span class="tag">Start here · plain English</span>
+    <p class="big"><strong>The one idea:</strong> to find unknown $x_i$, swap column $i$ of $A$ for $\mathbf b$, take that determinant, and divide by $\det A$. Each unknown is a ratio of two determinants.</p>
+    <p>Why a ratio makes sense: $\det$ is the volume of the box built on the columns. Since $\mathbf b=x_1\mathbf a_1+\cdots+x_n\mathbf a_n$, swapping $\mathbf a_i$ for $\mathbf b$ changes the box only through the $x_i\mathbf a_i$ part, because every other piece of $\mathbf b$ already lies along the columns still in the box and adds no volume. So the new box is exactly $x_i$ times the original, which means <strong>$x_i$ is new volume ÷ old volume</strong>.</p>
+    <h4>Recipe</h4>
+    <div class="step">
+      <b class="n">1.</b><div>Compute $\det A$. If it's 0, stop: Cramer's Rule doesn't apply.</div>
+      <b class="n">2.</b><div>For each $i$, build $A_i(\mathbf b)$: a copy of $A$ with column $i$ replaced by $\mathbf b$.</div>
+      <b class="n">3.</b><div>$x_i=\det A_i(\mathbf b)/\det A$. The denominator is the same every time.</div>
+    </div>
+  </div>
+  <div class="box thm"><span class="tag">Theorem 7 · §3.3 · Cramer's Rule</span>
+    <p>Let $A$ be an invertible $n\times n$ matrix. For any $\mathbf b\in\mathbb R^n$, the unique solution of $A\mathbf x=\mathbf b$ has entries</p>
+    <div class="mth">$$x_i=\frac{\det A_i(\mathbf b)}{\det A},\qquad i=1,\dots,n$$</div>
+    <p class="small">Proof idea: let $I_i(\mathbf x)$ be $I$ with column $i$ replaced by $\mathbf x$. Then $A\,I_i(\mathbf x)=A_i(\mathbf b)$. Taking determinants, $\det I_i(\mathbf x)=x_i$, so $(\det A)\,x_i=\det A_i(\mathbf b)$.</p>
+  </div>
+  <div class="box worked"><span class="tag">Full worked examples · Cramer's Rule</span>
+    <div class="wx">
+      <h5>Example A · 2×2 (Exercise 3)</h5>
+      <p class="q">Solve $3x_1-2x_2=3$, $\ -4x_1+6x_2=-5$.</p>
+      <p class="plain">In plain words: one determinant for the bottom, then one for each unknown with $\mathbf b$ swapped in.</p>
+      <div class="step">
+      <b class="n">1.</b><div>$\det A=\det\left[\begin{smallmatrix}3&-2\\-4&6\end{smallmatrix}\right]=18-8=10$.</div>
+      <b class="n">2.</b><div>$\det A_1(\mathbf b)=\det\left[\begin{smallmatrix}3&-2\\-5&6\end{smallmatrix}\right]$ $=18-10=8$, so $x_1=\tfrac8{10}=\tfrac45$.</div>
+      <b class="n">3.</b><div>$\det A_2(\mathbf b)=\det\left[\begin{smallmatrix}3&3\\-4&-5\end{smallmatrix}\right]$ $=-15+12=-3$, so $x_2=-\tfrac3{10}$.</div>
+      <b class="n">4.</b><div>Check: $3(\tfrac45)-2(-\tfrac3{10})=\tfrac{12}5+\tfrac35$ $=3$ ✓ and $-4(\tfrac45)+6(-\tfrac3{10})$ $=-\tfrac{16}5-\tfrac95=-5$ ✓</div>
+      </div>
+      <p class="ans"><strong>Answer:</strong> $x_1=4/5$, $x_2=-3/10$.</p>
+    </div>
+    <div class="wx">
+      <h5>Example B · 3×3 (Exercise 5)</h5>
+      <p class="q">Solve $x_1+x_2=3$, $\ -3x_1+2x_3=0$, $\ x_2-2x_3=2$.</p>
+      <p class="plain">In plain words: same steps, four 3×3 determinants. Missing variables are 0 entries, so write those in first.</p>
+      <div class="step">
+      <b class="n">1.</b><div>$A=\left[\begin{smallmatrix}1&1&0\\-3&0&2\\0&1&-2\end{smallmatrix}\right]$, $\mathbf b=(3,0,2)$. Expanding along row 1: $\det A=1(0-2)-1(6-0)=-8$.</div>
+      <b class="n">2.</b><div>$\det\left[\begin{smallmatrix}3&1&0\\0&0&2\\2&1&-2\end{smallmatrix}\right]=-2$, so $x_1=\tfrac{-2}{-8}=\tfrac14$.</div>
+      <b class="n">3.</b><div>$\det\left[\begin{smallmatrix}1&3&0\\-3&0&2\\0&2&-2\end{smallmatrix}\right]=-22$, so $x_2=\tfrac{-22}{-8}=\tfrac{11}4$.</div>
+      <b class="n">4.</b><div>$\det\left[\begin{smallmatrix}1&1&3\\-3&0&0\\0&1&2\end{smallmatrix}\right]=-3$, so $x_3=\tfrac{-3}{-8}=\tfrac38$.</div>
+      <b class="n">5.</b><div>Check: $\tfrac14+\tfrac{11}4=3$ ✓, $\ -\tfrac34+\tfrac34=0$ ✓, $\ \tfrac{11}4-\tfrac34=2$ ✓</div>
+      </div>
+      <p class="ans"><strong>Answer:</strong> $(x_1,x_2,x_3)$ $=(1/4,\ 11/4,\ 3/8)$.</p>
+    </div>
+    <div class="wx">
+      <h5>Example C · a parameter (Exercise 9)</h5>
+      <p class="q">For which $s$ does $sx_1+2sx_2=-1$, $\ 3x_1+6sx_2=4$ have a unique solution? Describe it.</p>
+      <p class="plain">In plain words: this is where Cramer's Rule beats row reduction. It gives a formula in $s$ without dividing by anything that might be 0 along the way.</p>
+      <div class="step">
+      <b class="n">1.</b><div>$\det A=\det\left[\begin{smallmatrix}s&2s\\3&6s\end{smallmatrix}\right]=6s^2-6s$ $=6s(s-1)$. Unique solution exactly when $s\neq0$ and $s\neq1$.</div>
+      <b class="n">2.</b><div>$\det A_1(\mathbf b)=\det\left[\begin{smallmatrix}-1&2s\\4&6s\end{smallmatrix}\right]$ $=-14s$, so $x_1=\dfrac{-14s}{6s(s-1)}$ $=\dfrac{-7}{3(s-1)}$.</div>
+      <b class="n">3.</b><div>$\det A_2(\mathbf b)=\det\left[\begin{smallmatrix}s&-1\\3&4\end{smallmatrix}\right]$ $=4s+3$, so $x_2=\dfrac{4s+3}{6s(s-1)}$.</div>
+      <b class="n">4.</b><div>Check with $s=2$: $x_1=-\tfrac73$, $x_2=\tfrac{11}{12}$. Then $2x_1+4x_2=-\tfrac{14}3+\tfrac{11}3=-1$ ✓ and $3x_1+12x_2=-7+11=4$ ✓</div>
+      </div>
+      <p class="ans"><strong>Answer:</strong> $s\neq0,1$; $x_1=\dfrac{-7}{3(s-1)}$, $x_2=\dfrac{4s+3}{6s(s-1)}$.</p>
+    </div>
+  </div>
+  <div class="box warn"><span class="tag w">Watch out · Cramer's Rule</span>
+    <ul>
+      <li>Replace a <strong>column</strong> with $\mathbf b$, not a row.</li>
+      <li>It needs $\det A\neq0$. If $\det A=0$, the system has no solution or infinitely many, and the rule can't tell you which.</li>
+      <li>It's for square systems only.</li>
+      <li>It's slow for large systems: use row reduction unless the problem asks for Cramer's Rule or has a parameter.</li>
+    </ul>
+  </div>
+
+  <h3>A formula for $A^{-1}$ (adjugate) · final: unconfirmed</h3>
   <div class="box thm"><span class="tag">Theorem 8 · §3.3 · an inverse formula</span>
     <p>Let $A$ be invertible $n\times n$. Then</p>
     <div class="mth">$$A^{-1}=\frac{1}{\det A}\,\operatorname{adj}A,\qquad \operatorname{adj}A=\begin{bmatrix}C_{11}&C_{21}&\cdots&C_{n1}\\C_{12}&C_{22}&\cdots&C_{n2}\\\vdots&&&\vdots\\C_{1n}&C_{2n}&\cdots&C_{nn}\end{bmatrix}$$</div>
@@ -4434,8 +4497,8 @@ window.MathJax = {
     <li><span>Thm 4 · §3.2</span><div>A square matrix $A$ is invertible iff $\det A\ne0$.</div></li>
     <li><span>Thm 5 · §3.2</span><div>$\det A^{T}=\det A$ (so Theorem 3 also holds for columns).</div></li>
     <li><span>Thm 6 · §3.2</span><div>Multiplicative property: $\det AB=(\det A)(\det B)$.</div></li>
-    <li><span>Thm 7 · §3.3</span><div><em>Cramer's Rule: excluded from Midterm 1.</em></div></li>
-    <li><span>Thm 8 · §3.3</span><div>$A^{-1}=\frac{1}{\det A}\operatorname{adj}A$, where $\operatorname{adj}A$ is the transpose of the cofactor matrix. (Derived from Cramer's Rule; may be out of scope.)</div></li>
+    <li><span>Thm 7 · §3.3</span><div>Cramer's Rule: for invertible $A$, $x_i=\det A_i(\mathbf b)/\det A$. (Excluded from Midterm 1; final unconfirmed.)</div></li>
+    <li><span>Thm 8 · §3.3</span><div>$A^{-1}=\frac{1}{\det A}\operatorname{adj}A$, where $\operatorname{adj}A$ is the transpose of the cofactor matrix. (Derived from Cramer's Rule; final unconfirmed.)</div></li>
     <li><span>Thm 9 · §3.3</span><div>$|\det A|$ = area of the parallelogram ($2\times2$) or volume of the parallelepiped ($3\times3$) determined by the columns of $A$.</div></li>
     <li><span>Thm 10 · §3.3</span><div>For $T(\mathbf x)=A\mathbf x$: area (volume) of $T(S)$ $=|\det A|\cdot$ area (volume) of $S$, for any region $S$ of finite area (volume).</div></li>
   </ol>
@@ -4489,7 +4552,7 @@ window.MathJax = {
     <li><span>Thm 14 · §6.5</span><div>Unique LS solution for every $\mathbf b$ ⇔ independent columns ⇔ $A^TA$ invertible; then $\hat{\mathbf x}=(A^TA)^{-1}A^T\mathbf b$.</div></li>
     <li><span>Thm 15 · §6.5</span><div>With $A=QR$: $\hat{\mathbf x}=R^{-1}Q^T\mathbf b$ (solve $R\hat{\mathbf x}=Q^T\mathbf b$).</div></li>
   </ol>
-  <p class="foot">Source: Lay, Lay &amp; McDonald, <em>Linear Algebra and Its Applications</em>, Math 54 second custom edition (Pearson, 2021), Chapter 1 (§1.1–1.5, 1.7–1.9), Chapter 2 (§2.1–2.3), Chapter 3 (§3.1–3.3, excluding Cramer's Rule) and Chapter 4 (§4.1–4.6), Chapter 5 (§5.1–5.5) and Chapter 6 (§6.1–6.5). Theorem, example, and practice-problem numbers follow the book.</p>
+  <p class="foot">Source: Lay, Lay &amp; McDonald, <em>Linear Algebra and Its Applications</em>, Math 54 second custom edition (Pearson, 2021), Chapter 1 (§1.1–1.5, 1.7–1.9), Chapter 2 (§2.1–2.3), Chapter 3 (§3.1–3.3) and Chapter 4 (§4.1–4.6), Chapter 5 (§5.1–5.5) and Chapter 6 (§6.1–6.5). Theorem, example, and practice-problem numbers follow the book.</p>
 </section>
 </main>
 </div>

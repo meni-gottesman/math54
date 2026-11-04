@@ -251,9 +251,10 @@ ol,ul{margin:0;padding-left:18px} li{margin:0 0 2px}
 
 <!-- 3.3 -->
 <section id="s33" class="sec">
-  <div class="sec-head"><span class="sec-num">3.3</span><h2>Volume and Linear Transformations <span class="small">(Cramer's Rule excluded)</span></h2></div>
+  <div class="sec-head"><span class="sec-num">3.3</span><h2>Cramer's Rule, Volume, and Linear Transformations</h2></div>
   <div class="rows">
     <div class="hdr"><span>Know</span><span>Example</span></div>
+    <div class="row"><div class="k"><span class="tag">Thm 7 · 3.3</span><span class="tag p">final: unconfirmed</span><b>Cramer's Rule:</b> $A$ invertible ⇒ $x_i=\det A_i(\mathbf b)/\det A$, where $A_i(\mathbf b)$ is $A$ with column $i$ replaced by $\mathbf b$. Not on either midterm.</div><div class="e">$3x_1-2x_2=3,\ -4x_1+6x_2=-5$: $\det A=10$ ⇒ $x_1=\tfrac8{10}$, $x_2=-\tfrac3{10}$.</div></div>
     <div class="row"><div class="k"><span class="tag">Thm 9 · 3.3</span>$2\times2$: area of the parallelogram on the columns $=|\det A|$. $3\times3$: volume of the parallelepiped $=|\det A|$. (Absolute value — the sign only records a flip.)</div><div class="e">Vertices $(-2,-2),(0,3),(4,-1),(6,4)$: subtract $(-2,-2)$ → edges $(2,5),(6,1)$ → area $|2-30|=28$. Use the two <b>adjacent</b> corners, not the far one (their sum).</div></div>
     <div class="row"><div class="k"><span class="tag">Thm 10 · 3.3</span>For $T(\mathbf x)=A\mathbf x$: area (volume) of $T(S)$ $=|\det A|\cdot$ area (volume) of $S$ — for <b>any</b> region of finite area/volume.</div><div class="e">Ellipse $x_1^2/a^2+x_2^2/b^2\le1$ = image of unit disk under $\operatorname{diag}(a,b)$ ⇒ area $\pi ab$. Ellipsoid: $\tfrac43\pi abc$.</div></div>
     <div class="row"><div class="k"><b>Triangle</b> on $\mathbf 0,\mathbf v_1,\mathbf v_2$: $\tfrac12|\det[\mathbf v_1\ \mathbf v_2]|$. <b>Tetrahedron</b> on $\mathbf 0,\mathbf v_1,\mathbf v_2,\mathbf v_3$: $\tfrac16|\det|$.</div><div class="e">Triangle with vertices $(x_i,y_i)$: $\tfrac12\left|\det\left[\begin{smallmatrix}x_1&y_1&1\\x_2&y_2&1\\x_3&y_3&1\end{smallmatrix}\right]\right|$.</div></div>
@@ -485,7 +486,7 @@ ol,ul{margin:0;padding-left:18px} li{margin:0 0 2px}
   <p style="margin-top:10px"><b>If $A$ is square ($m=n$), the two columns collapse into one</b> — that is the Invertible Matrix Theorem: $A$ invertible ⇔ $A\sim I_n$ ⇔ $n$ pivots ⇔ columns independent ⇔ columns span $\mathbb R^n$ ⇔ one-to-one ⇔ onto ⇔ $A^{T}$ invertible ⇔ $\det A\ne0$, and then $\mathbf x=A^{-1}\mathbf b$. For non-square $A$ they stay independent.</p>
   <p><b>One specific $\mathbf b$:</b> $A\mathbf x=\mathbf b$ consistent ⇔ $\mathbf b\in$ Span(columns) ⇔ $\mathbf b$ in range of $T$ ⇔ last column of $[A\ \mathbf b]$ not a pivot column. Solutions $=\mathbf p+$ (solutions of $A\mathbf x=\mathbf 0$).</p>
   <p><b>Counting:</b> #pivots $\le\min(m,n)$; free variables $=n-$#pivots; $p&gt;n$ vectors in $\mathbb R^n$ ⇒ dependent; homogeneous with more unknowns than equations ⇒ nontrivial solutions.</p>
-  <p class="foot">Lay, Lay &amp; McDonald, <em>Linear Algebra and Its Applications</em>, Math 54 custom ed.: Ch. 1 (§1.6 omitted), §2.1–2.3, §3.1–3.3 (no Cramer's Rule), §4.1–4.6, §5.1–5.5, §6.1–6.5. Full notes: <a href="notes.html">Math 54 Notes</a>.</p>
+  <p class="foot">Lay, Lay &amp; McDonald, <em>Linear Algebra and Its Applications</em>, Math 54 custom ed.: Ch. 1 (§1.6 omitted), §2.1–2.3, §3.1–3.3, §4.1–4.6, §5.1–5.5, §6.1–6.5. Full notes: <a href="notes.html">Math 54 Notes</a>.</p>
 </section>
 </div>
 </body></html>
